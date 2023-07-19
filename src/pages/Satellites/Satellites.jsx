@@ -1,0 +1,98 @@
+import "./Satellites.scss"
+import { useEffect, }                  from 'react';
+import   ReactPlayer                   from 'react-player';
+import { useSelector, useDispatch }    from 'react-redux';
+import { getFetchSatellites }          from "../../store/action/SatellitesAction";
+import { getFetchQuizSatelite }        from "../../store/action/QuizSateliteAction";
+import { useNavigate } from "react-router-dom";
+
+export function Satellites() {
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const { Satellites } = useSelector((state) => state.Satellites)
+  const background = Satellites?.background;
+
+  useEffect(() => {
+    dispatch(getFetchSatellites());
+    dispatch(getFetchQuizSatelite());
+  }, [dispatch]);
+  return (
+    <div className='Satellites'
+    style={{background:`url(${background})`}}
+    >
+      <h1>{Satellites?.title}</h1>
+      {
+        Satellites?.text1?.map((el,index) => <p key={index}>{el}</p>)
+      }
+      <ReactPlayer
+        // key={1}
+        url={Satellites?.animationCubeSat1}
+        width="100%"
+        height="auto"
+        controls={true}
+        // autoplayer={'true'}
+      />
+      {
+        Satellites?.text2?.map((el,index) => <p key={index}>{el}</p>)
+      }
+      {
+        Satellites?.margin_text1?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
+      }
+      <ReactPlayer
+        // key={2}
+        url={Satellites?.animationCubeSat2}
+        width="100%"
+        height="auto"
+        controls={true}
+        // autoplayer={true}
+      />
+      {
+        Satellites?.text3?.map((el, i) =>
+          i === 0 ?
+            <h2 key={i} >{el}</h2> :
+            <p key={i+1} >{el}</p>)
+      }
+      {
+        Satellites?.margin_text2?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
+      }
+      {
+        Satellites?.text4?.map((el, i) =>
+          i === 0 ?
+            <h2 key={i}>{el}</h2> :
+            <p key={i+1}>{el}</p>)
+      }
+      {
+        Satellites?.margin_text3?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
+      }
+      <ReactPlayer
+        // key={3}
+        url={Satellites?.animationCubeSat3}
+        width="100%"
+        height="auto"
+        controls={true}
+        // autoplayer={true}
+      />
+      {
+        Satellites?.text5?.map((el, i) =>
+          i === 0 ?
+            <h2 key={i}>{el}</h2> :
+            <p key={i+1}>{el}</p>)
+      }
+      <ReactPlayer
+        // key={4}
+        url={Satellites?.animationCubeSat4}
+        width="100%"
+        height="auto"
+        controls={true}
+        // autoplayer={true}  
+      />
+      {
+        Satellites?.margin_text4?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
+      }
+         <div className="quizButton">
+            <button onClick={()=>{navigate("/SatelliteQuiz")}} >Quiz</button>
+        </div>
+    </div>
+  )
+}

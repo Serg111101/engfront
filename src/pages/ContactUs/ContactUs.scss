@@ -1,0 +1,25 @@
+.ContactUs{
+    // padding-top: 15%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important ;
+    background-origin: content-box !important ;
+    // height: 2000px;
+
+    .pageContactInfoDiv1{
+        padding-top: 150px;
+    }
+    .pageConatactDiv{
+        padding-top: 5%;
+    }
+}
+
+@media(max-width:400px){
+    .ContactUs{
+        .pageContactInfoDiv1{
+            .contactUsInfoParagraph{
+                font-size: 30px;
+            }
+        }
+    }
+} 

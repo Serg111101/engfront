@@ -1,0 +1,150 @@
+.HomeNextRoute{
+    width: 100%;
+    // background-color: black !important;
+    color: white;
+    cursor: pointer;
+    margin-top: 6%;
+
+    
+    .nextRouteContainer{
+        width: 100%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        a{
+            text-decoration: none ;
+            color: white;
+        }
+
+        .nextRouteItem{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            height:400px;
+            width: 100%;
+            
+    
+        .nextRouteIcon{
+            background-color: none;
+            // width: 30%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                width: 100%;
+            }
+
+
+        }
+        
+        .nextRouteTitle{
+            // width: 40%;
+            text-align: center;
+            display: flex;
+            font-size: 30px;
+            justify-content: center;
+            align-items: center;
+        }
+
+    }
+    .menegment{
+        display: none;
+    }
+  
+}
+}
+
+@media (max-width: 1440px) {
+    .HomeNextRoute{
+        width: 100%;
+        // background-color: black !important;
+        color: white;
+        cursor: pointer;
+        padding-top: 100px;
+    
+        
+        .nextRouteContainer{
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 25% 25% 25% 25%;
+            a{
+                text-decoration: none ;
+                color: white;
+            }
+    
+            .nextRouteItem{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                height: 300px;
+                width: 100%;
+                
+        
+            .nextRouteIcon{
+                background-color: none;
+                // width: 30%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img{
+                    width: 100%;
+                }
+    
+    
+            }
+            
+            .nextRouteTitle{
+                // width: 40%;
+                text-align: center;
+                display: flex;
+                font-size: 30px;
+                justify-content: center;
+                align-items: center;
+            }
+    
+        }
+        .menegment{
+            display: none;
+        }
+      
+    }
+    }
+}
+
+@media (max-width:1000px){
+.nextRouteTitle{
+    font-size: 27px!important;
+}
+.nextRouteItem{
+    height: 270px !important;
+}
+
+}
+@media (max-width:900px){
+    .nextRouteTitle{
+        font-size: 24px !important; 
+    }
+    .nextRouteItem{
+        height: 250px !important;
+    }
+    .nextRouteContainer{
+        grid-template-columns: 50% 50% !important;
+        grid-template-rows: auto auto !important ;
+    }
+    }
+
+    @media (max-width:500px){
+        .nextRouteTitle{
+            font-size: 24px !important; 
+        }
+        .nextRouteContainer{
+            grid-template-columns: 100% !important;
+            grid-template-rows: auto auto auto auto !important ;
+        }
+        .nextRouteItem{
+            height: 230px !important;
+        }
+        }

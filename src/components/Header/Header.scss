@@ -1,0 +1,234 @@
+/*eslint-disable*/
+.header {
+    width: 100%;
+    height: 90px;
+    background-color:black;
+    color: white;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    // position: fixed;
+    z-index: 3;
+    
+    .constainerHeader {
+        max-width: 1200px;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .itemsContainer{
+            display: flex;
+
+        }
+
+        .imageHeader {
+            transition: all 0.1s linear;
+            // width: 20%;
+            height: 90px;
+            cursor: pointer;
+            overflow: hidden;
+            img{
+                // object-fit:scale-down;
+                padding: 5px;
+                width: 100%;
+                height: 100%;
+                aspect-ratio:5/2;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+      .items-mobile, .items {
+            width: 55%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 600000;
+            .item {
+                transition: all 0.1s linear;
+                cursor: pointer;
+
+                &:hover {
+                    color: blue;
+                }
+            }
+
+            .active {
+                color: blue;
+            }
+
+            .itemsContainer {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+
+                .buttonHeader{
+                color: white;
+                background-color: rgb(0, 0, 0);
+                // font-size: 20px;
+                
+                }
+
+                .closeHeader{
+                    display: none;
+                }
+            }
+
+
+        }
+
+        .headericone {
+            display: none;
+        }
+
+        .selectDiv{
+            border: none;
+            select{
+                background: black;
+                width: 50px;
+                color :white;
+                font-size: 18px;
+                appearance: none;
+                border-radius: 5px;
+                padding: 2px;   
+                border: none !important;
+                
+
+                option{
+                    background-color: black;
+                    border: none !important;
+                }
+               
+
+            }
+        }
+
+    }
+  
+
+}
+
+
+@media(max-width:1230px){
+
+    .header{
+        .constainerHeader{
+            justify-content: space-around;
+        }
+    }
+}
+
+@media(max-width:900px){
+    .header{
+        .constainerHeader{
+            .items{
+            font-size: 12px;  
+            }
+        }
+    }
+}
+
+@media(max-width:872px){
+    .header{
+        .constainerHeader{
+            .items-mobile,.items{
+                width:60%
+            }
+        }
+    }
+}
+
+@media(max-width:730px){
+    .header{
+        .constainerHeader{
+
+            .image{
+                img{
+                    display: none;
+                }
+               }
+
+        .headericone{
+            display: block;
+            font-size: 30px;
+            color: aliceblue;
+            background-color: none;
+
+
+        }
+        .items{
+            display: none;
+            
+        }
+
+        .items-mobile{
+            position: absolute;
+            display:flex ;
+            list-style: none;
+            box-shadow: rgba(50,50,93,0.23) 0 30px 30px -20px;
+            transition: all 0.5s ease-in-out;
+            width: 170px;
+            background-color: rgb(0, 0, 0);
+            height: 100vh;
+            left: 0 ;
+            top: 0;
+            padding-top: 200px;
+      
+             .itemsContainer {
+                flex-direction: column;
+                align-items: center;
+                margin-top: -700px;
+                // transition: all 0.5s;
+                left: 0;
+
+                .closeHeader{
+                    display: block;
+                    font-size: 30px;
+                    // margin-left: -10px;
+                    transform: translateY(-220px);
+                    // transform: translateX(-10px);
+                    margin-left: 140px;
+
+                }
+             }
+            
+
+            .buttonHeader{
+                background-color: black;
+                color: white;
+                font-size: 20px;
+            }
+
+
+
+            .item{
+                margin-top: 15px;
+                font-size: 20px;
+            }
+            .sasas{
+                display: block;
+                color: rgb(255, 255, 255);
+                font-size: 30px;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+
+        .items{
+            div{
+                padding: 32px;
+                width: 100%;
+                transition: all 0.5s ease-in-out;
+                text-align: center;
+
+            }
+        }
+        }
+       
+    }
+}

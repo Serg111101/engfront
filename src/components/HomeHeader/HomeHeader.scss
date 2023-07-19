@@ -1,0 +1,105 @@
+.HomeHeader{
+  max-width: 100%;
+  margin:  0 auto;
+ 
+  .HomeImageDiv{
+      display: grid;
+      align-items: center;
+      justify-items: center;
+           
+      img{
+          width: 100%;
+          margin: 0 auto;
+          grid-row: 1 / 4;
+          grid-column: 1 / 2;
+          height: auto;
+      }
+      
+
+  }
+  .homeHeaderP{
+      width: 30%;
+      font-size: 40px;
+      letter-spacing: 25px;
+      line-height: 75px;
+      color: #ADCCE9;
+      grid-row: 3 / 6;
+      grid-column: 1 / 2;
+      text-align: center;
+      z-index: 1;
+  }
+}
+
+
+@media(max-width:1570px){
+  .homeHeaderP{
+      font-size: 30px !important;
+      letter-spacing: 20px !important;
+      line-height: 70px !important;
+  }
+}
+@media(max-width:1215px){
+  .homeHeaderP{
+      font-size: 25px !important;
+      letter-spacing: 17px !important;
+      line-height: 65px !important;
+  }
+}
+
+@media(max-width:1025px){
+  .homeHeaderP{
+      font-size: 20px !important;
+      letter-spacing: 14px !important;
+      line-height: 60px !important;
+  }
+}
+
+@media(max-width:830px){
+  .homeHeaderP{
+      font-size: 18px !important;
+      letter-spacing: 10px !important;
+      line-height: 50px !important;
+  }
+}
+@media(max-width:669px){
+  .homeHeaderP{
+      font-size: 16px !important;
+      letter-spacing: 9px !important;
+      line-height: 40px !important;
+  }
+}
+@media(max-width:598px){
+  .homeHeaderP{
+      font-size: 13px !important;
+      letter-spacing: 7px !important;
+      line-height: 35px !important;
+  }
+}
+@media(max-width:476px){
+  .homeHeaderP{
+      font-size: 12px !important;
+      letter-spacing: 6px !important;
+      line-height: 30px !important;
+  }
+}
+@media(max-width:426px){
+  .homeHeaderP{
+      font-size: 10px !important;
+      letter-spacing: 6px !important;
+      line-height: 25px !important;
+  }
+}
+@media(max-width:385px){
+  .homeHeaderP{
+      font-size: 9px !important;
+      letter-spacing: 5px !important;
+      line-height: 20px !important;
+  }
+}
+@media(max-width:335px){
+  .homeHeaderP{
+      font-size: 8px !important;
+      letter-spacing: 5px !important;
+      line-height: 18px !important;
+  }
+}

@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "Arian AMU";
+    src: url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.eot");
+    src: url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.eot?#iefix")format("embedded-opentype"),
+    url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.woff2")format("woff2"),
+    url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.woff")format("woff"),
+    url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.ttf")format("truetype"),
+    url("https://db.onlinewebfonts.com/t/89554af4275ad692782276e8bc53706c.svg#Arian AMU")format("svg");
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-family:"Arian AMU";
+}
+
