@@ -10,7 +10,7 @@ export const getFetchSatellites = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingSatellites());
-            const response =await axios.get(`${URL}/satellite/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}/satellite/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchSatellites(response?.data[0]));
         }
         catch(error){

@@ -5,19 +5,19 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState= {
   loading: false,
   error: "",
-  HomeHeader: []
+  HomeHeaderr: []
 }
 
 export const HomeHeaderSlice = createSlice({
-  name: 'HomeHeader',
+  name: 'HomeHeaderr',
   initialState,
   reducers: {
     fetchingHomeHeader(state) {
       state.loading = true;
     },
-    fetchHomeHeader(state, action) {
+    fetchHomeHeaderr(state, action) {
       state.loading = false;
-      state.HomeHeader = action.payload;
+      state.HomeHeaderr = action.payload;
       state.error = ''
     },
     fetchErrorHomeHeader(state, action ) {
@@ -28,7 +28,7 @@ export const HomeHeaderSlice = createSlice({
   }
 })
 
-export const { fetchingHomeHeader, fetchHomeHeader, fetchErrorHomeHeader } = HomeHeaderSlice.actions
+export const { fetchingHomeHeader, fetchHomeHeaderr, fetchErrorHomeHeader } = HomeHeaderSlice.actions
 
 
 export default HomeHeaderSlice.reducer

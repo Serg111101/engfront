@@ -5,11 +5,11 @@ import "./Quizzz.scss";
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getFetchQuizSatelite } from '../../store/action/QuizSateliteAction';
+import { Loading } from '../../components/Loading/Loading';
 export const QuizSatelite = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { QuizSatelite,loading } = useSelector((state) => state.QuizSatelite);
-    console.log(QuizSatelite);
     const Background = QuizSatelite[0]?.background;
     const [item,setItem]= useState(QuizSatelite);
     const [active,setActive] = useState(false);
@@ -66,13 +66,15 @@ export const QuizSatelite = () => {
     }
 
     return (
+        <>
+
         <div className='answer' style={{ backgroundImage: `url(${Background})`}}>
             <div className='prevButton'>
     <button onClick={()=>navigate("/Satellites")} >
       {QuizSatelite[0]?.button[3]}
     </button>
     </div>
-            {loading ? <p>Loading...</p>:
+            {loading ? <Loading/>:
           finish ? <div className='answer_next' >
             <p>{QuizSatelite[0]?.button[0]}{count}/{item.length}</p>
             <button onClick={()=>{ navigate('/Satellites')}}> {QuizSatelite[0]?.button[1]}  </button>
@@ -90,5 +92,6 @@ export const QuizSatelite = () => {
             </div>}
 
         </div>
+        </>
     )
 }

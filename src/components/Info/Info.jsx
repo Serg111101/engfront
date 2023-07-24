@@ -5,24 +5,33 @@ import { useSelector } from 'react-redux'
 
 export function Info () {
   const {Contact} = useSelector((state)=>state.Contact);
-
   return (
     <div className='Info'>
       <div className='info_container'>
         {Contact?.map((el,index) =>
           <div key={index} className='conta'>
             {
-              el?.link?<a href={el?.link } target="_black">
+              el?.link?(<a href={el?.link } target="_black">
                 <img src={el?.logo} alt={el?.title} />
                 <p>{el?.title}</p>
                 <p>{el?.text}</p>
-              </a>
+              </a>)
               :
-              <a href={"tel:"+el?.text} >
+              el?.text === "+37441407148"?
+
+                (<a href={"tel:"+el?.text} >
                 <img src={el?.logo} alt={el?.title} />
                  <p>{el?.title}</p> 
                  <p>{el?.text}</p> 
-              </a>
+              </a>)
+
+              :
+             ( <>
+                <img src={el?.logo} alt={el?.title} />
+                 <p>{el?.title}</p> 
+                 <p>{el?.text}</p> 
+                 </>)
+
             }
             
            {/* <p>{ el?.link ? <a >{el?.text}</a>: */}
@@ -65,7 +74,7 @@ export function Info () {
 
             } */}
 
-
+          
           
 
           </div>

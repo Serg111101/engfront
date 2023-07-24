@@ -10,7 +10,7 @@ export const getFetchContactUs = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingContactUs());
-            const response =await axios.get(`${URL}homeIcons/contactUs/${LocalValue?LocalValue:"am"}`); 
+            const response =await axios.get(`${URL}homeIcons/contactUs/${LocalValue?LocalValue:"AM"}`); 
             dispatch(fetchContactUs(response?.data[0].information));
         }
         catch(error){

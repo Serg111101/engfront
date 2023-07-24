@@ -1,9 +1,9 @@
-// @font-face {
-//     font-family: "Arian Grqi";
-//     src: url("../../../ArianGrqi.ttf/Arian_Grqi_i_U.ttf");
-//     src: url("../../../ArianGrqi.ttf/Arian_Grqi_U.ttf")
+@font-face {
+    font-family: "Arian Grqi";
+    src: url("../../ArianGrqi.ttf/Arian_Grqi_i_U.ttf");
+    src: url("../../ArianGrqi.ttf/Arian_Grqi_U.ttf");
 
-// }
+}
 
 .HomeAuthor{
     width: 100%;
@@ -19,7 +19,7 @@
 
     .homeAuthorWords{
         margin: 0 auto;
-        width: 44%; 
+        width: 423.5px; 
         color: white;
         display: flex;
         justify-content: center;
@@ -32,6 +32,9 @@
             font-family: "Arian Grqi";
         }
         
+    }
+    .engText{
+        width: 45%;
     }
     .imageAuthor{
         width: 300px;
@@ -93,7 +96,7 @@
     
         .homeAuthorWords{
             margin: 0 auto;
-            width: 30%; 
+            // width: 30%; 
             color: white;
             display: flex;
             justify-content: center;
@@ -153,5 +156,16 @@
     
     
     
+    }
+}
+@media (max-width:480px) {
+    .homeAuthorWords{
+        width: 259px !important;
+        p{
+            font-size: 22px;
+        }
+    }
+    .imageAuthor{
+        width: 200px !important;
     }
 }

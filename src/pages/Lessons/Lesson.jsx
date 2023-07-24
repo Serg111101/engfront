@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFetchLectures, getFetchLesson, getFetchQuiz } from '../../store/action/LessonAction';
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Loading/Loading";
 
 export function Lesson() {
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState(false);
   const dispatch = useDispatch();
-  const { Lesson } = useSelector((state) => state.Lesson);
+  const { Lesson,loading } = useSelector((state) => state.Lesson);
   const Background = Lesson[0]?.background;
 
   const count = parseInt(sessionStorage.getItem('count') || '1');
@@ -32,6 +33,9 @@ export function Lesson() {
     navigate('/Leqtures');
   }
   return (
+
+    <>
+    {loading?<Loading/>:
     <div className='LessonContainer' style={{ backgroundImage: `url(${Background})` }}>
       <div className="Lesson">
         <div className='prevButton'>
@@ -60,7 +64,8 @@ export function Lesson() {
           </div>
         )}
       </div>
-    </div>
+    </div>}
+    </>
   );
 }
 

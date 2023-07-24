@@ -1,13 +1,13 @@
-import { useState ,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 // import React{useState} from 'react';
 import './HomeHeader.scss';
 import { useSelector } from 'react-redux';
 
 export function HomeHeader() {
 
-  const { HomeHeader } = useSelector((state) => state.HomeHeader);
-  const images = HomeHeader?.logo || [];
-  const interval=5000;
+  const { HomeHeaderr } = useSelector((state) => state.HomeHeaderr);
+  const images = HomeHeaderr?.logo || [];
+  const interval = 5000;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -21,11 +21,17 @@ export function HomeHeader() {
       clearInterval(timer);
     };
   }, [images?.length, interval]);
+  // const arrText=HomeHeader?.title?.split(' ')
   return (
     <div className='HomeHeader'>
-      <div className='HomeImageDiv'>
-              <img src={images[currentImageIndex]} alt="Slideshow"  />
-          <p className='homeHeaderP'>{HomeHeader.title}</p>
+      <div className='HomeImageDiv' style={{ backgroundImage: `url(${images[currentImageIndex]})` }}>
+        <div className='homeHeaderP'><h1>{HomeHeaderr?.title}</h1></div>
+          
+        {/* <div class="homeHeaderP"> */}
+          {/* <h1> */}
+           {/* {arrText&&arrText.map(el=><span>{el}&nbsp;</span>)} */}
+          {/* </h1> */}
+        {/* </div> */}
       </div>
     </div>
   );

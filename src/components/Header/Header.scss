@@ -52,12 +52,12 @@
                 cursor: pointer;
 
                 &:hover {
-                    color: blue;
+                    color: rgb(119, 170, 217);
                 }
             }
 
             .active {
-                color: blue;
+                color: rgb(119, 170, 217);
             }
 
             .itemsContainer {
@@ -85,27 +85,27 @@
             display: none;
         }
 
-        .selectDiv{
-            border: none;
-            select{
-                background: black;
-                width: 50px;
-                color :white;
-                font-size: 18px;
-                appearance: none;
-                border-radius: 5px;
-                padding: 2px;   
-                border: none !important;
+        // .selectDiv{
+        //     border: none;
+        //     select{
+        //         background: black;
+        //         width: 50px;
+        //         color :white;
+        //         font-size: 18px;
+        //         appearance: none;
+        //         border-radius: 5px;
+        //         padding: 2px;   
+        //         border: none !important;
                 
 
-                option{
-                    background-color: black;
-                    border: none !important;
-                }
+        //         option{
+        //             background-color: black;
+        //             border: none !important;
+        //         }
                
 
-            }
-        }
+        //     }
+        // }
 
     }
   
@@ -168,6 +168,8 @@
         .items-mobile{
             position: absolute;
             display:flex ;
+            align-items: flex-start;
+            justify-content: center;
             list-style: none;
             box-shadow: rgba(50,50,93,0.23) 0 30px 30px -20px;
             transition: all 0.5s ease-in-out;
@@ -176,12 +178,14 @@
             height: 100vh;
             left: 0 ;
             top: 0;
-            padding-top: 200px;
+            // padding-top: 400px;
       
              .itemsContainer {
                 flex-direction: column;
-                align-items: center;
-                margin-top: -700px;
+                // padding-top: 20px;
+                // align-items: start;
+                // justify-content: center;
+                // margin-top: -700px;
                 // transition: all 0.5s;
                 left: 0;
 
@@ -189,7 +193,7 @@
                     display: block;
                     font-size: 30px;
                     // margin-left: -10px;
-                    transform: translateY(-220px);
+                    // transform: translateY(-220px);
                     // transform: translateX(-10px);
                     margin-left: 140px;
 
@@ -206,7 +210,7 @@
 
 
             .item{
-                margin-top: 15px;
+                margin-top: 25px;
                 font-size: 20px;
             }
             .sasas{
@@ -227,6 +231,10 @@
                 text-align: center;
 
             }
+        }
+        .selectDiv{
+            margin-top: 25px;
+          
         }
         }
        

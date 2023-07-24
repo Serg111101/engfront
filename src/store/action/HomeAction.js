@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  fetchingHomeHeader, fetchHomeHeader, fetchErrorHomeHeader } from "../slice/HomeHeaderSlice";
+import {  fetchingHomeHeader, fetchHomeHeaderr, fetchErrorHomeHeader } from "../slice/HomeHeaderSlice";
 import { fetchingHomeNextRout,fetchErrorHomeNextRout,fetchHomeNextRout } from "../slice/HomeNextRoutSlice";
 import { fetchHomeAuthor,fetchErrorHomeAuthor,fetchingHomeAuthor } from "../slice/HomeAuthorSlice";
 import { fetchingHomeInfo,fetchHomeInfo,fetchErrorHomeInfo } from "../slice/HomeInfoSlice";
@@ -17,9 +17,8 @@ export const getfetchHomeHeader = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeHeader());
-            const response =await axios.get(`${URL}homeIcons/text/${LocalValue ? LocalValue:"am"}`);  
-            dispatch(fetchHomeHeader(response.data[0]?.information[0]));
-            console.log(response.data[0]?.information[0]);
+            const response =await axios.get(`${URL}homeIcons/text/${LocalValue ? LocalValue:"AM"}`);  
+            dispatch    (fetchHomeHeaderr(response.data[0]?.information[0]));
         }
         catch(error){
             console.log(error,'error');
@@ -36,7 +35,7 @@ export const   getfetchHomeNextRout= () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeNextRout());
-            const response =await axios.get(`${URL}homeIcons/lessonBox/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}homeIcons/lessonBox/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeNextRout(response?.data[0]?.information));
             
         }
@@ -53,7 +52,7 @@ export const getfetchHomeAuthor   = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeAuthor());
-            const response =await axios.get(`${URL}homeIcons/Box/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}homeIcons/Box/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeAuthor(response.data[0].information[0]));
             
         }
@@ -70,7 +69,7 @@ export const getfetchHomeInfo = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeInfo());
-            const response =await axios.get(`${URL}homeIcons/downBox/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}homeIcons/downBox/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeInfo(response?.data[0].information));
             
         }
@@ -86,7 +85,7 @@ export const getfetchSendMail = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingSendMail());
-            const response =await axios.get(`${URL}homeIcons/sendMail/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}homeIcons/sendMail/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchSendMail(response?.data[0].information));
             
         }
@@ -101,7 +100,7 @@ export const getfetchContact = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingContact());
-            const response =await axios.get(`${URL}homeIcons/contact/${LocalValue ? LocalValue:"am"}`);
+            const response =await axios.get(`${URL}homeIcons/contact/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchContact(response?.data[0]?.information));
             
         }

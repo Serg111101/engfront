@@ -6,14 +6,17 @@ import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getFetchLogo } from "../../store/action/LogoAction";
 import { getFetchHeader } from "../../store/action/HeaderAction";
+import ReactFlagsSelect from "react-flags-select";
+// import 'react-flags-select/css/react-flags-select.css';
+// import './custom-flags-select.css'; 
+
+
 
 export function Header() {
   const { Logo } = useSelector((state) => state.Logo);
   const { Header } = useSelector((state) => state.Header);
   const dispatch = useDispatch();
-  const [languages, setLanguages] = useState("am"); // Use useState hook
-
-  let aa = window.location.href;
+  const [languages, setLanguages] = useState("AM");
   let bb = window.location.pathname;
 
   useEffect(() => {
@@ -28,7 +31,7 @@ export function Header() {
   function handleLanguageChange() {
     let language = localStorage.getItem("language");
     if (language === null) {
-      localStorage.setItem("language", JSON.stringify(languages || "am"));
+      localStorage.setItem("language", JSON.stringify(languages || "AM"));
       setLanguages(languages);
       window.location.hash = languages;
     } else {
@@ -38,11 +41,12 @@ export function Header() {
   }
 
   function changeLanguage(e) {
-    localStorage.setItem("language", JSON.stringify(e));
-    setLanguages(e);
-    navigate("/");
-    window.location.reload();
 
+      localStorage.setItem("language", JSON.stringify(e));
+      setLanguages(e);
+      navigate("/");
+      window.location.reload();
+   
   }
 
   const navigate = useNavigate();
@@ -88,12 +92,18 @@ export function Header() {
             </div>
           )}
         </div>
+        
         <div className={!mobile ? "items" : "items-mobile"}>
           <div className="itemsContainer" id="itemsContainer">
+          {mobile && (
+              <div className="closeHeader" id="closeHeader">
+                <CloseOutlined onClick={() => setMobile(!mobile)} />
+              </div>
+            )}
             {Header?.map((el, index) => (
               <div
                 className={
-                  (index === 0 && bb === "/") ||
+                  (index === 0 && bb === "/")|| 
                   (index === 1 && bb === "/about") ||
                   (index === 3 && bb === "/ContactUS")
                     ? "item active"
@@ -105,25 +115,26 @@ export function Header() {
                 {el?.title}
               </div>
             ))}
-            {mobile && (
-              <div className="closeHeader" id="closeHeader">
-                <CloseOutlined onClick={() => setMobile(!mobile)} />
-              </div>
-            )}
+  
             <div className="selectDiv">
-              <select
+              {/* <select
                 name="sel"
                 id="sel"
                 value={languages} 
                 onChange={(e) => changeLanguage(e.target.value)}
               >
-                <option value="am">&#127462;&#127474;</option>
-                <option value="en">&#127482;&#127480;</option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
+                <option value="AM">&#127462;&#127474;</option>
+                <option value="US">&#127482;&#127480;</option>
+              </select> */}
+              <ReactFlagsSelect id="selBtn"       selectedSize={18}
+        optionsSize={14}
+      style={{backgroundColor:"none"}}  countries={["US", "AM"]}customLabels={{ "US":" ", "AM":" " }} selected={languages} onSelect={(countryCode)=>{changeLanguage(countryCode)}} 
+                      
+                      />
+             </div>
+           </div>
+         </div>
+       </div>
+     </header>
+   );
+ }

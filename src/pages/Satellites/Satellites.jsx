@@ -5,19 +5,28 @@ import { useSelector, useDispatch }    from 'react-redux';
 import { getFetchSatellites }          from "../../store/action/SatellitesAction";
 import { getFetchQuizSatelite }        from "../../store/action/QuizSateliteAction";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Loading/Loading";
 
 export function Satellites() {
   
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { Satellites } = useSelector((state) => state.Satellites)
+  const { Satellites,loading } = useSelector((state) => state.Satellites)
   const background = Satellites?.background;
+  let loacal;
+  if(localStorage?.getItem('language')){
+    let languageLocal = localStorage?.getItem('language');
+    loacal = JSON.parse(languageLocal)
+  }
 
   useEffect(() => {
     dispatch(getFetchSatellites());
     dispatch(getFetchQuizSatelite());
   }, [dispatch]);
   return (
+    <>
+    {
+      loading? <Loading/>:
     <div className='Satellites'
     style={{background:`url(${background})`}}
     >
@@ -91,8 +100,10 @@ export function Satellites() {
         Satellites?.margin_text4?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
       }
          <div className="quizButton">
-            <button onClick={()=>{navigate("/SatelliteQuiz")}} >Quiz</button>
+            <button onClick={()=>{navigate("/SatelliteQuiz")}} >{loacal==="AM" ? "Հարցաշար":"Questions"}</button>
         </div>
     </div>
+}
+    </>
   )
 }

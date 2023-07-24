@@ -12,7 +12,7 @@ export const getFetchHeader = () => {
         
         try{
             dispatch(fetchingHeader());
-            const response =await axios.get(`${URL}header/${LocalValue?LocalValue:"am"}`); 
+            const response =await axios.get(`${URL}header/${LocalValue?LocalValue:"AM"}`); 
             dispatch(fetchHeader(response?.data));
         }
         catch(error){

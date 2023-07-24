@@ -12,8 +12,13 @@ export function HomeNextRoute() {
     const loc = sessionStorage.getItem('count');
     cou = JSON.parse(loc);
   }
+  let loacal;
+  if(localStorage?.getItem('language')){
+    let languageLocal = localStorage?.getItem('language');
+    loacal = JSON.parse(languageLocal)
+  }
 
-  function navigateTo(val) {
+   function navigateTo(val) {
     if (val === 'Դասնթացներ' || val === 'Courses') {
       navigate('/Lessons');
     } else if (val === 'Օգտակար նյութեր') {
@@ -22,7 +27,13 @@ export function HomeNextRoute() {
       navigate('/Satellites');
     } else if (val === 'Արբանյակի կառավարում' || val === 'Satellite control') {
       if (cou < 4) {
-        Swal.fire('', 'Խնդրում եմ անցեք 4 դասերը', 'error');
+       Swal.fire({
+        title:loacal==="AM" ? "Խնդրում եմ անցեք 4 դասերը" :"Please go through the 4 lessons",
+        icon: 'error',
+        confirmButtonText:(loacal==="AM"? 'Լավ':"OK"),
+      }).then(()=>{
+        navigate("/Lessons")
+      })
       }
     } else {
       navigate('/');

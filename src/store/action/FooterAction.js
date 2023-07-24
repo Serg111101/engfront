@@ -12,7 +12,7 @@ export const getFetchFooter = () => {
     
         try{
             dispatch(fetchingFooter());
-            const response =await axios.get(`${URL}footer/${LocalValue?LocalValue:"am"}`); 
+            const response =await axios.get(`${URL}footer/${LocalValue?LocalValue:"AM"}`); 
             dispatch(fetchFooter(response?.data));
         }
         catch(error){

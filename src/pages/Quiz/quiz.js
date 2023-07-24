@@ -4,6 +4,7 @@ import {  useSelector } from 'react-redux'
 import './quiz.scss'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Loading } from '../../components/Loading/Loading'
 export const Quiz = () => {
     const navigate = useNavigate();
     const { Quiz,loading } = useSelector((state) => state.Quiz);
@@ -49,7 +50,7 @@ export const Quiz = () => {
                 setCount(++count)
             }
 
-            const sum = sessionStorage.getItem('count');
+            const sum = sessionStorage?.getItem('count');
             let countStorag = JSON.parse(sum);
             const les = localStorage.getItem('lessons')
             const lesons = JSON.parse(les)
@@ -70,7 +71,6 @@ export const Quiz = () => {
         setActive(el)
     }
     const Background = item[0]?.background;
-    console.log(Quiz);
 
     return (
         <div className='answer' style={{ backgroundImage: `url(${Background})`}} >
@@ -79,7 +79,7 @@ export const Quiz = () => {
       {item[0]?.button[3]}
     </button>
     </div>
-            {loading ? <p>Loading...</p>:
+            {loading ? <Loading/>:
           finish ? <div className='answer_next'>
             <p>{item[0]?.button[0]}{count}/{item.length}</p>
             <button onClick={()=>{ navigate('/Lessons')}}> {item[0]?.button[1]}  </button>

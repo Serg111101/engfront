@@ -15,7 +15,7 @@ export const getFetchAbout = () => {
             dispatch(fetchingAbout());
             const response =await axios({
                 method: 'get',
-                url: `${URL}about/${LocalValue? LocalValue:"am"}`,
+                url: `${URL}about/${LocalValue? LocalValue:"AM"}`,
               });
             dispatch(fetchAbout(response?.data));
         }
@@ -32,7 +32,7 @@ export const getAboutOutTeam = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingAboutOurTeam());
-            const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"am"}`);  
+            const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
             dispatch(fetchAboutOurTeam(response?.data));
         }
         catch(error){

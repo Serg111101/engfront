@@ -20,7 +20,7 @@ import SatellitesSliceReducer from './slice/SatellitesSlice';
 import QuizSateliteReducer from './slice/QuizSateliteSlice';
 const store = configureStore({
   reducer: {
-    HomeHeader:HomeHeaderReducer,
+    HomeHeaderr:HomeHeaderReducer,
     About:AboutReducer,
     AboutOurTeam:AboutOurTeamReducer,
     Logo:LogoReducer,

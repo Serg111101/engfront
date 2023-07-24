@@ -9,6 +9,7 @@ import { HomeAuthorComponent } from "../../components/HomeAuthorComponent";
 import { HomeInfo } from "../../components/HomeInfo/HomeInfo";
 import { Contact } from "../../components/Contact/Contact";
 import { Info } from "../../components/Info";
+import { Loading } from "../../components/Loading/Loading";
 
 export function Home() {
 
@@ -23,10 +24,14 @@ export function Home() {
   dispatch(getfetchContact());
   dispatch(getfetchSendMail())
  },[dispatch]);
- const { HomeAuthor } = useSelector((state) => state.HomeAuthor); 
+ const { HomeAuthor} = useSelector((state) => state.HomeAuthor); 
  const Background = HomeAuthor?.logo;
- 
-  return (
+  const {loading} = useSelector((state)=>state.HomeHeaderr);
+  return (<>{
+    loading?    <Loading/>:
+
+  
+
     <div className="home"  >
        <div className="homeHeaderPage" >
         <HomeHeader/>
@@ -46,7 +51,7 @@ export function Home() {
 
       
 
-    </div>
+    </div>}</>
   )
 }
   

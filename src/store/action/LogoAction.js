@@ -10,7 +10,7 @@ export const getFetchLogo = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingLogo());
-            const response =await axios.get(`${URL}homeIcons/logo/${LocalValue ? LocalValue:"am"}`);     
+            const response =await axios.get(`${URL}homeIcons/logo/${LocalValue ? LocalValue:"AM"}`);     
             dispatch(fetchLogo(response?.data[0].information[0]));
         }
         catch(error){

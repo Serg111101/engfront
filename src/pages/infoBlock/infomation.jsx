@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getFetchLectures, getFetchSlides } from '../../store/action/LessonAction';
 import { UndoOutlined } from '@ant-design/icons';
+import { Loading } from "../../components/Loading/Loading";
 
 const Informatoin = () => {
   const { Lectures, loading } = useSelector((state) => state.Lectures);
@@ -63,7 +64,6 @@ const Informatoin = () => {
 
 
   const Background = Lectures[0]?.background;
-console.log(Slide[elem-1]);
   return (
     <>
       <div className="Lecturee" style={elem ? { display: "none" } : { backgroundImage: `url(${Background})`, }}>
@@ -74,7 +74,7 @@ console.log(Slide[elem-1]);
         </div>}
         <div className={!elem ? 'lectureTitle' : ''}>
           {loading ? (
-            <p>loading...</p>
+            <Loading/>
           ) : (
             <>
 

@@ -11,7 +11,7 @@ export const getFetchQuizSatelite = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingQuizSatelite());
-            const response =await axios.get(`${URL}satelliteQuestions/${LocalValue ? LocalValue:"am"}`);  
+            const response =await axios.get(`${URL}satelliteQuestions/${LocalValue ? LocalValue:"AM"}`);  
             
             if(!localStorage.getItem("quizzsat")){
                 localStorage.setItem('quizzsat',JSON.stringify(response?.data));   
