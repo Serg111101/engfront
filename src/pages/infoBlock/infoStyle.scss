@@ -146,6 +146,16 @@
                 color: white;
                 margin: 0 auto;
                 width: 90%;
+                .marginText{
+                    font-size: 20px !important;
+                    line-height: 30px !important;
+                    padding: 20px !important;
+                    margin-left: 50px !important;
+                    // width: 90%;
+                    // display: flex;
+                    // justify-content: flex-end;
+            
+                }
                 
                 p{
                     font-size: 20px;
@@ -267,6 +277,7 @@
 
         }
     }
+    
 
 
 }

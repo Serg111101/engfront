@@ -130,7 +130,7 @@ const Informatoin = () => {
                         if (elem?.includes('http')) {
                           return <div className='imageDiv' key={index} > <img src={elem} alt='nkar' /> </div>
                         } else {
-                          return <p key={index}>{elem}</p>
+                          return <div key={index} className='marginText' >{elem}</div>
                         }
                       })
                     }

@@ -3,12 +3,14 @@ import { useState } from 'react'
 import {  useSelector } from 'react-redux'
 import './quiz.scss'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, } from 'react-router-dom'
 import { Loading } from '../../components/Loading/Loading'
 export const Quiz = () => {
     const navigate = useNavigate();
+ 
     const { Quiz,loading } = useSelector((state) => state.Quiz);
-    const [item,setItem]= useState(Quiz)
+    const [item,setItem]= useState(Quiz);
+    
     const [active,setActive] = useState(false)
         useEffect(()=>{
             if(Quiz.length<=0){
@@ -50,7 +52,7 @@ export const Quiz = () => {
                 setCount(++count)
             }
 
-            const sum = sessionStorage?.getItem('count');
+            const sum = sessionStorage.getItem('count');
             let countStorag = JSON.parse(sum);
             const les = localStorage.getItem('lessons')
             const lesons = JSON.parse(les)

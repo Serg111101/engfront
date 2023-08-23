@@ -5,11 +5,11 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState= {
   loading: false,
   error: "",
-  HomeHeaderr: []
+  HomeHeader: []
 }
 
 export const HomeHeaderSlice = createSlice({
-  name: 'HomeHeaderr',
+  name: 'HomeHeader',
   initialState,
   reducers: {
     fetchingHomeHeader(state) {

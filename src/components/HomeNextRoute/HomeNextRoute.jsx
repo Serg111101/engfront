@@ -18,14 +18,14 @@ export function HomeNextRoute() {
     loacal = JSON.parse(languageLocal)
   }
 
-   function navigateTo(val) {
-    if (val === 'Դասնթացներ' || val === 'Courses') {
+  function navigateTo(id) {
+    if (id === 0) {
       navigate('/Lessons');
-    } else if (val === 'Օգտակար նյութեր') {
+    } else if (id === 1) {
       navigate('/');
-    } else if (val === 'Արբանյակ' || val === 'Satellites') {
+    } else if (id === 2) {
       navigate('/Satellites');
-    } else if (val === 'Արբանյակի կառավարում' || val === 'Satellite control') {
+    } else if (id === 3) {
       if (cou < 4) {
        Swal.fire({
         title:loacal==="AM" ? "Խնդրում եմ անցեք 4 դասերը" :"Please go through the 4 lessons",
@@ -38,6 +38,7 @@ export function HomeNextRoute() {
     } else {
       navigate('/');
     }
+  
   }
 
   return (
@@ -52,7 +53,7 @@ export function HomeNextRoute() {
                 rel="noopener noreferrer"
               >
                 <div
-                  onClick={() => navigateTo(el?.title)}
+                  onClick={() => navigateTo(index)}
                   className="nextRouteItem"
                   style={{ backgroundColor: el.color }}
                 >
@@ -66,7 +67,7 @@ export function HomeNextRoute() {
               </a>
             ) : (
               <div
-                onClick={() => navigateTo(el?.title)}
+                onClick={() => navigateTo(index)}
                 className="nextRouteItem"
                 style={{ backgroundColor: el.color }}
               >

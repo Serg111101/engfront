@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFetchLogo } from "../../store/action/LogoAction";
 import { getFetchHeader } from "../../store/action/HeaderAction";
 import ReactFlagsSelect from "react-flags-select";
-// import 'react-flags-select/css/react-flags-select.css';
-// import './custom-flags-select.css'; 
+
 
 
 
@@ -54,23 +53,20 @@ export function Header() {
 
   function navigateTo(val) {
     switch (val) {
-      case "Գլխավոր էջ":
+      case 1:
         navigate("/");
         break;
-      case "Մեր մասին":
-      case "About us":
+      case 2:
         navigate("/about");
         break;
-      case "Գործընկերներ":
+      case 3:
         navigate("/");
         break;
-      case "Կապ մեզ հետ":
-      case "Contact us":
+      case 4:
         navigate("/ContactUS");
         break;
       default:
         navigate("/");
-        break;
     }
   }
 
@@ -109,7 +105,7 @@ export function Header() {
                     ? "item active"
                     : "item"
                 }
-                onClick={() => navigateTo(el?.title)}
+                onClick={() => navigateTo(el?.id)}
                 key={index}
               >
                 {el?.title}

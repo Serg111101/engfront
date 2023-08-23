@@ -18,7 +18,7 @@ export const getfetchHomeHeader = () => {
         try{
             dispatch(fetchingHomeHeader());
             const response =await axios.get(`${URL}homeIcons/text/${LocalValue ? LocalValue:"AM"}`);  
-            dispatch    (fetchHomeHeaderr(response.data[0]?.information[0]));
+            dispatch(fetchHomeHeaderr(response.data[0]?.information[0]));
         }
         catch(error){
             console.log(error,'error');
@@ -53,7 +53,7 @@ export const getfetchHomeAuthor   = () => {
         try{
             dispatch(fetchingHomeAuthor());
             const response =await axios.get(`${URL}homeIcons/Box/${LocalValue ? LocalValue:"AM"}`);
-            dispatch(fetchHomeAuthor(response.data[0].information[0]));
+            dispatch(fetchHomeAuthor(response?.data[0]?.information[0]));
             
         }
         catch(error){
@@ -70,7 +70,7 @@ export const getfetchHomeInfo = () => {
         try{
             dispatch(fetchingHomeInfo());
             const response =await axios.get(`${URL}homeIcons/downBox/${LocalValue ? LocalValue:"AM"}`);
-            dispatch(fetchHomeInfo(response?.data[0].information));
+            dispatch(fetchHomeInfo(response?.data[0]?.information));
             
         }
         catch(error){
@@ -86,7 +86,7 @@ export const getfetchSendMail = () => {
         try{
             dispatch(fetchingSendMail());
             const response =await axios.get(`${URL}homeIcons/sendMail/${LocalValue ? LocalValue:"AM"}`);
-            dispatch(fetchSendMail(response?.data[0].information));
+            dispatch(fetchSendMail(response?.data[0]?.information));
             
         }
         catch(error){
