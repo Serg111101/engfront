@@ -61,7 +61,7 @@ const Informatoin = () => {
     }
   }
 
-
+console.log(Slide)
 
   const Background = Lectures[0]?.background;
   return (

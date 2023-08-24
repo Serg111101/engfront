@@ -26,8 +26,9 @@
             margin: 20px;
             // margin: 20px;
             .bigimg{
+                max-width:600px;
                  img{
-                     height:784px;
+                     height:754px;
                      width: 100%;
                      background-position: center;
                      background-size: cover;
@@ -39,6 +40,7 @@
                 display: grid;
                 grid-template-columns: auto auto ;
                gap:20px;
+               margin: 0 auto;
             //    padding: 20px;
             
             .aboutInfoBlock:nth-child(1){
@@ -136,6 +138,7 @@
 
             .aboutInfoBlock:nth-child(3){
                     overflow: hidden;
+                    height: 339px;
                 img{
                     width: 270px;
                 overflow: hidden;
@@ -145,6 +148,7 @@
             }
 
             .aboutInfoBlock:nth-child(4){
+                height: 339px;
                 overflow: hidden;
                 img{
                     width: 274px;

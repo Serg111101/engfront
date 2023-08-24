@@ -25,18 +25,13 @@ export const getFetchLesson = () => {
 }
 
 export const getFetchQuiz = (titlee) => {
-    const arr = titlee.split(".");
+    // const arr = titlee.split(".");
     
     return async (dispatch)=>{
         try{
             dispatch(fetchingQuiz());
-            const response =await axios.get(`${URL}getQuiz/${arr[0]}/${LocalValue ? LocalValue:"AM"}`);
-            if(!localStorage.getItem("quizz")){
-                localStorage.setItem('quizz',JSON.stringify(response?.data));   
-            }
-            else{
-            localStorage.setItem('quizz',JSON.stringify(response?.data));   
-        }
+            const response =await axios.get(`${URL}getQuiz/${titlee}/${LocalValue ? LocalValue:"AM"}`);
+        
         await  dispatch(fetchQuiz(response?.data));
         }
         catch(error){
@@ -74,11 +69,11 @@ export const getFetchLectures =  (titlee) => {
 }
 
 export const getFetchSlides =  (titlee) => {
-    const arr = titlee.split(".");
+    
     return async (dispatch)=>{
         try{
             dispatch(fetchingSlide());
-            const response =await axios.get(`${URL}topics/${arr[0]}/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}topics/${titlee}/${LocalValue ? LocalValue:"AM"}`);
 
             dispatch(fetchSlide(response?.data));
         }

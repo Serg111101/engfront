@@ -12,7 +12,7 @@ export function Lesson() {
   const dispatch = useDispatch();
   const { Lesson,loading } = useSelector((state) => state.Lesson);
   const Background = Lesson[0]?.background;
-
+console.log(Lesson);
   const count = parseInt(sessionStorage.getItem('count') || '1');
 
   useEffect(() => {
@@ -25,8 +25,9 @@ export function Lesson() {
     dispatch(getFetchLesson());
   }, [dispatch]);
 
-  async function Quizz(title) {
+  async function Quizz(title,index) {
     localStorage.setItem("lessons", JSON.stringify(title));
+    localStorage.setItem("level", JSON.stringify(index+1));
     dispatch(getFetchQuiz(title));
     dispatch(getFetchLectures(title));
     setQuiz(!quiz);
@@ -48,13 +49,13 @@ export function Lesson() {
           <div className="product-grid">
             {Lesson && Lesson.map((item, index) => {
              return (
-              <div key={index} className={count >= index + 1 ? "product-card" : "product-cardDisable"} onClick={() => Quizz(item?.title)}>
-                <img className='imageDiv' src={item?.icon} alt={item.title} />
+              <div key={index} className={count >= index + 1 ? "product-card" : "product-cardDisable"} onClick={() => Quizz(item?.lesson,index)}>
+                <img className='imageDiv' src={item?.icon} alt={item.lesson} />
                 <div className="color" id='color' style={{ background: item?.color }}>
                   <div className='ikonkaDiv'>
-                    <img src={item?.ikonka} alt={item.title} />
+                    <img src={item?.ikonka} alt={item.lesson} />
                   </div>
-                  <h3>{item?.title}</h3>
+                  <h3>{item?.lesson}</h3>
                   <span>
                     <PlusCircleOutlined />
                   </span>
