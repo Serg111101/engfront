@@ -86,7 +86,7 @@ export function Header() {
             <div onClick={() => setMobile(true)}>
               <MenuOutlined />
             </div>
-          )}
+          )}  
         </div>
         
         <div className={!mobile ? "items" : "items-mobile"}>
