@@ -44,7 +44,9 @@ export const Quiz = () => {
       setAnswer(answers);
     }
   }, [question, Quiz]);
-
+console.log('====================================');
+console.log(Quiz);
+console.log('====================================');
   useEffect(()=>{
     console.log(question,"=",Quiz.length)
     if(pupilQuestion.correct.length + pupilQuestion.incorrect.length==Quiz.length){
@@ -52,6 +54,7 @@ export const Quiz = () => {
       localStorage.setItem("attempts",JSON.stringify({
             ...pupilQuestion,
             attempts: pupilQuestion?.attempts + 1,
+            lesson:Quiz[0]?.lesson
           }))
 
     }
