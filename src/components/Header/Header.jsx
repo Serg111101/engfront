@@ -1,15 +1,12 @@
 /*eslint-disable*/
 import { useNavigate } from "react-router-dom";
 import "./Header.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useRef } from "react";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getFetchLogo } from "../../store/action/LogoAction";
 import { getFetchHeader } from "../../store/action/HeaderAction";
 import ReactFlagsSelect from "react-flags-select";
-
-
-
 
 export function Header() {
   const { Logo } = useSelector((state) => state.Logo);
@@ -17,6 +14,11 @@ export function Header() {
   const dispatch = useDispatch();
   const [languages, setLanguages] = useState("AM");
   let bb = window.location.pathname;
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     dispatch(getFetchLogo());
@@ -24,8 +26,8 @@ export function Header() {
   }, [dispatch]);
 
   useEffect(() => {
-    handleLanguageChange(); 
-  }, [languages, bb]); 
+    handleLanguageChange();
+  }, [languages, bb]);
 
   function handleLanguageChange() {
     let language = localStorage.getItem("language");
@@ -40,12 +42,10 @@ export function Header() {
   }
 
   function changeLanguage(e) {
-
-      localStorage.setItem("language", JSON.stringify(e));
-      setLanguages(e);
-      navigate("/");
-      window.location.reload();
-   
+    localStorage.setItem("language", JSON.stringify(e));
+    setLanguages(e);
+    navigate("/");
+    window.location.reload();
   }
 
   const navigate = useNavigate();
@@ -69,10 +69,20 @@ export function Header() {
         navigate("/");
     }
   }
-
- 
- 
-
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    if (isOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isOpen]);
+  
   return (
     <header className="header">
       <div className="constainerHeader">
@@ -81,17 +91,21 @@ export function Header() {
             <img src={Logo?.logo} alt={Logo?.title} />
           </a>
         </div>
-        <div className="headericone" id="headericone" onClick={() => setMobile(true)}>
+        <div
+          className="headericone"
+          id="headericone"
+          onClick={() => setMobile(true)}
+        >
           {!mobile && (
             <div onClick={() => setMobile(true)}>
               <MenuOutlined />
             </div>
-          )}  
+          )}
         </div>
-        
+
         <div className={!mobile ? "items" : "items-mobile"}>
           <div className="itemsContainer" id="itemsContainer">
-          {mobile && (
+            {mobile && (
               <div className="closeHeader" id="closeHeader">
                 <CloseOutlined onClick={() => setMobile(!mobile)} />
               </div>
@@ -99,7 +113,7 @@ export function Header() {
             {Header?.map((el, index) => (
               <div
                 className={
-                  (index === 0 && bb === "/")|| 
+                  (index === 0 && bb === "/") ||
                   (index === 1 && bb === "/about") ||
                   (index === 3 && bb === "/ContactUS")
                     ? "item active"
@@ -111,26 +125,39 @@ export function Header() {
                 {el?.title}
               </div>
             ))}
-  
+
             <div className="selectDiv">
-              {/* <select
-                name="sel"
-                id="sel"
-                value={languages} 
-                onChange={(e) => changeLanguage(e.target.value)}
-              >
-                <option value="AM">&#127462;&#127474;</option>
-                <option value="US">&#127482;&#127480;</option>
-              </select> */}
-              <ReactFlagsSelect id="selBtn"       selectedSize={18}
-        optionsSize={14}
-      style={{backgroundColor:"none"}}  countries={["US", "AM"]}customLabels={{ "US":" ", "AM":" " }} selected={languages} onSelect={(countryCode)=>{changeLanguage(countryCode)}} 
-                      
-                      />
-             </div>
-           </div>
-         </div>
-       </div>
-     </header>
-   );
- }
+              <ReactFlagsSelect
+                id="selBtn"
+                selectedSize={18}
+                optionsSize={14}
+                style={{ backgroundColor: "none" }}
+                countries={["US", "AM"]}
+                customLabels={{ US: " ", AM: " " }}
+                selected={languages}
+                onSelect={(countryCode) => {
+                  changeLanguage(countryCode);
+                }}
+              />
+            </div>
+
+            <div className="admin-dropdown" ref={dropdownRef}>
+      <div className="admin-info" onClick={toggleDropdown}>
+
+        <img src="/image/innovation.png" alt="flex" />
+      </div>
+      {isOpen && (
+        <div className="dropdown-content" >
+          <p>Anun Azganun</p>
+          <p>Phone Number</p>
+          <p>Matyani Hamar</p>
+          <p onClick={()=>localStorage?.removeItem("auth")} >Log Out</p>
+        </div>
+      )}
+    </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
