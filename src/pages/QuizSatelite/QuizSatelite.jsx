@@ -25,7 +25,6 @@ export const QuizSatelite = () => {
     }
  },[QuizSatelite])
 
-
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -64,7 +63,7 @@ export const QuizSatelite = () => {
       }
 
       setFinish(true);
-    }
+        }
   }
   function correctAnswer(el) {
     setCorectAnswers(el);
