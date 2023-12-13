@@ -47,17 +47,6 @@ export const getFetchLectures =  (titlee) => {
         try{
             dispatch(fetchingLectures());
             const response =await axios.get(`${URL}getLectures/${titlee}/${LocalValue ? LocalValue:"AM"}`);
-            
-
-            if(!localStorage.getItem('Lectures')){
-
-                localStorage.setItem("Lectures",JSON.stringify(response?.data[0]?.lectures));
-            }
-            else{
-                localStorage.setItem("Lectures",JSON.stringify(response?.data[0]?.lectures));
-
-            }
-            
             dispatch(fetchLectures(response?.data));
         }
         catch(error){
