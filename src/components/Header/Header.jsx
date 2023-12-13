@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { useNavigate } from "react-router-dom";
 import "./Header.scss";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CloseOutlined, MenuOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { getFetchLogo } from "../../store/action/LogoAction";
@@ -76,13 +76,13 @@ export function Header() {
       }
     };
     if (isOpen) {
-      document.addEventListener('click', handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen]);
-  
+
   return (
     <header className="header">
       <div className="constainerHeader">
@@ -142,24 +142,25 @@ export function Header() {
             </div>
 
             <div className="admin-dropdown" ref={dropdownRef}>
-      <div className="admin-info" onClick={toggleDropdown}>
-
-        <img src="/image/innovation.png" alt="flex" />
-      </div>
-      {isOpen && (
-        <div className="dropdown-content" >
-          <p>Anun Azganun</p>
-          <p>Phone Number</p>
-          <p>Matyani Hamar</p>
-          <p onClick={()=>localStorage?.removeItem("auth")} >Log Out</p>
-        </div>
-      )}
-    </div>
+              <div className="admin-info" onClick={toggleDropdown}>
+                <img src="/image/innovation.png" alt="flex" />
+              </div>
+              {isOpen && (
+                <div className="dropdown-content">
+                  <p>Armen Knyazyan</p>
+                  <p onClick={() => navigate("/PupilExperince")}>
+                    im lracrac tester@
+                  </p>
+                  
+                  <p onClick={() => localStorage?.removeItem("auth")}>
+                    Log Out
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      </header>
-
-
+    </header>
   );
 }

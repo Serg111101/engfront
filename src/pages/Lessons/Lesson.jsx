@@ -32,7 +32,7 @@ console.log(Lesson);
     dispatch(getFetchLectures(title));
     setQuiz(!quiz);
     navigate('/Leqtures');
-  }localStorage.setItem
+  }
   return (
 
     <>

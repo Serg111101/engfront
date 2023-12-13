@@ -80,6 +80,25 @@
                 .closeHeader {
                     display: none;
                 }
+
+                .user{
+                    height: 50px;
+                    width: 50px;
+                    border-radius: 50%;
+                    img{
+                        width: 100%;
+                        background-position: center;
+                        border-radius: 50%;
+                    }
+                    .activeUser{
+                        position: absolute;
+                        background: rgba(48, 29, 29, 0.414);
+                        color: rgba(91, 84, 223, 0.703);
+                        padding: 10px;
+                        right: 15%;
+                        border-radius:0px 0px 20px 20px ;
+                      }
+                }
             }
 
 
