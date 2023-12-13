@@ -12,6 +12,7 @@ import { Satellites } from "./pages/Satellites";
 import { QuizSatelite } from "./pages/QuizSatelite";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import { useEffect } from "react";
+import { PupilExperince } from "./components/PupilExperince";
 
 function App() {
   const a = sessionStorage
@@ -43,6 +44,7 @@ function App() {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/Satellites" element={<Satellites />} />
           <Route path="/SatelliteQuiz" element={<QuizSatelite />} />
+          <Route path="/PupilExperince" element={<PupilExperince />} />
           <Route path="*" element={< NotFoundPage/>} />
         </Routes>
           <Footer />

@@ -67,7 +67,48 @@
     
 
     }
-
+    .inanswer_next{
+      max-width: 1200px;
+      display: flex;
+     //  justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      border: 20px solid #333333 ;
+      border-radius: 10px;
+      // height: 80vh;
+      flex-direction: column;
+      color:white;
+      padding: 10px;
+ 
+      p{
+       
+       padding: 10px 20px;
+       font-size: 20px;
+       color:red;
+      }
+ 
+      button {
+       display: inline-block;
+       border-radius: 4px;
+       background-color: #3d405b;
+       border: none;
+       color: #FFFFFF;
+       text-align: center;
+       font-size: 30px;
+       padding: 16px;
+       // width: 130px;
+       transition: all 0.5s;
+       cursor: pointer;
+       margin: 5px;
+       
+ 
+  
+ 
+      }
+      
+     
+ 
+     }
     .quiz{
        max-width: 1200px;
         background: rgb(66, 66, 66);

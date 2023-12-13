@@ -17,7 +17,7 @@ export function Header() {
   const dispatch = useDispatch();
   const [languages, setLanguages] = useState("AM");
   let bb = window.location.pathname;
-
+  const [userActive,setUserActive] = useState(false) 
   useEffect(() => {
     dispatch(getFetchLogo());
     dispatch(getFetchHeader());
@@ -111,7 +111,14 @@ export function Header() {
                 {el?.title}
               </div>
             ))}
-  
+        <div className="user"  onClick={()=>{setUserActive(!userActive)}}>
+          <img src="./image/photo.jpg" alt="" />
+          {userActive && <div className="activeUser">
+       <p>Armen Knyazyan</p>
+       <p onClick={()=> navigate('/PupilExperince')}>im lracrac tester@</p>
+       <p>durs gal</p>
+      </div>  }
+        </div>
             <div className="selectDiv">
               {/* <select
                 name="sel"
@@ -131,6 +138,7 @@ export function Header() {
            </div>
          </div>
        </div>
+     
      </header>
    );
  }
