@@ -12,7 +12,7 @@ export function PupilExperince() {
       setExperience([cou])
     }
   },[localStorage.getItem('attempts')])
-
+console.log(experience);
   return (
 //     <div className="PupilExperince">
 // {experience?.map((el)=><div>
@@ -49,58 +49,37 @@ export function PupilExperince() {
   <thead>
     <tr>
       <th>Lesson</th>
+      <th>Quesstion</th>
+      <th>Answer</th>
       <th>Attempts</th>
     </tr>
   </thead>
+
   <tbody>
-    {experience?.map((el) => (
-      <tr key={el.lesson}>
-        <td>{el?.lesson}</td>
-        <td>{el?.attempts}</td>
-      </tr>
+    {experience.map(el=><>
+ { el?.correct?.map((item,index) => (
+          <tr key={index}>
+            <td>{experience[0].lesson}</td>
+            <td>{item?.question}</td>
+            <td>{item?.answer}</td>
+            <td>{experience[0].attempts}</td>
+
+          </tr>
     ))}
-  </tbody>
+      {el?.incorrect?.map((item,index) => (
+          <tr key={index}>
+            <td>{experience[0].lesson}</td>
+            <td>{item?.question}</td>
+            <td>{item?.answer}</td>
+            <td>{experience[0].attempts}</td>
+
+          </tr>
+    ))}
+   </> )}
+    </tbody>
 </table>
 
-{experience?.map((el) => (
-  <div key={el.lesson}>
-    <h1>Chisht Patasxanerr</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Answer</th>
-        </tr>
-      </thead>
-      <tbody>
-        {el?.correct?.map((item) => (
-          <tr key={item.question}>
-            <td>{item?.question}</td>
-            <td>{item?.answer}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
 
-    <h1>sxal Patasxanerr</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Answer</th>
-        </tr>
-      </thead>
-      <tbody>
-        {el?.incorrect?.map((item) => (
-          <tr key={item.question}>
-            <td>{item?.question}</td>
-            <td>{item?.answer}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-))}
 
 <button onClick={() => { /* Handle button click */ }}>
   Go to Lessons

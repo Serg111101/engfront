@@ -7,12 +7,15 @@ import { Loading } from "../../components/Loading/Loading";
 
 import { getFetchQuiz } from "../../store/action/LessonAction";
 import { useNavigate } from "react-router-dom";
+import { addQuizChild } from "../../store/action/QuizChildAction";
 export const Quiz = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
-  const [pupilQuestion, setPupilQuestion] = useState({
+  const [pupilQuestion, setPupilQuestion] = useState(
+ 
+    {
     attempts: 0,
     correct: [],
     incorrect: [],
@@ -25,6 +28,7 @@ export const Quiz = () => {
       const Quizs = JSON.parse(quz);
       dispatch(getFetchQuiz(Quizs));
     }
+   
   }, [dispatch]);
   console.log(pupilQuestion);
   let [question, setQuestion] = useState(0);
@@ -44,17 +48,20 @@ export const Quiz = () => {
       setAnswer(answers);
     }
   }, [question, Quiz]);
-console.log('====================================');
-console.log(Quiz);
-console.log('====================================');
+
   useEffect(()=>{
-    console.log(question,"=",Quiz.length)
-    if(pupilQuestion.correct.length + pupilQuestion.incorrect.length==Quiz.length){
+    if(pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length==Quiz?.length){
       
       localStorage.setItem("attempts",JSON.stringify({
             ...pupilQuestion,
-            attempts: pupilQuestion?.attempts + 1,
             lesson:Quiz[0]?.lesson
+          }))
+
+         dispatch(addQuizChild({
+            ...pupilQuestion,
+            lesson:Quiz[0]?.lesson,
+            teache_id:1,
+            children_id:1
           }))
 
     }
@@ -123,7 +130,7 @@ console.log('====================================');
       ) {
         const sumo = sessionStorage.getItem("count");
         let countStorage = JSON.parse(sumo);
-       
+        
         sessionStorage.setItem("count", JSON.stringify(++countStorage));
       }
     //   setPupilQuestion({
