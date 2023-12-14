@@ -17,7 +17,7 @@ export function Header() {
   const dispatch = useDispatch();
   const [languages, setLanguages] = useState("AM");
   let bb = window.location.pathname;
-  const [userActive,setUserActive] = useState(false) 
+
   useEffect(() => {
     dispatch(getFetchLogo());
     dispatch(getFetchHeader());
@@ -86,7 +86,7 @@ export function Header() {
             <div onClick={() => setMobile(true)}>
               <MenuOutlined />
             </div>
-          )}  
+          )}
         </div>
         
         <div className={!mobile ? "items" : "items-mobile"}>
@@ -111,24 +111,10 @@ export function Header() {
                 {el?.title}
               </div>
             ))}
-        <div className="user"  onClick={()=>{setUserActive(!userActive)}}>
-          <img src="./image/photo.jpg" alt="" />
-          {userActive && <div className="activeUser">
-       <p>Armen Knyazyan</p>
-       <p onClick={()=> navigate('/PupilExperince')}>im lracrac tester@</p>
-       <p>durs gal</p>
-      </div>  }
-        </div>
+            <div className={" item"} onClick={()=>{navigate('/Class')}} >
+              Դասարաններ
+            </div>
             <div className="selectDiv">
-              {/* <select
-                name="sel"
-                id="sel"
-                value={languages} 
-                onChange={(e) => changeLanguage(e.target.value)}
-              >
-                <option value="AM">&#127462;&#127474;</option>
-                <option value="US">&#127482;&#127480;</option>
-              </select> */}
               <ReactFlagsSelect id="selBtn"       selectedSize={18}
         optionsSize={14}
       style={{backgroundColor:"none"}}  countries={["US", "AM"]}customLabels={{ "US":" ", "AM":" " }} selected={languages} onSelect={(countryCode)=>{changeLanguage(countryCode)}} 
@@ -138,7 +124,6 @@ export function Header() {
            </div>
          </div>
        </div>
-     
      </header>
    );
  }

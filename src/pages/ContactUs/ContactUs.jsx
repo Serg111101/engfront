@@ -6,6 +6,7 @@ import {Info} from "../../components/Info"
 import { useDispatch,useSelector } from 'react-redux';
 import { getFetchContactUs } from '../../store/action/ContactUsAction';
 import { getfetchContact, getfetchSendMail } from '../../store/action/HomeAction';
+
 export function ContactUs() {
     const {ContactUs} = useSelector((state)=>state?.ContactUs)
 
