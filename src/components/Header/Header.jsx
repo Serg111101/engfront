@@ -125,6 +125,9 @@ export function Header() {
                 {el?.title}
               </div>
             ))}
+            <div className={" item"} onClick={()=>{navigate('/Class')}} >
+              Դասարաններ
+            </div>
 
             <div className="selectDiv">
               <ReactFlagsSelect
@@ -164,3 +167,5 @@ export function Header() {
     </header>
   );
 }
+            
+                     

@@ -7,9 +7,11 @@ import { Loading } from "../../components/Loading/Loading";
 
 import { getFetchQuiz } from "../../store/action/LessonAction";
 import { useNavigate } from "react-router-dom";
+import { addQuizChild } from "../../store/action/QuizChildAction";
 export const Quiz = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { Quiz, loading } = useSelector((state) => state.Quiz);
   const [pupilQuestion, setPupilQuestion] = useState({
     attempts: 0,
@@ -44,18 +46,29 @@ export const Quiz = () => {
     }
   }, [question, Quiz]);
 
-  useEffect(()=>{
-    console.log(question,"=",Quiz.length)
-    if(pupilQuestion.correct.length + pupilQuestion.incorrect.length==Quiz.length){
-      
-      localStorage.setItem("attempts",JSON.stringify({
-            ...pupilQuestion,
-            attempts: pupilQuestion?.attempts + 1,
-            lesson:Quiz[0]?.lesson
-          }))
+  useEffect(() => {
+    if (
+      pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
+      Quiz?.length
+    ) {
+      localStorage.setItem(
+        "attempts",
+        JSON.stringify({
+          ...pupilQuestion,
+          lesson: Quiz[0]?.lesson,
+        })
+      );
 
+      dispatch(
+        addQuizChild({
+          ...pupilQuestion,
+          lesson: Quiz[0]?.lesson,
+          teache_id: 1,
+          children_id: 1,
+        })
+      );
     }
-  },[pupilQuestion])
+  }, [pupilQuestion]);
 
   async function next() {
     if (question < Quiz.length - 1) {
@@ -120,13 +133,13 @@ export const Quiz = () => {
       ) {
         const sumo = sessionStorage.getItem("count");
         let countStorage = JSON.parse(sumo);
-       
+
         sessionStorage.setItem("count", JSON.stringify(++countStorage));
       }
-    //   setPupilQuestion({
-    //     ...pupilQuestion,
-    //     attempts: pupilQuestion?.attempts + 1,
-    //   });
+      //   setPupilQuestion({
+      //     ...pupilQuestion,
+      //     attempts: pupilQuestion?.attempts + 1,
+      //   });
 
       setFinish(true);
     }
@@ -144,64 +157,67 @@ export const Quiz = () => {
           {Quiz[0]?.button[3]}
         </button>
       </div>
-     { !wrongAnswer && <div>
-        {loading  ? (
-          <Loading />
-        ) : finish ? (
-          <div className="answer_next">
-            <p>
-              {Quiz[0]?.button[0]}
-              {count}/{Quiz.length}
-            </p>
-            {pupilQuestion.incorrect.length > 0 && (
+      {!wrongAnswer && (
+        <div>
+          {loading ? (
+            <Loading />
+          ) : finish ? (
+            <div className="answer_next">
+              <p>
+                {Quiz[0]?.button[0]}
+                {count}/{Quiz.length}
+              </p>
+              {pupilQuestion.incorrect.length > 0 && (
+                <button
+                  onClick={() => {
+                    setWrongAnswer(true);
+                  }}
+                >
+                  Տեսնել սխալ պատասխանները
+                </button>
+              )}
               <button
                 onClick={() => {
-                  setWrongAnswer(true);
+                  navigate("/Lessons");
                 }}
               >
-                Տեսնել սխալ պատասխանները
+                {" "}
+                {Quiz[0]?.button[1]}{" "}
               </button>
-            )}
-            <button
-              onClick={() => {
-                navigate("/Lessons");
-              }}
-            >
-              {" "}
-              {Quiz[0]?.button[1]}{" "}
-            </button>
-          </div>
-        ) : (
-          <div className="quiz">
-            <div>
-              <h1>{Quiz[question]?.question}</h1>
             </div>
-            <div className="item">
-              {answer.length > 0 &&
-                answer?.map((el, index) => (
-                  <div
-                    key={index}
-                    className={active === el ? "itemdivs" : "itemdiv"}
-                    onClick={() => {
-                      correctAnswer(el);
-                    }}
-                  >
-                    <p>{el}</p>
-                  </div>
-                ))}
+          ) : (
+            <div className="quiz">
+              <div>
+                <h1>{Quiz[question]?.question}</h1>
+              </div>
+              <div className="item">
+                {answer.length > 0 &&
+                  answer?.map((el, index) => (
+                    <div
+                      key={index}
+                      className={active === el ? "itemdivs" : "itemdiv"}
+                      onClick={() => {
+                        correctAnswer(el);
+                      }}
+                    >
+                      <p>{el}</p>
+                    </div>
+                  ))}
+              </div>
+              <button
+                className={active ? "btnActive" : "btnDisable"}
+                onClick={() => {
+                  next();
+                }}
+              >
+                <p>{Quiz[0]?.button[2]}</p>
+              </button>
             </div>
-            <button
-              className={active ? "btnActive" : "btnDisable"}
-              onClick={() => {
-                next();
-              }}
-            >
-              <p>{Quiz[0]?.button[2]}</p>
-            </button>
-          </div>
-        )}
-      </div>}
-     { wrongAnswer &&  <div className="inanswer_next">
+          )}
+        </div>
+      )}
+      {wrongAnswer && (
+        <div className="inanswer_next">
           {wrongAnswer &&
             pupilQuestion.incorrect.map((el) => (
               <div>
@@ -209,15 +225,16 @@ export const Quiz = () => {
                 <p>{el.answer}</p>
               </div>
             ))}
-             <button
-              onClick={() => {
-                navigate("/Lessons");
-              }}
-            >
-              {" "}
-              {Quiz[0]?.button[1]}{" "}
-            </button>
-        </div>}
+          <button
+            onClick={() => {
+              navigate("/Lessons");
+            }}
+          >
+            {" "}
+            {Quiz[0]?.button[1]}{" "}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
