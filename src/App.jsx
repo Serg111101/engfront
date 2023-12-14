@@ -29,7 +29,6 @@ function App() {
   }, [a]);
 
   useEffect(()=>{
-    console.log(auth);
     if(!auth.accessToken){
       navigate('/login')
     }

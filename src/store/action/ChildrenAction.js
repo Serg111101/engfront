@@ -12,7 +12,6 @@ export const getFetchChildren = () => {
         try{
             dispatch(fetchingChildren());
             const response =await axios.get(`${URL}getChildren/1/1`);           
-         console.log(response);
             await dispatch(fetchChildren(response?.data));
         }
         catch(error){
@@ -27,7 +26,6 @@ export const addChildren = (obj) => {
     return async (dispatch)=>{
          try{
             dispatch(fetchingChildren());
-            console.log(obj);
             const response =await axios.post(`${URL}addCHildren`,obj); 
 
         }
@@ -41,7 +39,6 @@ export const editChildren = (obj) => {
     return async (dispatch)=>{
          try{
             dispatch(fetchingChildren());
-            console.log(obj,'obj');
             const response =await axios.put(`${URL}editChildren/${obj.id}`,obj); 
 
         }

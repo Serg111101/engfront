@@ -12,7 +12,6 @@ export function Lesson() {
   const dispatch = useDispatch();
   const { Lesson,loading } = useSelector((state) => state.Lesson);
   const Background = Lesson[0]?.background;
-console.log(Lesson);
   const count = parseInt(sessionStorage.getItem('count') || '1');
 
   useEffect(() => {

@@ -51,7 +51,6 @@ const Login = () => {
 //       console.error(error);
 //     }
 //   };
-console.log({login,password})
   const loginReq = async (e) => {
     e.preventDefault();
     try {

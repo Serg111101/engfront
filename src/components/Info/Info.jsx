@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 
 export function Info () {
   const {Contact} = useSelector((state)=>state.Contact);
-  console.log(Contact);
   return (
     <div className='Info'>
       <div className='info_container'>

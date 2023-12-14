@@ -18,7 +18,6 @@ export const ClassPage = () => {
 
     },[dispatch])
 
-console.log(Class);
 
     const [ClassArray,setClassArray]=useState([
         {

@@ -30,7 +30,6 @@ export const Quiz = () => {
     }
    
   }, [dispatch]);
-  console.log(pupilQuestion);
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -105,7 +104,6 @@ export const Quiz = () => {
         Quiz[question]?.correctAnswer === corectAnswers &&
         count <= question
       ) {
-        console.log(888888888888);
         await setPupilQuestion({
           ...pupilQuestion,
           correct: [
@@ -115,7 +113,6 @@ export const Quiz = () => {
         });
         setCount(++count);
       } else {
-        console.log(88888888888899);
 
         await setPupilQuestion({
           ...pupilQuestion,

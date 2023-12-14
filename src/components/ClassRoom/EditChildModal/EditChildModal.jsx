@@ -17,7 +17,6 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
     }, [img])
     
     const uploadImageHandler = async (e) => {
-        console.log(e.target.files[0], 'e');
         dispatch(uploadImageHandleradd(e, setImg));
     };
 

@@ -14,7 +14,6 @@ export const ClassItem = () => {
 useEffect(()=>{
     dispatch(getFetchChildren())
 },[dispatch])
-console.log(Children,"kljlhgf");
     const [childArray, setChildArray] = useState([
         {
             id: 1,
@@ -44,11 +43,9 @@ console.log(Children,"kljlhgf");
     const [editChild, setEditChild] = useState(false)
 
     function saveChild(child, setError) {
-        console.log(child, 'child');
         dispatch(addChildren({...child,teacher_id:1,bookNumber:2,level:1,classNumber:1}))
     }
     function EditChild(child, setError) {
-        console.log(child, 'child');
 
         dispatch(editChildren(child))
     }
