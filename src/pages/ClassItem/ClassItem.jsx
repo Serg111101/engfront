@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './ClassItem.scss'
 import { DeleteOutlined, EditOutlined, FolderViewOutlined } from '@ant-design/icons'
 import { AddChildModal } from '../../components/ClassRoom/AddChildModal/AddChildModal'
 import { EditChildModal } from '../../components/ClassRoom/EditChildModal/EditChildModal'
+import { addChildren, editChildren, getFetchChildren } from '../../store/action/ChildrenAction'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const ClassItem = () => {
     const { name } = useParams()
+    const dispatch = useDispatch();
+  const { Children, loading } = useSelector((state) => state.Children);
+useEffect(()=>{
+    dispatch(getFetchChildren())
+},[dispatch])
+console.log(Children,"kljlhgf");
     const [childArray, setChildArray] = useState([
         {
             id: 1,
@@ -37,9 +45,12 @@ export const ClassItem = () => {
 
     function saveChild(child, setError) {
         console.log(child, 'child');
+        dispatch(addChildren({...child,teacher_id:1,bookNumber:2,level:1,classNumber:1}))
     }
     function EditChild(child, setError) {
         console.log(child, 'child');
+
+        dispatch(editChildren(child))
     }
     return (
         <div className='ClassItem'>
@@ -59,16 +70,16 @@ export const ClassItem = () => {
                         </thead>
                         <tbody>
                             {
-                                childArray?.map((el) => <tr>
-                                    <td><img src={el.picture} alt="" /></td>
-                                    <td><strong>{el.number}</strong></td>
-                                    <td>{el.fullname}</td>
+                                Children?.map((el) => <tr>
+                                    <td><img src={el?.picture} alt="" /></td>
+                                    <td><strong>{el?.bookNumber}</strong></td>
+                                    <td>{el.fullName}</td>
                                     <td>{el.level}</td>
                                     <td className=' editdelete'>
                                         <EditOutlined className='edit'  onClick={() => { setEditChild(el) }}/>
                                         <DeleteOutlined className='delete' />
                                     </td>
-                                    <td><FolderViewOutlined /></td>
+                                    <td><FolderViewOutlined  /></td>
                                 </tr>)
                             }
 

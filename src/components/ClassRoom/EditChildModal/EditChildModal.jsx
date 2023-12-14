@@ -34,7 +34,7 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
                         </label>
                         <input type="file" accept="image/*" id='upload' name='upload' value={""} style={{ display: 'none' }} onChange={uploadImageHandler} />
                     </div>
-                    <input className={error && "errorInput"} type="text"  placeholder='Անուն Ազգանուն' value={editChild?.fullname} onChange={(e) => { setEditChild({ ...editChild, fullname: e.target.value }); setError(false) }} />
+                    <input className={error && "errorInput"} type="text"  placeholder='Անուն Ազգանուն' value={editChild?.fullName} onChange={(e) => { setEditChild({ ...editChild, fullName: e.target.value }); setError(false) }} />
                     {error && <p>Դաշտը չի կարող դատարկ լինել *</p>}
                     <input className={error && "errorInput"} type="text"  placeholder='Համարը' value={editChild?.number} onChange={(e) => { setEditChild({ ...editChild, number: e.target.value }); setError(false) }} />
                     {error && <p>Դաշտը չի կարող դատարկ լինել *</p>}

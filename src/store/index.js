@@ -18,6 +18,8 @@ import FooterReducer from './slice/FooterSlicee';
 import SendMailReducer from './slice/SendMailSlice';
 import SatellitesSliceReducer from './slice/SatellitesSlice';
 import QuizSateliteReducer from './slice/QuizSateliteSlice';
+import ChildrenReducer from './slice/ChildrenSlice';
+import ClassReducer from './slice/ClassSlice'
 const store = configureStore({
   reducer: {
     HomeHeaderr:HomeHeaderReducer,
@@ -39,6 +41,8 @@ const store = configureStore({
     SendMail:SendMailReducer,
     Satellites:SatellitesSliceReducer,
     QuizSatelite:QuizSateliteReducer,
+    Children:ChildrenReducer,
+    Class:ClassReducer,
   }
 })
 

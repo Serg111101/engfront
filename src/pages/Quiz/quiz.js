@@ -13,7 +13,9 @@ export const Quiz = () => {
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
-  const [pupilQuestion, setPupilQuestion] = useState({
+  const [pupilQuestion, setPupilQuestion] = useState(
+ 
+    {
     attempts: 0,
     correct: [],
     incorrect: [],
@@ -26,6 +28,7 @@ export const Quiz = () => {
       const Quizs = JSON.parse(quz);
       dispatch(getFetchQuiz(Quizs));
     }
+   
   }, [dispatch]);
   console.log(pupilQuestion);
   let [question, setQuestion] = useState(0);
@@ -63,10 +66,11 @@ export const Quiz = () => {
         addQuizChild({
           ...pupilQuestion,
           lesson: Quiz[0]?.lesson,
-          teache_id: 1,
+          teacher_id: 1,
           children_id: 1,
         })
       );
+
     }
   }, [pupilQuestion]);
 

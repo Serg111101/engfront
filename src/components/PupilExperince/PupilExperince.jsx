@@ -55,6 +55,7 @@ export function PupilExperince() {
               });
             }
 
+
             return rows;
           })}
         </tbody>

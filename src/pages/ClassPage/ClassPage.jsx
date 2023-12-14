@@ -1,12 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ClassPage.scss'
 import { AddClassModal } from '../../components/ClassRoom/AddClassRoom/AddClassModal'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getClass,addclass } from '../../store/action/ClassAction';
 
 
 export const ClassPage = () => {
     const navigate = useNavigate();
-    
+    const dispatch=useDispatch();
+
+    const {Class}=useSelector(state=>state.Class)
+
+    useEffect(()=>{
+     dispatch(getClass())
+     
+
+    },[dispatch])
+
+console.log(Class);
+
     const [ClassArray,setClassArray]=useState([
         {
             id:1,
@@ -33,15 +46,16 @@ export const ClassPage = () => {
     ])
     const [addClassModal,setAddClassModal]=useState(false)
     
-    function addClass(newClassValue,setError){
+  async  function addClass(newClassValue,setError){
         if(!newClassValue.trim()){
             setError(true)
         }else{
             let newClass={
-            id:Math.floor(Math.random() * 9000),
             name:newClassValue
         }
         setClassArray([...ClassArray,newClass])
+       await dispatch(addclass(newClass))
+        await dispatch(getClass())
         setAddClassModal(false)
         }
     }
@@ -51,7 +65,7 @@ export const ClassPage = () => {
         <h1>Դասարաններ</h1>
         <div className=' ClassArray' >
             {
-                ClassArray?.map((el)=><div onClick={()=>{navigate(`/Class/${el.name}`)}} key={el.id} className='ClassItemDiv'>
+                Class?.map((el)=><div onClick={()=>{navigate(`/Class/${el.name}`)}} key={el.id} className='ClassItemDiv'>
                     <h2>{el.name}</h2>
                 </div>)
             }
