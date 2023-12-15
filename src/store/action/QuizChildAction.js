@@ -22,17 +22,17 @@ export const addQuizChild = () => {
 }
 
 
-export const getAboutOutTeam = () => {
-    return async (dispatch)=>{
-        try{
-            dispatch(fetchingAboutOurTeam());
-            const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
-            dispatch(fetchAboutOurTeam(response?.data));
-        }
-        catch(error){
-            console.log(error,'error');
-            dispatch(fetchErrorAboutOurTeam(error));
-        }
+// export const getAboutOutTeam = () => {
+//     return async (dispatch)=>{
+//         try{
+//             dispatch(fetchingAboutOurTeam());
+//             const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
+//             dispatch(fetchAboutOurTeam(response?.data));
+//         }
+//         catch(error){
+//             console.log(error,'error');
+//             dispatch(fetchErrorAboutOurTeam(error));
+//         }
 
-    }
-}
+//     }
+// }
