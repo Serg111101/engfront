@@ -5,6 +5,7 @@ import { getFetchLectures, getFetchLesson, getFetchQuiz } from '../../store/acti
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Loading } from "../../components/Loading/Loading";
+import useAuth from '../../hooks/AdminHooks/useAuth';
 
 export function Lesson() {
   const navigate = useNavigate();
@@ -12,14 +13,11 @@ export function Lesson() {
   const dispatch = useDispatch();
   const { Lesson,loading } = useSelector((state) => state.Lesson);
   const Background = Lesson[0]?.background;
-console.log(Lesson);
-  const count = parseInt(sessionStorage.getItem('count') || '1');
-
+  const [count,setCount] = useState(1)
+const {auth} =useAuth()
   useEffect(() => {
-    if (!sessionStorage.getItem('count')) {
-      sessionStorage.setItem('count', '1');
-    }
-  }, []);
+  setCount(auth?.level)
+  }, [auth]);
 
   useEffect(() => {
     dispatch(getFetchLesson());

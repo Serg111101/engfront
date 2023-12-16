@@ -1,89 +1,94 @@
 import React, { useEffect, useState } from 'react';
 import './PupilExperince.scss';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {  useNavigate, useParams } from 'react-router-dom';
+import { getQuizChild } from '../../store/action/QuizChildAction';
+import useAuth from '../../hooks/AdminHooks/useAuth';
 
 export function PupilExperince() {
-  const [experience,setExperience] =useState([localStorage.getItem('attempts')]||[])
 
-  useEffect(()=>{
-    if (localStorage.getItem('attempts')) {
-      const loc = localStorage.getItem('attempts');
-      const cou = JSON.parse(loc);
-      setExperience([cou])
-    }
-  },[localStorage.getItem('attempts')])
-console.log(experience);
+  const dispatch = useDispatch();
+  const { name } = useParams(); 
+  const { auth } = useAuth();
+const navigate = useNavigate()
+  const { QuizChild, loading } = useSelector(state => state.QuizChild)
+
+  useEffect(() => {
+    dispatch(getQuizChild({ teacher_id: auth?.id, children_id: name }));
+  }, [dispatch, auth, name]);
+const [view,setView] = useState(false)
+console.log(view)
   return (
-//     <div className="PupilExperince">
-// {experience?.map((el)=><div>
-//        <h1>{el?.lesson}</h1>
-//        <span>{el?.attempts}</span>
-//       <div>
-//         <h1>Chisht Patasxanerr</h1>
-//           { el?.correct?.map((item) => (
-//               <div>
-//                 <h1>{item?.question}</h1>
-//                 <p>{item?.answer}</p>
-//               </div>
-//             ))}
-//             </div>
-//             <div>
-//         <h1>sxal Patasxanerr</h1>
-//           { el?.incorrect?.map((item) => (
-//               <div>
-//                 <h1>{item?.question}</h1>
-//                 <p>{item?.answer}</p>
-//               </div>
-//             ))}
-//             </div>
-//             </div>
-//             )}
-//              <button
-//               onClick={() => {
-//                 navigate("/Lessons");
-//               }}
-//             ></button>
-//     </div>
-<div className="PupilExperience">
-<table>
-  <thead>
-    <tr>
-      <th>Lesson</th>
-      <th>Quesstion</th>
-      <th>Answer</th>
-      <th>Attempts</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    {experience.map(el=><>
- { el?.correct?.map((item,index) => (
-          <tr key={index}>
-            <td>{experience[0].lesson}</td>
-            <td>{item?.question}</td>
-            <td>{item?.answer}</td>
-            <td>{experience[0].attempts}</td>
-
+    <div className="PupilExperience">
+        <table>
+      <thead>
+          <tr>
+            <th>Lesson</th>
+            <th>Question count</th>
+            <th>Corect Answer count</th>
+            <th>view</th>
           </tr>
-    ))}
-      {el?.incorrect?.map((item,index) => (
-          <tr key={index}>
-            <td>{experience[0].lesson}</td>
-            <td>{item?.question}</td>
-            <td>{item?.answer}</td>
-            <td>{experience[0].attempts}</td>
-
+        </thead>
+      
+        
+        <tbody>
+      {QuizChild.length>0 &&QuizChild.map(el=> 
+        <tr >
+                      <td>{el?.lesson}</td>
+                      <td>{el.incorrect?.length + el.correct?.length}</td>
+                      <td>{el.correct?.length}</td>
+                      <td onClick={()=>setView([el])}>View</td>
+                    </tr>
+       )}
+ </tbody>
+         </table>
+      {QuizChild.length>0  && view && 
+      <table>
+        <thead>
+          <tr>
+            <th>Lesson</th>
+            <th>Question</th>
+            <th>Answer</th>
           </tr>
-    ))}
-   </> )}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+         { view?.map((el, index) => {
+            const rows = [];
+            for (let i = 1; i <= (el.incorrect?.length + el.correct?.length); i++) {
+              el?.correct?.forEach((item, indexx) => {
+                if (item?.question?.split(".")[0] == i) {
+                  rows.push(
+                    <tr key={indexx}>
+                      <td>{el?.lesson}</td>
+                      <td>{item?.question}</td>
+                      <td>{item?.answer}</td>
+                    </tr>
+                  );
+                }
+              });
+
+              el?.incorrect?.forEach((item, indexx) => {
+                if (+item?.question?.split(".")[0] === i) {
+                  rows.push(
+                    <tr key={indexx}>
+                      <td>{el.lesson}</td>
+                      <td style={{color:"red"}} >{item?.question}</td>
+                      <td style={{color:"red"}} >{item?.answer}</td>
+                    </tr>
+                  );
+                }
+              });
+            }
 
 
-
-<button onClick={() => { /* Handle button click */ }}>
-  Go to Lessons
-</button>
-</div>
+            return rows;
+          })}
+        </tbody>
+      </table>}
+ {!QuizChild.length && <p>Datark e</p> }
+      <button onClick={() => { navigate(-2) }}>
+        Հետ
+      </button>
+    </div>
   );
 }

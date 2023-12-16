@@ -8,11 +8,11 @@ if(localStorage.getItem("language")){
     LocalValue = JSON.parse(local);  
 }
 
-export const addQuizChild = () => {
+export const addQuizChild = (obj) => {
     return async (dispatch)=>{
-        try{
+         try{
             dispatch(fetchingQuizChild());
-            const response =await axios.post(`${URL}/addTest`); 
+            const response =await axios.post(`${URL}addTest`,obj); 
         }
         catch(error){
             console.log(error,'error');
@@ -21,18 +21,21 @@ export const addQuizChild = () => {
     }
 }
 
+export const getQuizChild = (obj) => {
+    console.log('====================================');
+    console.log(obj);
+    console.log('====================================');
+    return async (dispatch)=>{
+        try{
+            dispatch(fetchingQuizChild());
+            const response =await axios.get(`${URL}/getTest/${obj.teacher_id}/${obj.children_id}`); 
+            console.log('====================================');
+            console.log(response?.data);
+            console.log('====================================');
+            dispatch(fetchQuizChild(response?.data))
+        }
+        catch(error){
+            console.log(error,'error');
+        }
 
-// export const getAboutOutTeam = () => {
-//     return async (dispatch)=>{
-//         try{
-//             dispatch(fetchingAboutOurTeam());
-//             const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
-//             dispatch(fetchAboutOurTeam(response?.data));
-//         }
-//         catch(error){
-//             console.log(error,'error');
-//             dispatch(fetchErrorAboutOurTeam(error));
-//         }
-
-//     }
-// }
+    }}

@@ -1,0 +1,105 @@
+.ClassPage{
+    background-image: url(../../../public/image/gif3.gif);
+    color: white;
+    padding-top: 100px;
+    width: 100%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .ClassArray{
+        width: 90%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 30px;
+        justify-content: center;
+
+        .ClassItemDiv{
+            margin: 40px 0;
+            background-image: url(../../../public/image/empty-classroom-interior-with-chalkboard_1308-65378.avif);
+            background-size: contain ;
+            background-repeat:no-repeat ;
+            background-position: center;
+            border-radius: 25px;
+            height: 220px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+            align-items: center;
+            transition: all .3s linear;
+            cursor: pointer;
+.ClassItemName{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+            &:hover {
+               
+                transform: scale(1.1);
+                box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327) ;
+            }
+            &:hover .editdelete{
+                display: flex;
+                 }
+            
+            h2{
+                margin-top: 70px;
+                // margin-bottom: 20px;
+                font-size: 34px;
+                line-height: 0;
+                color: white;
+            }
+            
+        }
+     
+        .editdelete{
+            width: 99%;
+            display: none;
+            justify-content: space-around;
+            background: rgba(71, 213, 52, 0.482);
+            align-items: center;
+            height: 60px;
+            border-radius:0px 0px 25px 25px;
+        }
+    }
+    .addClassItem{
+        margin: 40px 0;
+        background-image: url(../../../public/image/gif1.gif);
+        background-repeat:no-repeat ;
+        background-position: center;
+        border-radius: 25px;
+        height: 220px;
+        width: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all .3s linear;
+        cursor: pointer;
+        color: white;
+        font-size: 20px;
+        &:hover{
+            transform: scale(1.1);
+            box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327) ;
+        }
+    }
+    @media (max-width:1400px) {
+        .ClassArray{
+            grid-template-columns:auto auto auto;
+        }
+    }
+    @media (max-width:1100px) {
+        .ClassArray{
+            grid-template-columns: auto auto;
+        }
+    }
+    @media (max-width:700px) {
+        .ClassArray{
+            grid-template-columns: auto;
+        }
+    }
+}

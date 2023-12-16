@@ -8,6 +8,8 @@ import { Loading } from "../../components/Loading/Loading";
 import { getFetchQuiz } from "../../store/action/LessonAction";
 import { useNavigate } from "react-router-dom";
 import { addQuizChild } from "../../store/action/QuizChildAction";
+import useAuth from "../../hooks/AdminHooks/useAuth";
+import { editChildren } from "../../store/action/ChildrenAction";
 export const Quiz = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ export const Quiz = () => {
     correct: [],
     incorrect: [],
   });
+  const {auth} = useAuth()
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [active, setActive] = useState(false);
   useEffect(() => {
@@ -30,7 +33,6 @@ export const Quiz = () => {
     }
    
   }, [dispatch]);
-  console.log(pupilQuestion);
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -48,24 +50,38 @@ export const Quiz = () => {
       setAnswer(answers);
     }
   }, [question, Quiz]);
+  async function EditChild() {
+     let obj = {...auth,level:auth?.level+1}
+     localStorage.setItem('auth',JSON.stringify(obj))
+    delete obj.accessToken
+    delete obj.refreshToken
+    await dispatch(editChildren(obj))
+ 
+ }
+  useEffect(() => {
+    if (
+      pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
+      Quiz?.length
+    ) {
+      localStorage.setItem(
+        "attempts",
+        JSON.stringify({
+          ...pupilQuestion,
+          lesson: Quiz[0]?.lesson,
+        })
+      );
 
-  useEffect(()=>{
-    if(pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length==Quiz?.length){
-      
-      localStorage.setItem("attempts",JSON.stringify({
-            ...pupilQuestion,
-            lesson:Quiz[0]?.lesson
-          }))
-
-         dispatch(addQuizChild({
-            ...pupilQuestion,
-            lesson:Quiz[0]?.lesson,
-            teache_id:1,
-            children_id:1
-          }))
+      dispatch(
+        addQuizChild({
+          ...pupilQuestion,
+          lesson: Quiz[0]?.lesson,
+          teacher_id: auth?.teacher_id,
+          children_id: auth?.id,
+        })
+      );
 
     }
-  },[pupilQuestion])
+  }, [pupilQuestion]);
 
   async function next() {
     if (question < Quiz.length - 1) {
@@ -98,7 +114,6 @@ export const Quiz = () => {
         Quiz[question]?.correctAnswer === corectAnswers &&
         count <= question
       ) {
-        console.log(888888888888);
         await setPupilQuestion({
           ...pupilQuestion,
           correct: [
@@ -108,7 +123,6 @@ export const Quiz = () => {
         });
         setCount(++count);
       } else {
-        console.log(88888888888899);
 
         await setPupilQuestion({
           ...pupilQuestion,
@@ -126,17 +140,18 @@ export const Quiz = () => {
 
       if (
         count >= ((Quiz?.length * 80) / 100).toFixed(2) &&
-        lesons === countStorag
+        lesons === auth?.level
       ) {
         const sumo = sessionStorage.getItem("count");
         let countStorage = JSON.parse(sumo);
-        
+           
         sessionStorage.setItem("count", JSON.stringify(++countStorage));
+        EditChild()
       }
-    //   setPupilQuestion({
-    //     ...pupilQuestion,
-    //     attempts: pupilQuestion?.attempts + 1,
-    //   });
+      //   setPupilQuestion({
+      //     ...pupilQuestion,
+      //     attempts: pupilQuestion?.attempts + 1,
+      //   });
 
       setFinish(true);
     }
@@ -154,64 +169,67 @@ export const Quiz = () => {
           {Quiz[0]?.button[3]}
         </button>
       </div>
-     { !wrongAnswer && <div>
-        {loading  ? (
-          <Loading />
-        ) : finish ? (
-          <div className="answer_next">
-            <p>
-              {Quiz[0]?.button[0]}
-              {count}/{Quiz.length}
-            </p>
-            {pupilQuestion.incorrect.length > 0 && (
+      {!wrongAnswer && (
+        <div>
+          {loading ? (
+            <Loading />
+          ) : finish ? (
+            <div className="answer_next">
+              <p>
+                {Quiz[0]?.button[0]}
+                {count}/{Quiz.length}
+              </p>
+              {pupilQuestion.incorrect.length > 0 && (
+                <button
+                  onClick={() => {
+                    setWrongAnswer(true);
+                  }}
+                >
+                  Տեսնել սխալ պատասխանները
+                </button>
+              )}
               <button
                 onClick={() => {
-                  setWrongAnswer(true);
+                  navigate("/Lessons");
                 }}
               >
-                Տեսնել սխալ պատասխանները
+                {" "}
+                {Quiz[0]?.button[1]}{" "}
               </button>
-            )}
-            <button
-              onClick={() => {
-                navigate("/Lessons");
-              }}
-            >
-              {" "}
-              {Quiz[0]?.button[1]}{" "}
-            </button>
-          </div>
-        ) : (
-          <div className="quiz">
-            <div>
-              <h1>{Quiz[question]?.question}</h1>
             </div>
-            <div className="item">
-              {answer.length > 0 &&
-                answer?.map((el, index) => (
-                  <div
-                    key={index}
-                    className={active === el ? "itemdivs" : "itemdiv"}
-                    onClick={() => {
-                      correctAnswer(el);
-                    }}
-                  >
-                    <p>{el}</p>
-                  </div>
-                ))}
+          ) : (
+            <div className="quiz">
+              <div>
+                <h1>{Quiz[question]?.question}</h1>
+              </div>
+              <div className="item">
+                {answer.length > 0 &&
+                  answer?.map((el, index) => (
+                    <div
+                      key={index}
+                      className={active === el ? "itemdivs" : "itemdiv"}
+                      onClick={() => {
+                        correctAnswer(el);
+                      }}
+                    >
+                      <p>{el}</p>
+                    </div>
+                  ))}
+              </div>
+              <button
+                className={active ? "btnActive" : "btnDisable"}
+                onClick={() => {
+                  next();
+                }}
+              >
+                <p>{Quiz[0]?.button[2]}</p>
+              </button>
             </div>
-            <button
-              className={active ? "btnActive" : "btnDisable"}
-              onClick={() => {
-                next();
-              }}
-            >
-              <p>{Quiz[0]?.button[2]}</p>
-            </button>
-          </div>
-        )}
-      </div>}
-     { wrongAnswer &&  <div className="inanswer_next">
+          )}
+        </div>
+      )}
+      {wrongAnswer && (
+        <div className="inanswer_next">
           {wrongAnswer &&
             pupilQuestion.incorrect.map((el) => (
               <div>
@@ -219,15 +237,16 @@ export const Quiz = () => {
                 <p>{el.answer}</p>
               </div>
             ))}
-             <button
-              onClick={() => {
-                navigate("/Lessons");
-              }}
-            >
-              {" "}
-              {Quiz[0]?.button[1]}{" "}
-            </button>
-        </div>}
+          <button
+            onClick={() => {
+              navigate("/Lessons");
+            }}
+          >
+            {" "}
+            {Quiz[0]?.button[1]}{" "}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

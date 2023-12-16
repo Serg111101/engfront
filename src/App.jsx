@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About us";
 import { Header } from "./components/Header";
@@ -7,34 +7,53 @@ import { ContactUs } from "./pages/ContactUs/ContactUs";
 import { Lesson } from "./pages/Lessons";
 import Infomation from "./pages/infoBlock/infomation";
 import { Quiz } from "./pages/Quiz/quiz";
-import { Scrollbars, } from 'react-custom-scrollbars';
+import { Scrollbars } from "react-custom-scrollbars";
 import { Satellites } from "./pages/Satellites";
 import { QuizSatelite } from "./pages/QuizSatelite";
-import {NotFoundPage} from "./pages/NotFoundPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 import { useEffect } from "react";
-import { PupilExperince } from "./components/PupilExperince";
+import { ClassPage } from "./pages/ClassPage/ClassPage";
+import { ClassItem } from "./pages/ClassItem/ClassItem";
+import { PupilExperince } from "./components/PupilExperince/PupilExperince";
+import { Login } from "./pages/Login";
+import useAuth from "./hooks/AdminHooks/useAuth";
 
 function App() {
-  const a = sessionStorage
-  useEffect(()=>{
-    if(!sessionStorage.getItem("count")){
-      sessionStorage.setItem("count",1)
+  const {auth} = useAuth()
+  const a = sessionStorage;
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!sessionStorage.getItem("count")) {
+      sessionStorage.setItem("count", 1);
     }
-  },[a])
+  }, [a]);
+
+  useEffect(()=>{
+    if(!auth?.accessToken ){
+ 
+      navigate('/login')
+    }else{
+    navigate('/')
+    }
+
+    
+  },[auth])
 
   return (
-    <Scrollbars style={{ width: '100vw',
-     height: '100vh',
-     background:'#68abea',
-     
-    //  background-color:'#68abea'
-     }}
-     autoHide
-     autoHideTimeout={1000}
-     autoHideDuration={200}
-     >
+    <Scrollbars
+      style={{
+        width: "100vw",
+        height: "100vh",
+        background: "#68abea",
+
+        //  background-color:'#68abea'
+      }}
+      autoHide
+      autoHideTimeout={1000}
+      autoHideDuration={200}
+    >
       <div className="App">
-          <Header />
+       {auth?.accessToken &&<Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -44,10 +63,13 @@ function App() {
           <Route path="/Quiz" element={<Quiz />} />
           <Route path="/Satellites" element={<Satellites />} />
           <Route path="/SatelliteQuiz" element={<QuizSatelite />} />
-          <Route path="/PupilExperince" element={<PupilExperince />} />
-          <Route path="*" element={< NotFoundPage/>} />
+          <Route path="/Class" element={<ClassPage />} />
+          <Route path="/Class/:name" element={<ClassItem />} />
+          <Route path="/PupilExperince/:name" element={<PupilExperince />} />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
-          <Footer />
+        {auth?.accessToken&&<Footer />}
       </div>
     </Scrollbars>
   );
