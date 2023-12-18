@@ -22,6 +22,11 @@ export const Quiz = () => {
     correct: [],
     incorrect: [],
   });
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   const {auth} = useAuth()
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [active, setActive] = useState(false);
@@ -51,26 +56,20 @@ export const Quiz = () => {
     }
   }, [question, Quiz]);
   async function EditChild() {
+    if(auth?.role =="children"){
      let obj = {...auth,level:auth?.level+1}
      localStorage.setItem('auth',JSON.stringify(obj))
     delete obj.accessToken
     delete obj.refreshToken
     await dispatch(editChildren(obj))
- 
+    }
  }
   useEffect(() => {
     if (
       pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
-      Quiz?.length
-    ) {
-      localStorage.setItem(
-        "attempts",
-        JSON.stringify({
-          ...pupilQuestion,
-          lesson: Quiz[0]?.lesson,
-        })
-      );
-
+      Quiz?.length && auth?.role ==="children" ) {
+    
+console.log(auth?.role ==="children");
       dispatch(
         addQuizChild({
           ...pupilQuestion,
@@ -133,8 +132,8 @@ export const Quiz = () => {
         });
       }
 
-      const sum = sessionStorage.getItem("count");
-      let countStorag = JSON.parse(sum);
+      // const sum = sessionStorage.getItem("count");
+      // let countStorag = JSON.parse(sum);
       const les = localStorage.getItem("level");
       const lesons = JSON.parse(les);
 
@@ -142,10 +141,10 @@ export const Quiz = () => {
         count >= ((Quiz?.length * 80) / 100).toFixed(2) &&
         lesons === auth?.level
       ) {
-        const sumo = sessionStorage.getItem("count");
-        let countStorage = JSON.parse(sumo);
+        // const sumo = sessionStorage.getItem("count");
+        // let countStorage = JSON.parse(sumo);
            
-        sessionStorage.setItem("count", JSON.stringify(++countStorage));
+        // sessionStorage.setItem("count", JSON.stringify(++countStorage));
         EditChild()
       }
       //   setPupilQuestion({
@@ -185,7 +184,7 @@ export const Quiz = () => {
                     setWrongAnswer(true);
                   }}
                 >
-                  Տեսնել սխալ պատասխանները
+               {LocalValue === "AM" ?  "Տեսնել սխալ պատասխանները" : "See wrong answers"}  
                 </button>
               )}
               <button

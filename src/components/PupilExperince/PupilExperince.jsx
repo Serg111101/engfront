@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { getQuizChild } from '../../store/action/QuizChildAction';
 import useAuth from '../../hooks/AdminHooks/useAuth';
+import { EyeInvisibleOutlined } from '@ant-design/icons';
 
 export function PupilExperince() {
 
@@ -17,16 +18,22 @@ const navigate = useNavigate()
     dispatch(getQuizChild({ teacher_id: auth?.id, children_id: name }));
   }, [dispatch, auth, name]);
 const [view,setView] = useState(false)
+const [rows,setRows] = useState(false)
 console.log(view)
+let LocalValue;
+if (localStorage.getItem("language")) {
+  let local = localStorage.getItem("language");
+  LocalValue = JSON.parse(local);
+}
   return (
-    <div className="PupilExperience">
-        <table>
+    <div className={QuizChild.length>0 ?"PupilExperience":"emptyExperince"}>
+      { QuizChild.length>0 && !view && <table>
       <thead>
           <tr>
-            <th>Lesson</th>
-            <th>Question count</th>
-            <th>Corect Answer count</th>
-            <th>view</th>
+            <th>{LocalValue==="AM"? "Դաս":"Lesson"}</th>
+            <th>{LocalValue==="AM"? "Հարցերի քանակը":"Number of questions"}</th>
+            <th>{LocalValue==="AM"? "Ճիշտ պատասխաններ քանակ":"Number of correct answers"}</th>
+            <th><EyeInvisibleOutlined /></th>
           </tr>
         </thead>
       
@@ -37,23 +44,26 @@ console.log(view)
                       <td>{el?.lesson}</td>
                       <td>{el.incorrect?.length + el.correct?.length}</td>
                       <td>{el.correct?.length}</td>
-                      <td onClick={()=>setView([el])}>View</td>
+                      <td onClick={()=>{setView([el]),setRows([])}}><EyeInvisibleOutlined /></td>
                     </tr>
        )}
  </tbody>
-         </table>
-      {QuizChild.length>0  && view && 
+         </table>}
+      {view.length>0  && view && 
       <table>
         <thead>
           <tr>
             <th>Lesson</th>
             <th>Question</th>
             <th>Answer</th>
+            <th>{LocalValue==="AM"? "Դաս":"Lesson"}</th>
+            <th>{LocalValue==="AM"? "Հարց":"Questions"}</th>
+            <th>{LocalValue==="AM"? "Պատասխան":"Answers"}</th>
           </tr>
         </thead>
         <tbody>
          { view?.map((el, index) => {
-            const rows = [];
+          
             for (let i = 1; i <= (el.incorrect?.length + el.correct?.length); i++) {
               el?.correct?.forEach((item, indexx) => {
                 if (item?.question?.split(".")[0] == i) {
@@ -86,9 +96,11 @@ console.log(view)
         </tbody>
       </table>}
  {!QuizChild.length && <p>Datark e</p> }
-      <button onClick={() => { navigate(-2) }}>
-        Հետ
-      </button>
+    {view ? <button onClick={() => { setView('') }}>
+      {LocalValue==="AM"?"Հետ":"Prev"}
+      </button> :   <button onClick={() => { navigate(-2) }}>
+      {LocalValue==="AM"?"Հետ":"Prev"}
+      </button>}
     </div>
   );
 }

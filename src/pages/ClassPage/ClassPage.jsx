@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getClass,addclass, editeClass, deleteClass } from '../../store/action/ClassAction';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import Swal from 'sweetalert2';
 
 
 export const ClassPage = () => {
@@ -47,6 +48,29 @@ export const ClassPage = () => {
         await dispatch(getClass())
         setEditClassModal(false)
      }
+   async function DeleteItem({ title, text, deleteItem }) {
+        Swal.fire({
+          title: title,
+          text: text,
+          icon: "warning",
+          showCancelButton: true,
+          cancelButtonText: "Ոչ",
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Այո",
+        }).then((result) => {
+          if (result?.isConfirmed) {
+            deleteItem();
+          }
+        });
+      }
+      async function deleteItemS(id) {
+        DeleteItem({
+          title: "Ցանկանում եք ջնջել՞",
+          text: "Ջնջելու դեպքում վերականգնել չեք կարող",
+          deleteItem: () => deleteItem(id),
+        });
+      }
      async function deleteItem(item){
       
          await dispatch(deleteClass(item))
@@ -54,10 +78,14 @@ export const ClassPage = () => {
  
  
      }
-
+     let LocalValue;
+     if (localStorage.getItem("language")) {
+       let local = localStorage.getItem("language");
+       LocalValue = JSON.parse(local);
+     }
   return (
     <div className='ClassPage'>
-        <h1>Դասարաններ</h1>
+        <h1>{LocalValue === "AM" ?  "Դասարաններ" : "Classes"}</h1>
         <div className=' ClassArray' >
             {
                 Class?.map((el)=><div className='ClassItemDiv'><div onClick={()=>{navigate(`/Class/${el.name}`)}} key={el.id} className='ClassItemName'>
@@ -66,11 +94,11 @@ export const ClassPage = () => {
                 </div>
                 <div className=' editdelete'>
                                         <EditOutlined className='edit'  onClick={() => { setEditClassModal(el) }}/>
-                                        <DeleteOutlined className='delete' onClick={()=>{deleteItem(el)}} />
+                                        <DeleteOutlined className='delete' onClick={()=>{deleteItemS(el)}} />
                    </div></div>)
             }
             <div className=' addClassItem' onClick={()=>{setAddClassModal(true)}}>
-                +<h2>Ավելացնել դասարան</h2>
+                +<h2>{LocalValue === "AM" ?  "Ավելացնել դասարան" : "ADD Classes"}</h2>
             </div>
         </div>
         {
@@ -80,6 +108,8 @@ export const ClassPage = () => {
             editClassModal&&<EditClassModal setEditClassModal={setEditClassModal} editClassModal={editClassModal} EditClass={EditClass}/>
 
         }
+        <button className='btn' onClick={() => {navigate("/") }}> {LocalValue === "AM" ?  "Հետ" : "Prev"}</button>
+
     </div>
   )
 }

@@ -49,6 +49,11 @@ export function Header() {
     navigate("/");
     window.location.reload();
   }
+  let LocalValue;
+if (localStorage.getItem("language")) {
+  let local = localStorage.getItem("language");
+  LocalValue = JSON.parse(local);
+}
 
   const navigate = useNavigate();
   const [mobile, setMobile] = useState(false);
@@ -128,7 +133,7 @@ export function Header() {
               </div>
             ))}
           {auth?.role === 'admin' &&  <div className={" item"} onClick={()=>{navigate('/Class')}} >
-              Դասարաններ
+              {LocalValue == "AM"? "Դասարաններ":"Classes"}
             </div>}
 
             <div className="selectDiv">

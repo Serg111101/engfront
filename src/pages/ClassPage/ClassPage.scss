@@ -66,6 +66,19 @@
             border-radius:0px 0px 25px 25px;
         }
     }
+    .btn{
+        background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 10px;
+        margin-bottom: 20px;
+
+    }
+    .btn:hover{
+        transform: scale(1.1);
+    }
     .addClassItem{
         margin: 40px 0;
         background-image: url(../../../public/image/gif1.gif);

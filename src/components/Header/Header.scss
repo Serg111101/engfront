@@ -22,6 +22,9 @@
             display: flex;
 
         }
+  
+    
+ 
 
         .imageHeader {
             transition: all 0.1s linear;
@@ -84,51 +87,60 @@
 
 
         }
-
+        @media(max-width:768px) {
+            .items{
+                display: none;
+            }
+        }
         .headericone {
             display: none;
         }
 
+        @media(max-width:768px) {
+            .headericone{
+                display: flex;
+            }
+        }
+        .admin-dropdown {
+            position: relative;
+            display: inline-block;
 
-.admin-dropdown {
-    position: relative;
-    display: inline-block;
-  
-    .admin-info {
-      cursor: pointer;
-      padding: 10px;
-      background-color: #007bff;
-      color: black;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      img{
-        width: 100%;
-        object-fit: contain;
-      }
-    }
-  
-    .dropdown-content {
-      display: block;
-      text-align: centar;
-      position: absolute;
-      top: 60px;
-      left: -50px;
-      background-color:black;
-      border-radius: 20px;
-      color: white;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 1;
-      padding: 10px;
-  
-      p {
-        margin: 0;
-        padding: 8px 0;
-      }
-    }
-  }
-  
+            .admin-info {
+                cursor: pointer;
+                padding: 10px;
+                background-color: #007bff;
+                color: black;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+
+                img {
+                    width: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .dropdown-content {
+                display: block;
+                text-align: centar;
+                position: absolute;
+                top: 60px;
+                left: -50px;
+                background-color: black;
+                border-radius: 20px;
+                color: white;
+                min-width: 160px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+                padding: 10px;
+
+                p {
+                    margin: 0;
+                    padding: 8px 0;
+                }
+            }
+        }
+
 
 
     }

@@ -16,7 +16,12 @@ export function Lesson() {
   const [count,setCount] = useState(1)
 const {auth} =useAuth()
   useEffect(() => {
-  setCount(auth?.level)
+    if(auth?.role == "admin"){
+      setCount(4)
+    }if(auth?.role == "children"){
+
+      setCount(auth?.level)
+    }
   }, [auth]);
 
   useEffect(() => {
