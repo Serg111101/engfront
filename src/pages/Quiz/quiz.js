@@ -236,14 +236,7 @@ console.log(auth?.role ==="children");
                 <p>{el.answer}</p>
               </div>
             ))}
-          <button
-            onClick={() => {
-              navigate("/Lessons");
-            }}
-          >
-            {" "}
-            {Quiz[0]?.button[1]}{" "}
-          </button>
+          
         </div>
       )}
     </div>

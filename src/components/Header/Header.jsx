@@ -157,12 +157,8 @@ if (localStorage.getItem("language")) {
               </div>
               {isOpen && (
                 <div className="dropdown-content">
-                  <p>Armen Knyazyan</p>
-                  <p onClick={() => navigate("/PupilExperince")}>
-                    im lracrac tester@
-                  </p>
-                  
-                  <p onClick={() => localStorage?.removeItem("auth")}>
+                  <p>{auth?.fullName}</p>                  
+                  <p onClick={() => {localStorage?.removeItem("auth");navigate(0)}}>
                     Log Out
                   </p>
                 </div>
