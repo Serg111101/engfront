@@ -1,45 +1,44 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import './ClassItem.scss'
 import { DeleteOutlined, EditOutlined, FolderViewOutlined } from '@ant-design/icons'
 import { AddChildModal } from '../../components/ClassRoom/AddChildModal/AddChildModal'
 import { EditChildModal } from '../../components/ClassRoom/EditChildModal/EditChildModal'
+import { addChildren, deleteChildren, editChildren, getFetchChildren } from '../../store/action/ChildrenAction'
+import { useDispatch, useSelector } from 'react-redux'
+import useAuth from '../../hooks/AdminHooks/useAuth'
 
 export const ClassItem = () => {
+    const {auth} = useAuth()
     const { name } = useParams()
-    const [childArray, setChildArray] = useState([
-        {
-            id: 1,
-            fullname: 'Sergey Abrahamyan',
-            picture: "/image/gif1.gif",
-            number: 1,
-            level: 1,
-            classnumber: name,
-            ticherId: 1,
-            login: "user1",
-            password: 'nlkjhkgjgvhf'
-        },
-        {
-            id: 2,
-            fullname: 'Armen Knyazyan',
-            picture: "/image/gif3.gif",
-            number: 2,
-            level: 3,
-            classnumber: name,
-            ticherId: 1,
-            login: "user2",
-            password: 'nlkjhkgjgvhf'
-        }
-    ])
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+  const { Children, loading } = useSelector((state) => state.Children);
+useEffect(()=>{
+    dispatch(getFetchChildren({id:auth?.id,name}))
+},[dispatch])
+ 
 
     const [addChild, setAddChild] = useState(false)
     const [editChild, setEditChild] = useState(false)
 
-    function saveChild(child, setError) {
-        console.log(child, 'child');
+    async function saveChild(child, setError) {
+        await dispatch(addChildren({...child,teacher_id:auth?.id,level:1,classNumber:name,role:"children"}))
+        await dispatch(getFetchChildren({id:auth?.id,name}))
+        setAddChild(false)
     }
-    function EditChild(child, setError) {
-        console.log(child, 'child');
+ async function EditChild(child, setError) {
+
+       await dispatch(editChildren(child))
+       await dispatch(getFetchChildren({id:auth?.id,name}))
+       setEditChild(false)
+    }
+    async function deleteItem(id){
+     
+        await dispatch(deleteChildren(id))
+       await dispatch(getFetchChildren({id:auth?.id,name}))
+
+
     }
     return (
         <div className='ClassItem'>
@@ -59,24 +58,25 @@ export const ClassItem = () => {
                         </thead>
                         <tbody>
                             {
-                                childArray?.map((el) => <tr>
-                                    <td><img src={el.picture} alt="" /></td>
-                                    <td><strong>{el.number}</strong></td>
-                                    <td>{el.fullname}</td>
+                                Children?.map((el) => <tr>
+                                    <td><img src={el?.picture} alt="" /></td>
+                                    <td><strong>{el?.bookNumber}</strong></td>
+                                    <td>{el.fullName}</td>
                                     <td>{el.level}</td>
                                     <td className=' editdelete'>
                                         <EditOutlined className='edit'  onClick={() => { setEditChild(el) }}/>
-                                        <DeleteOutlined className='delete' />
+                                        <DeleteOutlined className='delete' onClick={()=>{deleteItem(el.id)}} />
                                     </td>
-                                    <td><FolderViewOutlined /></td>
+                                    <td><FolderViewOutlined onClick={()=>navigate(`/PupilExperince/${el?.id}`)} /></td>
                                 </tr>)
                             }
 
                         </tbody>
                     </table>
                 </div>
-                    <div className='addChild' onClick={() => { setAddChild(true) }}>
-                        <button> Ավելացնել աշակերտ </button>
+                    <div className='addChild'>
+                        <button className='btn2' onClick={() => {navigate("/Class") }}> Հետ </button>
+                        <button className='btn1'  onClick={() => { setAddChild(true) }}> Ավելացնել աշակերտ </button>
                     </div>
             </div>
             {addChild && <AddChildModal setAddChild={setAddChild} saveChild={saveChild} />}

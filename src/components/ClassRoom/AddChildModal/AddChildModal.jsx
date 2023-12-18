@@ -18,7 +18,6 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
     }, [img])
     
     const uploadImageHandler = async (e) => {
-        console.log(e.target.files[0], 'e');
         dispatch(uploadImageHandleradd(e, setImg));
     };
 
@@ -35,7 +34,8 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
                         </label>
                         <input type="file" accept="image/*" id='upload' name='upload' value={""} style={{ display: 'none' }} onChange={uploadImageHandler} />
                     </div>
-                    <input className={error && "errorInput"} type="text" maxLength={7} placeholder='Անուն Ազգանուն' value={addChildValue?.fullname} onChange={(e) => { setAddChildValue({ ...addChildValue, fullname: e.target.value }); setError(false) }} />
+                    <input className={error && "errorInput"} type="text" maxLength={50} placeholder='Անուն Ազգանուն' value={addChildValue?.fullName} onChange={(e) => { setAddChildValue({ ...addChildValue, fullName: e.target.value }); setError(false) }} />
+                    <input className={error && "errorInput"} type="number" maxLength={50} placeholder='Մատյանի համարը' value={addChildValue?.bookNumber} onChange={(e) => { setAddChildValue({ ...addChildValue, bookNumber: +e.target.value }); setError(false) }} />
                     {error && <p>Դաշտը չի կարող դատարկ լինել *</p>}
                     <input className={error && "errorInput"} type="text" maxLength={7} placeholder='մուտքանուն' value={addChildValue?.login} onChange={(e) => { setAddChildValue({ ...addChildValue, login: e.target.value }); setError(false) }} />
                     {error && <p>Դաշտը չի կարող դատարկ լինել *</p>}

@@ -155,23 +155,36 @@
             }
         }
         .addChild{
-            // width: 100%;
+            width: 60%;
             cursor: pointer;
             display: flex;
             color: white;
-            justify-content: center;
+            justify-content: space-around;
             transition: all .5s linear;
-            &:hover{
-                transform: scale(1.1);
-            }
-            button{
+          
+            .btn1{
                 background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
-            color: white;
-            font-size: 15px;
+                color: white;
+                font-size: 15px;
                 height: 60px;
                 border-radius: 20px;
-            padding: 10px;
+                padding: 10px;
 
+            }
+            .btn2{
+                background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+                color: white;
+                font-size: 15px;
+                height: 60px;
+                border-radius: 20px;
+                padding: 10px;
+
+            }
+            .btn1:hover{
+                transform: scale(1.1);
+            }
+            .btn2:hover{
+                transform: scale(1.1);
             }
         }
     }

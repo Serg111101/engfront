@@ -23,18 +23,12 @@ const Informatoin = () => {
     dispatch(getFetchLectures(title));
     dispatch(getFetchSlides(title));
   }, [dispatch]);
-
-  useEffect(() => {
-    if (Lectures.length <= 0) {
-      if (localStorage.getItem('Lectures')) {
-        const locc = localStorage.getItem('Lectures');
-        const Lecture = JSON.parse(locc);
-        setLectures(Lecture);
-      }
-    } else {
-      setLectures(Lectures);
+  
+  useEffect(()=>{
+    if(Lectures?.length>0){
+      setLectures(Lectures)
     }
-  }, [lectures.length, Lectures]);
+  },[Lectures])
 
 
 
@@ -61,7 +55,6 @@ const Informatoin = () => {
     }
   }
 
-console.log(Slide)
 
   const Background = Lectures[0]?.background;
   return (
