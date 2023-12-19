@@ -102,8 +102,7 @@ export const ClassPage = () => {
               key={el.id}
               className="ClassItemDiv"
               style={{
-                background:
-                  "url(/image/empty-classroom-interior-with-chalkboard_1308-65378.avif)",
+                background:"url(/image/empty-classroom-interior-with-chalkboard_1308-65378.avif)",
               }}
             >
               <div
