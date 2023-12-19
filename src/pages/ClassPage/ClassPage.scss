@@ -1,5 +1,5 @@
-.ClassPage{
-    background-image: url(../../../public/image/gif3.gif);
+.ClassPage {
+
     color: white;
     padding-top: 100px;
     width: 100%;
@@ -8,18 +8,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    .ClassArray{
+
+    .ClassArray {
         width: 90%;
         display: grid;
         grid-template-columns: auto auto auto auto;
         gap: 30px;
         justify-content: center;
 
-        .ClassItemDiv{
+        .ClassItemDiv {
             margin: 40px 0;
-            background-image: url(../../../public/image/empty-classroom-interior-with-chalkboard_1308-65378.avif);
-            background-size: contain ;
-            background-repeat:no-repeat ;
+            background-size: contain;
+            background-repeat: no-repeat;
             background-position: center;
             border-radius: 25px;
             height: 220px;
@@ -31,43 +31,47 @@
             align-items: center;
             transition: all .3s linear;
             cursor: pointer;
-.ClassItemName{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-}
-            &:hover {
-               
-                transform: scale(1.1);
-                box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327) ;
-            }
-            &:hover .editdelete{
+
+            .ClassItemName {
+                width: 100%;
+                height: 100%;
                 display: flex;
-                 }
-            
-            h2{
+                justify-content: center;
+            }
+
+            &:hover {
+
+                transform: scale(1.1);
+                box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327);
+            }
+
+            &:hover .editdelete {
+                display: flex;
+            }
+
+            h2 {
                 margin-top: 70px;
                 // margin-bottom: 20px;
                 font-size: 34px;
                 line-height: 0;
                 color: white;
             }
-            
+
         }
-     
-        .editdelete{
+
+        .editdelete {
             width: 99%;
             display: none;
             justify-content: space-around;
             background: rgba(71, 213, 52, 0.482);
             align-items: center;
             height: 60px;
-            border-radius:0px 0px 25px 25px;
+            border-radius: 0px 0px 25px 25px;
         }
     }
-    .btn{
-        background:  linear-gradient(#777, #444);
+
+    .btn {
+        background: linear-gradient(#777, #444);
         color: white;
         font-size: 15px;
         cursor: pointer;
@@ -76,13 +80,14 @@
         margin-bottom: 20px;
 
     }
-    .btn:hover{
+
+    .btn:hover {
         transform: scale(1.1);
     }
-    .addClassItem{
+
+    .addClassItem {
         margin: 40px 0;
-        background-image: url(../../../public/image/gif1.gif);
-        background-repeat:no-repeat ;
+        background-repeat: no-repeat;
         background-position: center;
         border-radius: 25px;
         height: 220px;
@@ -95,23 +100,27 @@
         cursor: pointer;
         color: white;
         font-size: 20px;
-        &:hover{
+
+        &:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327) ;
+            box-shadow: 0 0 40px 2px rgba(0, 0, 255, 0.327);
         }
     }
+
     @media (max-width:1400px) {
-        .ClassArray{
-            grid-template-columns:auto auto auto;
+        .ClassArray {
+            grid-template-columns: auto auto auto;
         }
     }
+
     @media (max-width:1100px) {
-        .ClassArray{
+        .ClassArray {
             grid-template-columns: auto auto;
         }
     }
+
     @media (max-width:700px) {
-        .ClassArray{
+        .ClassArray {
             grid-template-columns: auto;
         }
     }

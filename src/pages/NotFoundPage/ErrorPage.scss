@@ -7,10 +7,11 @@
   justify-content: center;
   overflow: hidden;
   align-items: center;
-  background: url(https://i.postimg.cc/bNKJvqj1/space1.jpg);
+  background: url("https://i.postimg.cc/bNKJvqj1/space1.jpg");
   background-size: cover;
   background-repeat: repeat;
   z-index: 400000;
+  overflow: hidden !important;
   
   
   
@@ -109,7 +110,7 @@ left:-30% !important;
 
 .planets {
   position: absolute;
-   right: -2000px; 
+  //  right: -2000px; 
    z-index: -1;
    animation: rocket ;
   animation-iteration-count: 1;

@@ -156,9 +156,11 @@ export const Quiz = () => {
     setActive(el);
   }
   const Background = Quiz[0]?.background;
-
+  console.log('====================================');
+  console.log(Background);
+  console.log('====================================');
   return (
-    <div className="answer" style={{ backgroundImage: "red" }}>
+    <div className="answer" style={{ background:`url(${Background}) ` }}>
       <div className="prevButton">
         <button onClick={() => navigate("/Leqtures")}>
           {Quiz[0]?.button[3]}
