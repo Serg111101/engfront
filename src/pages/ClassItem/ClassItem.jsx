@@ -17,8 +17,10 @@ export const ClassItem = () => {
     const navigate = useNavigate()
   const { Children, loading } = useSelector((state) => state.Children);
 useEffect(()=>{
-    dispatch(getFetchChildren({id:auth?.id,name}))
-},[dispatch])
+    if(auth?.id){
+        dispatch(getFetchChildren({id:auth?.id,name}))
+    }
+},[dispatch,auth])
 let LocalValue;
 if (localStorage.getItem("language")) {
   let local = localStorage.getItem("language");
@@ -105,6 +107,8 @@ if (localStorage.getItem("language")) {
        await dispatch(getFetchChildren({id:auth?.id,name}))
     }
 
+
+
     return (
         <div className='ClassItem'>
             <div className='ClassItemDiv'>
@@ -122,6 +126,7 @@ if (localStorage.getItem("language")) {
                             </tr>
                         </thead>
                         <tbody>
+
                             {
                                 Children?.map((el) => <tr key={el?.id}>
                                     <td><img src={el?.picture} alt="" /></td>

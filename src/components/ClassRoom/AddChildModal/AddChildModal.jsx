@@ -12,6 +12,8 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
     const [error2, setError2] = useState(false)
     const [error3, setError3] = useState(false)
     const [error4, setError4] = useState(false)
+    const [errorReg, setErrorReg] = useState(false)
+    const [errorReg1, setErrorReg1] = useState(false)
     const dispatch = useDispatch();
     let LocalValue;
     if (localStorage.getItem("language")) {
@@ -30,6 +32,13 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
         setError4(false)
     };
 
+  
+
+  
+      const regexPattern = /^[a-zA-Z\u0531-\u0587\s]+$/;
+      const regexPatternNumber = /^[1-9]\d*$/;
+    //   const isValidInput = regexPattern.test(value);
+  
 
     return (
         <div className='AddChildModal'>
@@ -47,19 +56,64 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
                         
                     </div>
                   
-                    <input className={error ?"errorInput":""} type="text" maxLength={50} placeholder={LocalValue === "AM"?'Անուն Ազգանուն':"First Name Last Name:"} value={addChildValue?.fullName} onChange={(e) => { setAddChildValue({ ...addChildValue, fullName: e.target.value }); setError(false) }} />
-                    {error && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
-                    <input className={error1 ? "errorInput" : ""} type="number" min={1} maxLength={50} placeholder={LocalValue === "AM"?'Մատյանի համարը':"Log number"} value={addChildValue?.bookNumber} onChange={(e) => { setAddChildValue({ ...addChildValue, bookNumber: +e.target.value }); setError1(false)}} />
-                    {error1 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
+                    <input className={error ?"errorInput":""} type="text" maxLength={50} placeholder={LocalValue === "AM"?'Անուն Ազգանուն':"First Name Last Name:"} value={addChildValue?.fullName} 
+                    onChange={(e) => {
+                        if( e.target.value?.length>=3 || e.target.value?.length<=30 ){
+                            setError(false)
+                            setAddChildValue({ ...addChildValue, fullName: e.target.value });
+                           if(!regexPattern.test(e.target.value) ){
 
-                    <input className={error2 ? "errorInput" : ""} type="text" maxLength={7} placeholder={LocalValue === "AM"?'մուտքանուն':"username"} value={addChildValue?.login} onChange={(e) => { setAddChildValue({ ...addChildValue, login: e.target.value });  setError2(false)  }} />
+                            setErrorReg(true)
+                           }else{
+                               setErrorReg(false)
+                           }
+                           if(e.target.value?.length===0){
+                            setErrorReg(false)
+                            setError(true)
+                           }
+                        }
+                           }} />
+           
+                    {error && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>} 
+                    {errorReg && <p>{LocalValue==="AM" ? "Դաշտը չի կարող պարունակ էլ սիմվոլ կամ թվանշան":"The field cannot contain symbols or digits"}</p>} 
+                    <input className={error1 ? "errorInput" : ""} type="text" min={1} maxLength={50} placeholder={LocalValue === "AM"?'Մատյանի համարը':"Log number"} value={addChildValue?.bookNumber}
+                      
+                     onChange={(e) => {
+                        if( e.target.value?.length>=3 || e.target.value?.length<=30 ){
+                            setError1(false)
+                            setAddChildValue({ ...addChildValue, bookNumber: e.target.value })
+                           if(!regexPatternNumber.test(e.target.value)  ){
+
+                            setErrorReg1(true)
+                           }else{
+                               setErrorReg1(false)
+                           }
+                           if(e.target.value?.length===0){
+                            setErrorReg1(false)
+                            setError1(true)
+                           }
+                        }
+                           }}/>
+                    {error1 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
+                    {errorReg1 && <p>{LocalValue==="AM" ? "Դաշտը պետք է պարունակի միայն թվանշան":"The field must contain only digits"}</p>} 
+
+                    <input className={error2 ? "errorInput" : ""} type="text" maxLength={7} placeholder={LocalValue === "AM"?'մուտքանուն':"username"} value={addChildValue?.login}
+                     onChange={(e) => { 
+                        
+                         
+                        if(e.target.value.length===0){setAddChildValue({ ...addChildValue, login: e.target.value });setError2(true)}else{setAddChildValue({ ...addChildValue, login: e.target.value }); setError2(false)}  }} />
                     {error2 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
 
-                    <input className={error3 ? "errorInput" : ""} type="password" maxLength={20} placeholder={LocalValue === "AM"?'Գաղտնաբառ':"Password"} value={addChildValue?.password} onChange={(e) => { setAddChildValue({ ...addChildValue, password: e.target.value });    setError3(false) }} />
+                    <input className={error3 ? "errorInput" : ""} type="password" maxLength={20} placeholder={LocalValue === "AM"?'Գաղտնաբառ':"Password"} value={addChildValue?.password} 
+                    onChange={(e) => {
+                        if(e.target.value.length===0){ setAddChildValue({ ...addChildValue, password: e.target.value });setError3(true)}else{ setAddChildValue({ ...addChildValue, password: e.target.value }); setError3(false)}  }} />
+                    
+                    
+                    
                     {error3 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
 
                     
-                    <button onClick={(e) => { e.preventDefault(); saveChild(addChildValue, setError,setError1,setError2,setError3,setError4) }}>{LocalValue === "AM"?"Ավելացնել":"ADD"}</button>
+                    <button disabled={errorReg ||errorReg1} style={{pointerEvents:(errorReg ||errorReg1)&& "none"}} onClick={(e) => { e.preventDefault(); saveChild(addChildValue, setError,setError1,setError2,setError3,setError4) }}>{LocalValue === "AM"?"Ավելացնել":"ADD"}</button>
                 </form>
             </div>
 
