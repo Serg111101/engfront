@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getClass,addclass, editeClass, deleteClass } from '../../store/action/ClassAction';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
+import { Loading } from '../../components/Loading/Loading';
 
 
 export const ClassPage = () => {
@@ -17,22 +18,19 @@ export const ClassPage = () => {
 
     useEffect(()=>{
      dispatch(getClass())
-     
-
     },[dispatch])
 
 
-    const [ClassArray,setClassArray]=useState([
-     
-    ])
+    const [ClassArray,setClassArray]=useState([])
     const [addClassModal,setAddClassModal]=useState(false)
     const [editClassModal,setEditClassModal]=useState(false)
-    // const [editClass,setEditClass]=useState('')
+    const [loading,setLoading]=useState(false)
     
   async  function addClass(newClassValue,setError){
         if(!newClassValue.trim()){
             setError(true)
         }else{
+          setLoading(true)
             let newClass={
             name:newClassValue
         }
@@ -40,13 +38,22 @@ export const ClassPage = () => {
        await dispatch(addclass(newClass))
         await dispatch(getClass())
         setAddClassModal(false)
+        setLoading(false)
         }
     }
     async function EditClass(child, setError) {
 
-        await dispatch(editeClass(child))
-        await dispatch(getClass())
-        setEditClassModal(false)
+      if(!child?.name?.trim()){
+        setError(true)
+    }else{
+     
+     console.log(child);
+      await dispatch(editeClass(child))
+      await dispatch(getClass())
+      setEditClassModal(false)
+      
+      
+    }
      }
    async function DeleteItem({ title, text, deleteItem }) {
         Swal.fire({
@@ -54,10 +61,10 @@ export const ClassPage = () => {
           text: text,
           icon: "warning",
           showCancelButton: true,
-          cancelButtonText: "Ոչ",
+          cancelButtonText: LocalValue ==="AM" ? "Ոչ":"No",
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
-          confirmButtonText: "Այո",
+          confirmButtonText:  LocalValue ==="AM" ?"Այո":"Yes",
         }).then((result) => {
           if (result?.isConfirmed) {
             deleteItem();
@@ -66,8 +73,8 @@ export const ClassPage = () => {
       }
       async function deleteItemS(id) {
         DeleteItem({
-          title: "Ցանկանում եք ջնջել՞",
-          text: "Ջնջելու դեպքում վերականգնել չեք կարող",
+          title: LocalValue ==="AM" ? "Ցանկանում եք ջնջել՞" :"Do you want to delete?",
+          text:  LocalValue ==="AM" ? "Ջնջելու դեպքում վերականգնել չեք կարող" :"Once deleted, you cannot restore",
           deleteItem: () => deleteItem(id),
         });
       }
@@ -86,21 +93,21 @@ export const ClassPage = () => {
   return (
     <div className='ClassPage'>
         <h1>{LocalValue === "AM" ?  "Դասարաններ" : "Classes"}</h1>
-        <div className=' ClassArray' >
+      {loading ? <Loading/> : <div className=' ClassArray' >
             {
-                Class?.map((el)=><div className='ClassItemDiv'><div onClick={()=>{navigate(`/Class/${el.name}`)}} key={el.id} className='ClassItemName'>
+                Class?.map((el)=><div key={el.id} className='ClassItemDiv'><div onClick={()=>{navigate(`/Class/${el.name}`)}} key={el.id} className='ClassItemName'>
                     <h2>{el.name}</h2>
                   
                 </div>
                 <div className=' editdelete'>
-                                        <EditOutlined className='edit'  onClick={() => { setEditClassModal(el) }}/>
+                                        <EditOutlined className='edit'  onClick={() => { setEditClassModal({...el,old_name:el.name}) }}/>
                                         <DeleteOutlined className='delete' onClick={()=>{deleteItemS(el)}} />
                    </div></div>)
             }
             <div className=' addClassItem' onClick={()=>{setAddClassModal(true)}}>
                 +<h2>{LocalValue === "AM" ?  "Ավելացնել դասարան" : "ADD Classes"}</h2>
             </div>
-        </div>
+        </div>}
         {
             addClassModal&&<AddClassModal setAddClassModal={setAddClassModal} addClass={addClass}/>
         }

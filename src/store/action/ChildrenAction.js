@@ -9,7 +9,6 @@ if(localStorage.getItem("language")){
 }
 export const getFetchChildren = (obj) => {
 
-console.log(obj,"jkhg");
     return async (dispatch)=>{
         try{
             dispatch(fetchingChildren());
@@ -39,9 +38,7 @@ export const addChildren = (obj) => {
 }
 export const editChildren = (obj) => {
     return async (dispatch)=>{
-       console.log('====================================');
-       console.log(obj);
-       console.log('====================================');
+     
          try{
             dispatch(fetchingChildren());
             const response =await axios.put(`${URL}editChildren/${obj.id}`,obj); 
@@ -53,6 +50,27 @@ export const editChildren = (obj) => {
 
     }
 }
+
+
+export const editTeacher = (obj) => {
+    return async ()=>{
+     
+         try{
+            await axios.put(
+                `${URL}putTeacher/${edite.id}`,
+                edite
+              );
+
+        }
+        catch(error){
+            console.log(error,'error');
+        }
+
+    }
+}
+
+
+
 export const deleteChildren = (id) => {
     return async (dispatch)=>{
        

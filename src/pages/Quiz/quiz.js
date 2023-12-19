@@ -15,9 +15,7 @@ export const Quiz = () => {
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
-  const [pupilQuestion, setPupilQuestion] = useState(
- 
-    {
+  const [pupilQuestion, setPupilQuestion] = useState({
     attempts: 0,
     correct: [],
     incorrect: [],
@@ -27,7 +25,7 @@ export const Quiz = () => {
     let local = localStorage.getItem("language");
     LocalValue = JSON.parse(local);
   }
-  const {auth} = useAuth()
+  const { auth } = useAuth();
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [active, setActive] = useState(false);
   useEffect(() => {
@@ -36,7 +34,6 @@ export const Quiz = () => {
       const Quizs = JSON.parse(quz);
       dispatch(getFetchQuiz(Quizs));
     }
-   
   }, [dispatch]);
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
@@ -56,20 +53,21 @@ export const Quiz = () => {
     }
   }, [question, Quiz]);
   async function EditChild() {
-    if(auth?.role =="children"){
-     let obj = {...auth,level:auth?.level+1}
-     localStorage.setItem('auth',JSON.stringify(obj))
-    delete obj.accessToken
-    delete obj.refreshToken
-    await dispatch(editChildren(obj))
+    if (auth?.role == "children") {
+      let obj = { ...auth, level: auth?.level + 1 };
+      localStorage.setItem("auth", JSON.stringify(obj));
+      delete obj.accessToken;
+      delete obj.refreshToken;
+      await dispatch(editChildren(obj));
     }
- }
+  }
   useEffect(() => {
     if (
       pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
-      Quiz?.length && auth?.role ==="children" ) {
-    
-console.log(auth?.role ==="children");
+        Quiz?.length &&
+      auth?.role === "children"
+    ) {
+      console.log(auth?.role === "children");
       dispatch(
         addQuizChild({
           ...pupilQuestion,
@@ -78,7 +76,6 @@ console.log(auth?.role ==="children");
           children_id: auth?.id,
         })
       );
-
     }
   }, [pupilQuestion]);
 
@@ -122,7 +119,6 @@ console.log(auth?.role ==="children");
         });
         setCount(++count);
       } else {
-
         await setPupilQuestion({
           ...pupilQuestion,
           incorrect: [
@@ -143,9 +139,9 @@ console.log(auth?.role ==="children");
       ) {
         // const sumo = sessionStorage.getItem("count");
         // let countStorage = JSON.parse(sumo);
-           
+
         // sessionStorage.setItem("count", JSON.stringify(++countStorage));
-        EditChild()
+        EditChild();
       }
       //   setPupilQuestion({
       //     ...pupilQuestion,
@@ -184,7 +180,9 @@ console.log(auth?.role ==="children");
                     setWrongAnswer(true);
                   }}
                 >
-               {LocalValue === "AM" ?  "Տեսնել սխալ պատասխանները" : "See wrong answers"}  
+                  {LocalValue === "AM"
+                    ? "Տեսնել սխալ պատասխանները"
+                    : "See wrong answers"}
                 </button>
               )}
               <button
@@ -229,14 +227,31 @@ console.log(auth?.role ==="children");
       )}
       {wrongAnswer && (
         <div className="inanswer_next">
-          {wrongAnswer &&
-            pupilQuestion.incorrect.map((el) => (
-              <div>
-                <h1>{el.question}</h1>
-                <p>{el.answer}</p>
-              </div>
+          {wrongAnswer && <table>
+                <thead>
+                  <tr>
+                    <th>{LocalValue === "AM" ? "Հարց" : "question"}</th>
+                    <th>
+                      {LocalValue === "AM"
+                        ? "Սխալ պատասխան"
+                        : "incorrect answer"}
+                    </th>
+                   
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {
+            pupilQuestion?.incorrect.map((el) => (
+              
+                  <tr>
+                    <td>{el.question}</td>
+                    <td>{el.answer}</td>
+                  </tr>
+ 
             ))}
-          
+             </tbody>
+              </table>}
         </div>
       )}
     </div>

@@ -14,6 +14,9 @@ export function Contact() {
   const [form] = Form.useForm();
   
   const {SendMail} = useSelector((state)=>state.SendMail);
+ useEffect(()=>{
+
+ },[dispatch])
   useEffect(() => {
     if (Mail?.succes) {
       setShowElement(true);
@@ -46,7 +49,7 @@ export function Contact() {
   return (
     
     <div className="contact">
-      <div className="container_contact">
+     {SendMail?.length>0 && <div className="container_contact">
         <h1>{SendMail[0]?.title}</h1>
         <p>{SendMail[0]?.text}</p>
 
@@ -132,7 +135,7 @@ export function Contact() {
             )}
           </Form>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

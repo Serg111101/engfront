@@ -17,6 +17,7 @@ import { ClassItem } from "./pages/ClassItem/ClassItem";
 import { PupilExperince } from "./components/PupilExperince/PupilExperince";
 import { Login } from "./pages/Login";
 import useAuth from "./hooks/AdminHooks/useAuth";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   const {auth} = useAuth()
@@ -29,12 +30,12 @@ function App() {
   }, [a]);
 
   useEffect(()=>{
-    if(!auth?.accessToken ){
+   
+    if(!auth?.accessToken && !localStorage.getItem("auth")){
  
       navigate('/login')
-    }else{
-    navigate('/')
-    }
+    
+   }
 
     
   },[auth])
@@ -67,6 +68,7 @@ function App() {
           <Route path="/Class/:name" element={<ClassItem />} />
           <Route path="/PupilExperince/:name" element={<PupilExperince />} />
           <Route path="/login" element={<Login/>}/>
+          <Route path="/Profile" element={<Profile/>}/>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {auth?.accessToken&&<Footer />}

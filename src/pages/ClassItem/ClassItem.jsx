@@ -8,6 +8,7 @@ import { addChildren, deleteChildren, editChildren, getFetchChildren } from '../
 import { useDispatch, useSelector } from 'react-redux'
 import useAuth from '../../hooks/AdminHooks/useAuth'
 import Swal from 'sweetalert2'
+import { Loading } from '../../components/Loading/Loading'
 
 export const ClassItem = () => {
     const {auth} = useAuth()
@@ -27,30 +28,54 @@ if (localStorage.getItem("language")) {
     const [addChild, setAddChild] = useState(false)
     const [editChild, setEditChild] = useState(false)
 
-    async function saveChild(child, setError) {
-    // console.log(child);
-    // if(
-    //     child.bookNumber
-    //     : 
-    //     44445
-    //     fullName
-    //     : 
-    //     "asdfsdfs"
-    //     login
-    //     : 
-    //     "l;khjgf"
-    //     password
-    //     : 
-    //     ";klhjg")
+    async function saveChild(child, setError,setError1,setError2,setError3,setError4) {
+    console.log(child);
+    if( !child?.fullName?.trim()  ){
+        setError(true)
+    }if(!child?.bookNumber>0){
+        setError1(true)
+
+    } if(!child?.picture?.trim()){
+        setError4(true)
+
+    } if(!child?.login?.trim()){
+        setError2(true)
+
+    }
+     if( !child?.password?.trim() ){
+        setError3(true)
+
+    }
+  
+    else if(child?.fullName?.trim() && child?.bookNumber>0 && child?.picture?.trim() && child?.login?.trim() && child?.password?.trim()){
         await dispatch(addChildren({...child,teacher_id:auth?.id,level:1,classNumber:name,role:"children"}))
         await dispatch(getFetchChildren({id:auth?.id,name}))
         setAddChild(false)
     }
- async function EditChild(child, setError) {
+       
+       
+    }
+ async function EditChild(child, setError,setError1,setError2,setError3) {
+   
+    if( !child?.fullName?.trim()  ){
+        setError1(true)
+    }if(!child?.bookNumber>0){
+        setError(true)
 
+    } if(!child?.picture?.trim()){
+        setError3(true)
+
+    } if(!child?.level>0){
+        setError2(true)
+
+    }
+    
+    
+    else if(child?.bookNumber>0 && child?.fullName?.trim() && child?.level>0  && child?.picture?.trim()){
        await dispatch(editChildren(child))
        await dispatch(getFetchChildren({id:auth?.id,name}))
        setEditChild(false)
+    }
     }
     async function DeleteItem({ title, text, deleteItem }) {
         Swal.fire({
@@ -58,10 +83,10 @@ if (localStorage.getItem("language")) {
           text: text,
           icon: "warning",
           showCancelButton: true,
-          cancelButtonText: "Ոչ",
+          cancelButtonText:LocalValue ==="AM" ? "Ոչ":"No",
           confirmButtonColor: "#d33",
           cancelButtonColor: "#3085d6",
-          confirmButtonText: "Այո",
+          confirmButtonText: LocalValue ==="AM" ?"Այո":"Yes",
         }).then((result) => {
           if (result?.isConfirmed) {
             deleteItem();
@@ -70,8 +95,8 @@ if (localStorage.getItem("language")) {
       }
       async function deleteItemS(id) {
         DeleteItem({
-          title: "Ցանկանում եք ջնջել՞",
-          text: "Ջնջելու դեպքում վերականգնել չեք կարող",
+          title: LocalValue ==="AM" ? "Ցանկանում եք ջնջել՞" :"Do you want to delete?",
+          text:  LocalValue ==="AM" ? "Ջնջելու դեպքում վերականգնել չեք կարող" :"Once deleted, you cannot restore",
           deleteItem: () => deleteItem(id),
         });
       }
@@ -84,7 +109,7 @@ if (localStorage.getItem("language")) {
         <div className='ClassItem'>
             <div className='ClassItemDiv'>
                 <h1>{name}</h1>
-                <div className='ClassTable'>
+                {loading ? <Loading/> :  <div className='ClassTable'>
                     <table>
                         <thead>
                             <tr>
@@ -98,7 +123,7 @@ if (localStorage.getItem("language")) {
                         </thead>
                         <tbody>
                             {
-                                Children?.map((el) => <tr>
+                                Children?.map((el) => <tr key={el?.id}>
                                     <td><img src={el?.picture} alt="" /></td>
                                     <td><strong>{el?.bookNumber}</strong></td>
                                     <td>{el.fullName}</td>
@@ -113,7 +138,7 @@ if (localStorage.getItem("language")) {
 
                         </tbody>
                     </table>
-                </div>
+                </div>}
                     <div className='addChild'>
                         <button className='btn2' onClick={() => {navigate("/Class") }}> {LocalValue === "AM"?"Հետ":"Prev"} </button>
                         <button className='btn1'  onClick={() => { setAddChild(true) }}>{LocalValue === "AM"?" Ավելացնել աշակերտ":"Add a pupil"} </button>

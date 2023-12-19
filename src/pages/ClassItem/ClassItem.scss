@@ -18,12 +18,7 @@
             width: 100%;
           }
         .ClassTable {
-            // body {
-            //     background: #fafafa url(https://jackrugile.com/images/misc/noise-diagonal.png);
-            //     color: #444;
-            //     font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
-            //     text-shadow: 0 1px 0 #fff;
-            // }
+        
 
             strong {
                 font-weight: bold;
@@ -49,9 +44,7 @@
                     border-radius: 50%;
                 }
                 .editdelete{
-                    // display: flex;
-                    // gap: 20px;
-                    // justify-content: center;
+                 
                     transition: all .3s linear;
                     .edit:hover{
                         color: green;
@@ -65,7 +58,7 @@
          
 
             th {
-                background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+                background: linear-gradient(#777, #444);
                 border-left: 1px solid #555;
                 border-right: 1px solid #777;
                 border-top: 1px solid #555;
@@ -146,12 +139,9 @@
                 box-shadow: inset -1px 0 0 #fff;
             }
 
-            tr {
-                background: url(https://jackrugile.com/images/misc/noise-diagonal.png);
-            }
 
             tr:nth-child(odd) td {
-                background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png);
+                background: #f1f1f1;
             }
 
             tr:last-of-type td {
@@ -188,7 +178,7 @@
                 flex-direction: column;
               }
             .btn1{
-                background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+                background:  linear-gradient(#777, #444);
                 color: white;
                 font-size: 15px;
                 cursor: pointer;
@@ -199,7 +189,7 @@
 
             }
             .btn2{
-                background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);
+                background:  linear-gradient(#777, #444);
                 color: white;
                 font-size: 15px;
                 cursor: pointer;

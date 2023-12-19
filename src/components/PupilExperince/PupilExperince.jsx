@@ -53,9 +53,7 @@ if (localStorage.getItem("language")) {
       <table>
         <thead>
           <tr>
-            <th>Lesson</th>
-            <th>Question</th>
-            <th>Answer</th>
+          
             <th>{LocalValue==="AM"? "Դաս":"Lesson"}</th>
             <th>{LocalValue==="AM"? "Հարց":"Questions"}</th>
             <th>{LocalValue==="AM"? "Պատասխան":"Answers"}</th>
@@ -95,7 +93,7 @@ if (localStorage.getItem("language")) {
           })}
         </tbody>
       </table>}
- {!QuizChild.length && <p>Datark e</p> }
+ {!QuizChild.length && <p>{LocalValue === "AM" ? "Դատարկ է" : "Empty"}</p> }
     {view ? <button onClick={() => { setView('') }}>
       {LocalValue==="AM"?"Հետ":"Prev"}
       </button> :   <button onClick={() => { navigate(-2) }}>

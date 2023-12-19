@@ -114,7 +114,7 @@ const Login = () => {
       style={{ background: `url(./image/loginbg.jpg) no-repeat` }}
     >
       <div className="container">
-        <form>
+        <form autoComplete='off' >
 
         <p ref={errRef} className={errMsg ? " mt-2 text-[16px] text-[#c0d2e3]" : "offscreen"} aria-live="assertive">{errMsg}</p>
           <h1>Login</h1>
