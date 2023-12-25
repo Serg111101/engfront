@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {  fetchingLogo, fetchLogo, fetchErrorLogo } from "../slice/LogoSlice";
 const URL = process.env.REACT_APP_BASE_URL
 let LocalValue; 
@@ -10,7 +10,7 @@ export const getFetchLogo = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingLogo());
-            const response =await axios.get(`${URL}homeIcons/logo/${LocalValue ? LocalValue:"AM"}`);     
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/logo/${LocalValue ? LocalValue:"AM"}`);     
             dispatch(fetchLogo(response?.data[0]?.information[0]));
         }
         catch(error){

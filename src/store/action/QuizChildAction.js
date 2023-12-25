@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {  fetchingQuizChild, fetchQuizChild, fetchErrorQuizChild } from "../slice/QuizChildSlice";
 // import {fetchAboutOurTeam,fetchErrorAboutOurTeam,fetchingAboutOurTeam} from "../slice/AboutOurTeamSlice";
-const URL = process.env.REACT_APP_BASE_URL1;
+const URL = process.env.REACT_APP_BASE_URL;
 let LocalValue; 
 if(localStorage.getItem("language")){
     let local = localStorage.getItem("language");
@@ -12,7 +12,7 @@ export const addQuizChild = (obj) => {
     return async (dispatch)=>{
          try{
             dispatch(fetchingQuizChild());
-            const response =await axios.post(`${URL}addTest`,obj); 
+            const response =await axios.post(`${URL}v2/addTest`,obj); 
         }
         catch(error){
             console.log(error,'error');
@@ -28,7 +28,7 @@ export const getQuizChild = (obj) => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingQuizChild());
-            const response =await axios.get(`${URL}/getTest/${obj.teacher_id}/${obj.children_id}`); 
+            const response =await axios.get(`${URL}v2//getTest/${obj.teacher_id}/${obj.children_id}`); 
             console.log('====================================');
             console.log(response?.data);
             console.log('====================================');

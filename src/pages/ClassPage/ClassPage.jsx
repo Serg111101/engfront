@@ -8,48 +8,79 @@ import { getClass,addclass, editeClass, deleteClass } from '../../store/action/C
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import Swal from 'sweetalert2';
 import { Loading } from '../../components/Loading/Loading';
+import useAuth from '../../hooks/AdminHooks/useAuth';
 
 
 export const ClassPage = () => {
     const navigate = useNavigate();
     const dispatch=useDispatch();
-
+const {auth} = useAuth()
     const {Class}=useSelector(state=>state.Class)
 
     useEffect(()=>{
-     dispatch(getClass())
-    },[dispatch])
+      if(auth?.id){
+        dispatch(getClass(auth?.id))
+      }
+    },[dispatch,auth])
 
 
     const [ClassArray,setClassArray]=useState([])
     const [addClassModal,setAddClassModal]=useState(false)
     const [editClassModal,setEditClassModal]=useState(false)
     const [loading,setLoading]=useState(false)
-    
+    const [success,setSuccess] = useState("")
+    useEffect(() => {
+     
+  
+      if (success === 'ok') {
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              title:LocalValue ==="AM"? "Տվըալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
+              showConfirmButton: false,
+              timer: 2500
+          }).then(() => {
+            setSuccess("")
+          });
+      }
+      if (success?.response?.status < 200 || success?.response?.status >= 400) {
+          Swal.fire({
+              position: "center",
+              icon: "error",
+              title:LocalValue ==="AM"? "Չհաջողվեց!!": "Failed",
+              showConfirmButton: false,
+              timer: 2500
+          }).then(() => {
+              setSuccess("")
+          });
+      }
+  }, [success])
   async  function addClass(newClassValue,setError){
         if(!newClassValue.trim()){
             setError(true)
         }else{
           setLoading(true)
+          let id= auth?.id;
             let newClass={
             name:newClassValue
         }
         setClassArray([...ClassArray,newClass])
-       await dispatch(addclass(newClass))
-        await dispatch(getClass())
+       await dispatch(addclass(newClass,id,setSuccess))
+        await dispatch(getClass(id))
         setAddClassModal(false)
         setLoading(false)
         }
     }
-    async function EditClass(child, setError) {
+    async function EditClass(child, setError,) {
 
       if(!child?.name?.trim()){
         setError(true)
     }else{
+      let id= auth?.id;
      
      console.log(child);
-      await dispatch(editeClass(child))
-      await dispatch(getClass())
+      await dispatch(editeClass(child,setSuccess))
+      await dispatch(getClass(id))
       setEditClassModal(false)
       
       
@@ -79,9 +110,9 @@ export const ClassPage = () => {
         });
       }
      async function deleteItem(item){
-      
-         await dispatch(deleteClass(item))
-        await dispatch(getClass())
+      let id= auth?.id;
+         await dispatch(deleteClass(id,item))
+        await dispatch(getClass(id))
  
  
      }

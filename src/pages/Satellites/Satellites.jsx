@@ -30,10 +30,13 @@ export function Satellites() {
     <div className='Satellites'
     style={{background:`url(${background})`}}
     >
+      <div className="text_bg">
       <h1>{Satellites?.title}</h1>
       {
         Satellites?.text1?.map((el,index) => <p key={index}>{el}</p>)
       }
+      </div>
+     
       <ReactPlayer
         // key={1}
         url={Satellites?.animationCubeSat1}
@@ -42,12 +45,15 @@ export function Satellites() {
         controls={true}
         // autoplayer={'true'}
       />
+        <div className="text_bg">
       {
         Satellites?.text2?.map((el,index) => <p key={index}>{el}</p>)
       }
       {
         Satellites?.margin_text1?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
       }
+
+      </div>
       <ReactPlayer
         // key={2}
         url={Satellites?.animationCubeSat2}
@@ -56,24 +62,27 @@ export function Satellites() {
         controls={true}
         // autoplayer={true}
       />
+       <div className="text_bg">
+
       {
         Satellites?.text3?.map((el, i) =>
-          i === 0 ?
-            <h2 key={i} >{el}</h2> :
-            <p key={i+1} >{el}</p>)
+        i === 0 ?
+        <h2 key={i} >{el}</h2> :
+        <p key={i+1} >{el}</p>)
       }
       {
         Satellites?.margin_text2?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
       }
       {
         Satellites?.text4?.map((el, i) =>
-          i === 0 ?
-            <h2 key={i}>{el}</h2> :
-            <p key={i+1}>{el}</p>)
+        i === 0 ?
+        <h2 key={i}>{el}</h2> :
+        <p key={i+1}>{el}</p>)
       }
       {
         Satellites?.margin_text3?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
       }
+      </div>
       <ReactPlayer
         // key={3}
         url={Satellites?.animationCubeSat3}
@@ -82,12 +91,15 @@ export function Satellites() {
         controls={true}
         // autoplayer={true}
       />
+       <div className="text_bg">
+
       {
         Satellites?.text5?.map((el, i) =>
-          i === 0 ?
-            <h2 key={i}>{el}</h2> :
-            <p key={i+1}>{el}</p>)
+        i === 0 ?
+        <h2 key={i}>{el}</h2> :
+        <p key={i+1}>{el}</p>)
       }
+      </div>
       <ReactPlayer
         // key={4}
         url={Satellites?.animationCubeSat4}
@@ -96,9 +108,12 @@ export function Satellites() {
         controls={true}
         // autoplayer={true}  
       />
+       <div className="text_bg">
+
       {
         Satellites?.margin_text4?.map((el,index) => <p key={index} className="margin_text">{el}</p>)
       }
+      </div>
          <div className="quizButton">
             <button onClick={()=>{navigate("/SatelliteQuiz")}} >{loacal==="AM" ? "Հարցաշար":"Questions"}</button>
         </div>

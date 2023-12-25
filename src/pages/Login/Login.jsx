@@ -7,11 +7,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/AdminHooks/useInput';
 import useToggle from '../../hooks/AdminHooks/useToggle';
 import Swal from "sweetalert2";
+import axioss from "../../hooks/axios/adminAxios";
 import axios from "axios";
+import { EyeInvisibleOutlined } from "@ant-design/icons";
 const Login = () => {
   // background: url("") no-repeat;
- const URL = process.env.REACT_APP_BASE_URL_LOGIN
+ const URL = process.env.REACT_APP_BASE_URL
   const [loading, setLoading] = useState(false);
+  const [seePas, setSeePas] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +31,8 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
   const [login, resetUser, userAttribs] = useInput('admin', '')
 
+
+  const {auth} = useAuth()
   useEffect(() => {
       userRef.current.focus();
   }, [])
@@ -36,7 +41,20 @@ const Login = () => {
       setErrMsg('');
   }, [login, password])
 
+//   useEffect(() => {
 
+//    return async ()=>{
+
+//     if(auth?.accessToken){
+//        axios.create({
+//         baseURL: URL,
+//         headers:{
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${auth?.accessToken}`},
+//     })
+//     }
+//   }
+// }, [auth])
 
 //   const loginReq = async (e) => {
 //     e.preventDefault();
@@ -58,14 +76,19 @@ const Login = () => {
            {login,password},
          
         );
+    
         const res = JSON.stringify(response.data)
         localStorage.setItem('auth', res);
-        resetUser();
+      await  resetUser();
         setpassword('');
         const resp= localStorage.getItem('auth')
-        navigate(from, { replace: true });
-        const respons = JSON.parse(resp)
-        setAuth(respons);
+        const respons = await JSON.parse(resp)
+        await setAuth(respons);
+        await navigate(from, { replace: true });
+        axioss.interceptors.request.use(function (config) {
+          config.headers.Authorization = `Bearer ${response.data.accessToken}`;
+      return config;
+  });
         
         
     } catch (err) {
@@ -135,13 +158,19 @@ const Login = () => {
           <div className="input-box">
             
              <input
-             type="password"
+              type={seePas ? "text" : "password"}
              id="password"
              placeholder='Password'
              onChange={(e) => setpassword(e.target.value)}
              value={password}
              required
          />
+         <EyeInvisibleOutlined
+            className="see"
+            onClick={() => {
+              setSeePas(!seePas);
+            }}
+          />
           </div>
 
           <div className="remember-forgot">

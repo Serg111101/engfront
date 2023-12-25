@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {
   fetchingLesson,
   fetchLesson,
@@ -26,7 +26,7 @@ export const getFetchLesson = () => {
     try {
       dispatch(fetchingLesson());
       const response = await axios.get(
-        `${URL}lessons/${LocalValue ? LocalValue : "AM"}`
+        `${URL}aeroSpace/lessons/${LocalValue ? LocalValue : "AM"}`
       );
 
       dispatch(fetchLesson(response?.data));
@@ -44,7 +44,7 @@ export const getFetchQuiz = (titlee) => {
     try {
       dispatch(fetchingQuiz());
       const response = await axios.get(
-        `${URL}getQuiz/${titlee}/${LocalValue ? LocalValue : "AM"}`
+        `${URL}aeroSpace/getQuiz/${titlee}/${LocalValue ? LocalValue : "AM"}`
       );
 
       await dispatch(fetchQuiz(response?.data));
@@ -60,7 +60,7 @@ export const getFetchLectures = (titlee) => {
     try {
       dispatch(fetchingLectures());
       const response = await axios.get(
-        `${URL}getLectures/${titlee}/${LocalValue ? LocalValue : "AM"}`
+        `${URL}aeroSpace/getLectures/${titlee}/${LocalValue ? LocalValue : "AM"}`
       );
       dispatch(fetchLectures(response?.data));
     } catch (error) {
@@ -75,7 +75,7 @@ export const getFetchSlides = (titlee) => {
     try {
       dispatch(fetchingSlide());
       const response = await axios.get(
-        `${URL}topics/${titlee}/${LocalValue ? LocalValue : "AM"}`
+        `${URL}aeroSpace/topics/${titlee}/${LocalValue ? LocalValue : "AM"}`
       );
 
       dispatch(fetchSlide(response?.data));

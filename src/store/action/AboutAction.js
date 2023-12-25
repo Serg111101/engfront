@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {  fetchingAbout, fetchAbout, fetchErrorAbout } from "../slice/AboutSlice";
 import {fetchAboutOurTeam,fetchErrorAboutOurTeam,fetchingAboutOurTeam} from "../slice/AboutOurTeamSlice";
 const URL = process.env.REACT_APP_BASE_URL;
@@ -15,7 +15,7 @@ export const getFetchAbout = () => {
             dispatch(fetchingAbout());
             const response =await axios({
                 method: 'get',
-                url: `${URL}about/${LocalValue? LocalValue:"AM"}`,
+                url: `${URL}aeroSpace/about/${LocalValue? LocalValue:"AM"}`,
               });
             dispatch(fetchAbout(response?.data));
         }
@@ -32,7 +32,7 @@ export const getAboutOutTeam = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingAboutOurTeam());
-            const response =await axios.get(`${URL}getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
+            const response =await axios.get(`${URL}aeroSpace/getOurTeam/${LocalValue ? LocalValue:"AM"}`);  
             dispatch(fetchAboutOurTeam(response?.data));
         }
         catch(error){

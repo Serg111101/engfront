@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = process.env.REACT_APP_BASE_URL_LOGIN;
+const URL = process.env.REACT_APP_BASE_URL;
 
 
 export const fetchLoginReq = (obj,setLoading,setError) => {

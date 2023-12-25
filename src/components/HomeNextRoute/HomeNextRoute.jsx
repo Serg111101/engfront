@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './HomeNextRoute.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useAuth from '../../hooks/AdminHooks/useAuth';
+import { getFetchChildren } from '../../store/action/ChildrenAction';
 
 export function HomeNextRoute() {
   const navigate = useNavigate();
   const { HomeNextRout } = useSelector((state) => state.HomeNextRout);
-  let cou;
-  if (sessionStorage.getItem('count')) {
-    const loc = sessionStorage.getItem('count');
-    cou = JSON.parse(loc);
-  }
+ const [cou,setCou] = useState(1)
+ const {Children} = useSelector((state)=>state?.Children)
+ const dispatch = useDispatch();
+
+
+ const {auth} =useAuth()
+   useEffect(() => {
+    if(auth?.role === "admin"){
+      setCou(41000)
+    }
+     if(auth&&auth?.role === "children"){
+       const fill =  Children?.filter((el)=>el?.id === auth?.id);
+       setCou(fill[0]?.level)
+     }
+   }, [auth,Children]);
+ 
+   useEffect(() => {
+     if(auth?.teacher_id&&auth?.classNumber&&auth?.role === "children"){
+ 
+       dispatch(getFetchChildren({id:auth?.teacher_id,name:auth?.classNumber}))
+     }
+   }, [dispatch,auth]);
+
+
   let loacal;
   if(localStorage?.getItem('language')){
     let languageLocal = localStorage?.getItem('language');
@@ -22,7 +43,7 @@ export function HomeNextRoute() {
     if (id === 0) {
       navigate('/Lessons');
     } else if (id === 1) {
-      navigate('/');
+      navigate('/UsefulMaterials');
     } else if (id === 2) {
       navigate('/Satellites');
     } else if (id === 3) {
@@ -34,11 +55,12 @@ export function HomeNextRoute() {
       }).then(()=>{
         navigate("/Lessons")
       })
+      }else{
+        window.open("http://cubesat.local/", "_blank");
       }
     } else {
-      navigate('/');
+      navigate("/")
     }
-  
   }
 
   return (
@@ -46,26 +68,6 @@ export function HomeNextRoute() {
       <div className="nextRouteContainer">
         {HomeNextRout?.map((el, index) => (
           <div key={index}>
-            {(el?.title === 'Արբանյակի կառավարում' || el?.title === 'Satellite control') && cou>=4 ? (
-              <a
-                href="http://cubesat.local/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div
-                  onClick={() => navigateTo(index)}
-                  className="nextRouteItem"
-                  style={{ backgroundColor: el.color }}
-                >
-                  <div className="nextRouteIcon">
-                    <img style={{ background: el.color }} src={el?.logo} alt={el?.title} />
-                  </div>
-                  <div className="nextRouteTitle">
-                    <p>{el?.title}</p>
-                  </div>
-                </div>
-              </a>
-            ) : (
               <div
                 onClick={() => navigateTo(index)}
                 className="nextRouteItem"
@@ -78,7 +80,6 @@ export function HomeNextRoute() {
                   <p>{el?.title}</p>
                 </div>
               </div>
-            )}
           </div>
         ))}
       </div>

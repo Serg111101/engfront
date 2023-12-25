@@ -11,10 +11,16 @@ import { addQuizChild } from "../../store/action/QuizChildAction";
 import useAuth from "../../hooks/AdminHooks/useAuth";
 import { editChildren } from "../../store/action/ChildrenAction";
 export const Quiz = () => {
+  let loacal;
+  if(localStorage?.getItem('language')){
+    let languageLocal = localStorage?.getItem('language');
+    loacal = JSON.parse(languageLocal)
+  }
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
+
   const [pupilQuestion, setPupilQuestion] = useState({
     attempts: 0,
     correct: [],
@@ -158,10 +164,11 @@ export const Quiz = () => {
   const Background = Quiz[0]?.background;
 
   return (
-    <div className="answer" style={{ backgroundImage: "red" }}>
+    <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
         <button onClick={() => navigate("/Leqtures")}>
-          {Quiz[0]?.button[3]}
+          {/* {Quiz[0]?.button[3]} */}
+          {loacal==="AM" ? "Հետ":"Back"}
         </button>
       </div>
       {!wrongAnswer && (

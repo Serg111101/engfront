@@ -3,25 +3,32 @@
     padding-top: 40px;
     color: white;
     padding: 30px;
-    h1{
-        text-align: center;
+    .text_bg{
+        background: rgb(26 27 29 / 73%);
+        h1{
+            text-align: center;
+        }
+        p{
+            padding: 10px;
+            font-size: 20px;
+        }
+        h2{
+            padding: 10px;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .margin_text{
+            font-size: 20px;
+            padding: 20px 50px;
+        } 
     }
-    p{
-        padding: 10px;
-        font-size: 20px;
-    }
+    
     video{
         padding: 30px 10%;
     }
-    .margin_text{
-        font-size: 20px;
-        padding: 20px 50px;
-    }    
-    h2{
-        padding: 10px;
-        font-size: 24px;
-        font-weight: 900;
-    }
+    
+  
 
     .quizButton{
         width: 100%;
@@ -56,25 +63,29 @@
         // margin: 80px auto;
         color: white;
         padding: 20px;
-        h1{
-            text-align: center;
+        .text_bg{
+            h1{
+                text-align: center;
+            }
+            p{
+                padding: 8px;
+                font-size: 16px;
+            }
+            .margin_text{
+                font-size: 16px;
+                padding: 20px 30px;
+            }    
+            h2{
+                padding: 8px;
+                font-size: 20px;
+                font-weight: 900;
+            }
         }
-        p{
-            padding: 8px;
-            font-size: 16px;
-        }
+       
         video{
             padding: 20px 8%;
         }
-        .margin_text{
-            font-size: 16px;
-            padding: 20px 30px;
-        }    
-        h2{
-            padding: 8px;
-            font-size: 20px;
-            font-weight: 900;
-        }
+      
     }
 }
 @media(max-width:500px){
@@ -83,26 +94,30 @@
         // margin: 80px auto;
         color: white;
         padding: 16px;
-        h1{
-            font-size: 22px;
-            text-align: center;
+        .text_bg{
+            h1{
+                font-size: 22px;
+                text-align: center;
+            }
+            p{
+                padding: 5px;
+                font-size: 14px;
+            }
+            .margin_text{
+                font-size: 14px;
+                padding: 16px 20px;
+            }    
+            h2{
+                padding: 5px;
+                font-size: 18px;
+                font-weight: 800;
+            }
         }
-        p{
-            padding: 5px;
-            font-size: 14px;
-        }
+       
         video{
             padding: 16px 2%;
         }
-        .margin_text{
-            font-size: 14px;
-            padding: 16px 20px;
-        }    
-        h2{
-            padding: 5px;
-            font-size: 18px;
-            font-weight: 800;
-        }
+       
     }
 
 

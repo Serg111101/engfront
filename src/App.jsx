@@ -18,6 +18,8 @@ import { PupilExperince } from "./components/PupilExperince/PupilExperince";
 import { Login } from "./pages/Login";
 import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
+import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
+import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
 
 function App() {
   const {auth} = useAuth()
@@ -39,6 +41,8 @@ function App() {
 
     
   },[auth])
+
+  console.log(window.location );
 
   return (
     <Scrollbars
@@ -69,6 +73,8 @@ function App() {
           <Route path="/PupilExperince/:name" element={<PupilExperince />} />
           <Route path="/login" element={<Login/>}/>
           <Route path="/Profile" element={<Profile/>}/>
+          <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/>
+          <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {auth?.accessToken&&<Footer />}

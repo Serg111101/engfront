@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Profile.scss";
 import useAuth from "../../hooks/AdminHooks/useAuth";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
@@ -9,7 +8,7 @@ import { editChildren, editTeacher } from "../../store/action/ChildrenAction";
 import Swal from "sweetalert2";
 
 const Profile = () => {
-  // const URL = process.env.REACT_APP_BASE_URL1;
+  // const URL = process.env.REACT_APP_BASE_URL;
   const dispatch = useDispatch();
   const { auth } = useAuth();
   const [oldUsername, setOldUserName] = useState("");
@@ -20,14 +19,13 @@ const Profile = () => {
   const [error2, setError2] = useState(false);
   const [seePas, setSeePas] = useState(false);
   const [seePas1, setSeePas1] = useState(false);
+  const [success,setSuccess] = useState("")
   const navigate = useNavigate();
   useEffect(() => {
     setEdite(auth);
   }, [auth]);
 
-  console.log("====================================");
-  console.log(edite);
-  console.log("====================================");
+  
   useEffect(() => {
     if (oldUsername.length > 0) {
       setError(true);
@@ -52,33 +50,21 @@ const Profile = () => {
       if (!repeatPassword && !oldUsername) {
         setError2(true);
       } else {
-        console.log(edite);
-        localStorage.setItem("auth", JSON.stringify(edite));
-        await delete edite.accessToken;
-        await delete edite.refreshToken;
         if (edite.login === "") {
           delete edite.login;
+          edite.login=auth?.login
         }
         if (edite.password === "") {
           delete edite.password;
         }
+       await localStorage.setItem("auth", JSON.stringify(edite));
+        await delete edite.accessToken;
+        await delete edite.refreshToken;
+        
         try {
           
-          dispatch(editTeacher(edite));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title:LocalValue === "AM"
-            ? "Փոփոխությունը հաստատված է"
-            : "The change is approved",
-            showConfirmButton: false,
-            timer: 2500
-        }).then(()=>{
-           setOldUserName("");
-           setRepeatPassword("");
-           setEdite();
-           navigate("/")
-        })
+          dispatch(editTeacher(edite,setSuccess));
+       
         } catch (error) {
           console.log(error, "error");
         }
@@ -88,26 +74,19 @@ const Profile = () => {
       if (!repeatPassword && !oldUsername) {
         setError2(true);
       } else {
-        localStorage.setItem("auth", JSON.stringify(edite));
-
+        if (edite.login === "") {
+          delete edite.login;
+        }
+        if (edite.password === "") {
+          delete edite.password;
+        }
+        
+        await localStorage.setItem("auth", JSON.stringify(edite));
         delete edite.accessToken;
         delete edite.refreshToken;
         try {
-          dispatch(editChildren(edite));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: LocalValue === "AM"
-            ? "Փոփոխությունը հաստատված է"
-            : "The change is approved",
-            showConfirmButton: false,
-            timer: 2500
-        }).then(()=>{
-          setOldUserName("");
-          setRepeatPassword("");
-          setEdite();
-          navigate("/")
-       })
+          dispatch(editChildren(edite,setSuccess));
+      
         } catch (error) {
           console.log(error, "error");
         }
@@ -120,6 +99,36 @@ const Profile = () => {
     let local = localStorage.getItem("language");
     LocalValue = JSON.parse(local);
   }
+  useEffect(() => {
+   
+
+    if (success === 'ok') {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title:LocalValue ==="AM"? "Տվըալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
+            showConfirmButton: false,
+            timer: 2500
+        }).then(() => {
+          setOldUserName("");
+          setRepeatPassword("");
+          setEdite();
+          setSuccess("")
+          navigate("/")
+        });
+    }
+    if (success?.response?.status < 200 || success?.response?.status >= 400) {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title:LocalValue ==="AM"? "Չհաջողվեց!!": "Failed",
+            showConfirmButton: false,
+            timer: 2500
+        }).then(() => {
+            setSuccess("")
+        });
+    }
+}, [success])
   return (
     <div
       className="profileContainer"
@@ -148,6 +157,7 @@ const Profile = () => {
           placeholder={LocalValue === "AM" ? "Հին մուտքանուն" : "Old username"}
           onChange={(e) => {
             setOldUserName(e.target.value);
+            setError(false)
             setError2(false);
           }}
         />

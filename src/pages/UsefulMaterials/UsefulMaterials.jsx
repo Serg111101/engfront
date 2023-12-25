@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Lesson.scss";
+import "./UsefulMaterials.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getFetchLectures,
@@ -12,7 +12,7 @@ import { Loading } from "../../components/Loading/Loading";
 import useAuth from "../../hooks/AdminHooks/useAuth";
 import { getFetchChildren } from "../../store/action/ChildrenAction";
 
-export function Lesson() {
+export function UsefulMaterials() {
   const { Children } = useSelector((state) => state?.Children);
 
   const navigate = useNavigate();
@@ -41,13 +41,9 @@ export function Lesson() {
     }
   }, [dispatch, auth]);
 
-  async function Quizz(title, index) {
-    localStorage.setItem("lessons", JSON.stringify(title));
-    localStorage.setItem("level", JSON.stringify(index + 1));
-    // dispatch(getFetchQuiz(title));
-    // dispatch(getFetchLectures(title));
-    setQuiz(!quiz);
-    navigate("/Leqtures");
+  async function nextInfo(title, index) {
+
+    navigate(`/UsefulMaterialsInfo/:${index}`)
   }
   return (
     <>
@@ -55,7 +51,7 @@ export function Lesson() {
         <Loading />
       ) : (
         <div
-          className="LessonContainer"
+          className="UsefulMaterials"
           style={{ backgroundImage: `url(${Background})` }}
         >
           <div className="Lesson">
@@ -74,7 +70,7 @@ export function Lesson() {
                             ? "product-card"
                             : "product-cardDisable"
                         }
-                        onClick={() => Quizz(item?.lesson, index)}
+                        onClick={() => nextInfo(item?.lesson, index)}
                       >
                         <img
                           className="imageDiv"
@@ -106,4 +102,3 @@ export function Lesson() {
   );
 }
 
-export default Lesson;

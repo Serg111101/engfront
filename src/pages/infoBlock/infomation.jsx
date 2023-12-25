@@ -91,10 +91,7 @@ const Informatoin = () => {
           )}
         </div>
       </div>
-
       {elem && elem !== 8 && (
-
-
         <div className="infoParent" style={{ backgroundImage: `url(${Background}` }}>
           <div className='infoParentSlide'>
             {infoState!==0&&<div className="prev" onClick={() => prev()}>
