@@ -76,6 +76,7 @@ const Profile = () => {
       } else {
         if (edite.login === "") {
           delete edite.login;
+          edite.login=auth?.login
         }
         if (edite.password === "") {
           delete edite.password;
@@ -106,7 +107,7 @@ const Profile = () => {
         Swal.fire({
             position: "center",
             icon: "success",
-            title:LocalValue ==="AM"? "Տվըալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
+            title:LocalValue ==="AM"? "Տվյալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
             showConfirmButton: false,
             timer: 2500
         }).then(() => {

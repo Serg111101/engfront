@@ -34,13 +34,16 @@ export const Quiz = () => {
   const { auth } = useAuth();
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [active, setActive] = useState(false);
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("lessons")) {
       const quz = localStorage.getItem("lessons");
       const Quizs = JSON.parse(quz);
       dispatch(getFetchQuiz(Quizs));
     }
+
   }, [dispatch]);
+  console.log(Quiz)
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -64,7 +67,7 @@ export const Quiz = () => {
       localStorage.setItem("auth", JSON.stringify(obj));
       delete obj.accessToken;
       delete obj.refreshToken;
-      await dispatch(editChildren(obj));
+      await dispatch(editChildren(obj,setSuccess));
     }
   }
   useEffect(() => {
@@ -86,7 +89,7 @@ export const Quiz = () => {
   }, [pupilQuestion]);
 
   async function next() {
-    if (question < Quiz.length - 1) {
+    if (question < Quiz?.length - 1) {
       if (
         Quiz[question]?.correctAnswer === corectAnswers &&
         count <= question
@@ -167,7 +170,6 @@ export const Quiz = () => {
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
         <button onClick={() => navigate("/Leqtures")}>
-          {/* {Quiz[0]?.button[3]} */}
           {loacal==="AM" ? "Հետ":"Back"}
         </button>
       </div>
@@ -178,7 +180,7 @@ export const Quiz = () => {
           ) : finish ? (
             <div className="answer_next">
               <p>
-                {Quiz[0]?.button[0]}
+              {loacal==="AM" ? "Դուք հավաքեցիք":"You collected"}
                 {count}/{Quiz.length}
               </p>
               {pupilQuestion.incorrect.length > 0 && (
@@ -197,17 +199,17 @@ export const Quiz = () => {
                   navigate("/Lessons");
                 }}
               >
-                {" "}
-                {Quiz[0]?.button[1]}{" "}
+                
+                {loacal==="AM" ? "Դասընթացներ":"Courses"}
               </button>
             </div>
           ) : (
             <div className="quiz">
               <div>
-                <h1>{Quiz[question]?.question}</h1>
+                <h1>{question+1+" . "}{Quiz[question]?.question}</h1>
               </div>
               <div className="item">
-                {answer.length > 0 &&
+                {answer?.length > 0 &&
                   answer?.map((el, index) => (
                     <div
                       key={index}
@@ -221,12 +223,14 @@ export const Quiz = () => {
                   ))}
               </div>
               <button
+
                 className={active ? "btnActive" : "btnDisable"}
                 onClick={() => {
                   next();
                 }}
               >
-                <p>{Quiz[0]?.button[2]}</p>
+               <p> {loacal==="AM" ? "Առաջ":"Next"}</p>
+
               </button>
             </div>
           )}
@@ -249,11 +253,11 @@ export const Quiz = () => {
 
                 <tbody>
                   {
-            pupilQuestion?.incorrect.map((el) => (
+            pupilQuestion?.incorrect?.map((el) => (
               
                   <tr>
-                    <td>{el.question}</td>
-                    <td>{el.answer}</td>
+                    <td>{el?.question}</td>
+                    <td>{el?.answer}</td>
                   </tr>
  
             ))}

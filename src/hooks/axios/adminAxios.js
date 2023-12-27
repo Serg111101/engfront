@@ -1,23 +1,23 @@
 import axios from 'axios';
-import useAuth from '../AdminHooks/useAuth';
 const URL = process.env.REACT_APP_BASE_URL
+const local = localStorage.getItem('auth')
+let token
+let refresh
+let localAuth
 
-const local=localStorage.getItem('auth')
-const localAuth=JSON.parse(local)
-const token=localAuth?.accessToken
-const refresh=localAuth?.refreshToken
+if(local){
+  console.log(local,"hujjhj");
+   localAuth = JSON.parse(local)
+   token= localAuth?.accessToken
+   refresh = localAuth?.refreshToken
+}
 
-
-
-const refreshAccessToken = async () => {
-
+export const refreshAccessToken = async () => {
   try {
     // Make a request to your token refresh endpoint
     const response = await axios.post(`${URL}auth/refresh`, {
       refreshToken: refresh,
     });
-
-  
     const newAccessToken = response.data.access_token;
 
     // Update the Axios instance with the new access token
@@ -26,11 +26,12 @@ const refreshAccessToken = async () => {
     // Return the new access token
     return response.data;
   } catch (error) {
+    console.log(error,"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
      if(error?.response?.data?.status === 401 && error?.response?.data?.message === 333){
+      console.log(+5654564564564456456465);
         await localStorage.removeItem("auth");
-        await window?.location.reload()
+       await  window.location.reload();
     }
-    // Handle the error, e.g., redirect to login page or log out the user
     console.error('Error refreshing access token:', error);
     throw error;
   }
@@ -49,9 +50,6 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-console.log('====================================');
-console.log(error?.response?.data?.message);
-console.log('====================================');
 if (error.response.status === 401 && !originalRequest._retry ) {
     originalRequest._retry = true;
     
@@ -71,14 +69,4 @@ if (error.response.status === 401 && !originalRequest._retry ) {
   }
 );
 
-// // Example usage of the axiosInstance for making requests
-// axiosInstance.get('/some-protected-endpoint')
-//   .then((response) => {
-//     // Handle successful response
-//     console.log(response.data);
-//   })
-//   .catch((error) => {
-//     // Handle error (e.g., unauthorized or network error)
-//     console.error(error);
-//   });
 export default axiosInstance

@@ -23,12 +23,19 @@ export function Lesson() {
   const [count, setCount] = useState(1);
   const { auth } = useAuth();
   useEffect(() => {
+  console.log('====================================');
+  console.log(auth);
+  console.log('====================================');
+    
     if (auth?.role === "admin") {
       setCount(41000);
     }
-    if (auth && auth?.role === "children") {
-      const fill = Children?.filter((el) => el?.id === auth?.id);
-      setCount(fill[0]?.level);
+    if (auth && auth?.role === "children" ) {
+      // const fill = Children?.filter((el) => el?.id === auth?.id);
+      // console.log('====================================');
+      // console.log(fill[0]?.level);
+      // console.log('====================================');
+      setCount(auth?.level);
     }
   }, [auth, Children]);
 
@@ -40,12 +47,10 @@ export function Lesson() {
       );
     }
   }, [dispatch, auth]);
-
   async function Quizz(title, index) {
     localStorage.setItem("lessons", JSON.stringify(title));
     localStorage.setItem("level", JSON.stringify(index + 1));
-    // dispatch(getFetchQuiz(title));
-    // dispatch(getFetchLectures(title));
+
     setQuiz(!quiz);
     navigate("/Leqtures");
   }

@@ -38,8 +38,6 @@ export const getFetchLesson = () => {
 };
 
 export const getFetchQuiz = (titlee) => {
-  // const arr = titlee.split(".");
-
   return async (dispatch) => {
     try {
       dispatch(fetchingQuiz());
@@ -57,6 +55,7 @@ export const getFetchQuiz = (titlee) => {
 
 export const getFetchLectures = (titlee) => {
   return async (dispatch) => {
+
     try {
       dispatch(fetchingLectures());
       const response = await axios.get(
@@ -71,6 +70,7 @@ export const getFetchLectures = (titlee) => {
 };
 
 export const getFetchSlides = (titlee) => {
+  
   return async (dispatch) => {
     try {
       dispatch(fetchingSlide());

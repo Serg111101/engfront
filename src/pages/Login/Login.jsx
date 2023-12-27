@@ -6,10 +6,11 @@ import useAuth from '../../hooks/AdminHooks/useAuth'
 import { useNavigate, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/AdminHooks/useInput';
 import useToggle from '../../hooks/AdminHooks/useToggle';
+import { Input } from "antd";
 import Swal from "sweetalert2";
 import axioss from "../../hooks/axios/adminAxios";
 import axios from "axios";
-import { EyeInvisibleOutlined } from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 const Login = () => {
   // background: url("") no-repeat;
  const URL = process.env.REACT_APP_BASE_URL
@@ -41,39 +42,13 @@ const Login = () => {
       setErrMsg('');
   }, [login, password])
 
-//   useEffect(() => {
 
-//    return async ()=>{
-
-//     if(auth?.accessToken){
-//        axios.create({
-//         baseURL: URL,
-//         headers:{
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${auth?.accessToken}`},
-//     })
-//     }
-//   }
-// }, [auth])
-
-//   const loginReq = async (e) => {
-//     e.preventDefault();
-//     try {
-//       await dispatch(fetchLoginReq(loginVal, setLoading, setError));
-//       navigate("/");
-//       setLoading({
-//         login: "",
-//         password: "",
-//       });
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
   const loginReq = async (e) => {
     e.preventDefault();
     try {
+
         const response = await axios.post(`${URL}auth/login`,
-           {login,password},
+           {login:login.trim(),password:password.trim()},
          
         );
     
@@ -165,12 +140,18 @@ const Login = () => {
              value={password}
              required
          />
-         <EyeInvisibleOutlined
+      { seePas ?  <EyeInvisibleOutlined
             className="see"
             onClick={() => {
               setSeePas(!seePas);
             }}
-          />
+          />:
+          < EyeTwoTone
+            className="see"
+            onClick={() => {
+              setSeePas(!seePas);
+            }}
+          />}
           </div>
 
           <div className="remember-forgot">

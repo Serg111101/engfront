@@ -11,7 +11,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { Satellites } from "./pages/Satellites";
 import { QuizSatelite } from "./pages/QuizSatelite";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ClassPage } from "./pages/ClassPage/ClassPage";
 import { ClassItem } from "./pages/ClassItem/ClassItem";
 import { PupilExperince } from "./components/PupilExperince/PupilExperince";
@@ -20,9 +20,9 @@ import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
 import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
 import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
-
 function App() {
-  const {auth} = useAuth()
+  const {auth} = useAuth();
+
   const a = sessionStorage;
   const navigate = useNavigate()
   useEffect(() => {
@@ -32,24 +32,19 @@ function App() {
   }, [a]);
 
   useEffect(()=>{
-   
     if(!auth?.accessToken && !localStorage.getItem("auth")){
- 
       navigate('/login')
-    
    }
+  },[auth,window.location.pathname])
 
-    
-  },[auth])
-
-  console.log(window.location );
+  console.log(window.location);
 
   return (
     <Scrollbars
       style={{
         width: "100vw",
         height: "100vh",
-        background: "#68abea",
+        background: "black",
 
         //  background-color:'#68abea'
       }}

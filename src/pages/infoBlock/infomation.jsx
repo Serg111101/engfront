@@ -14,16 +14,21 @@ const Informatoin = () => {
   const navigate = useNavigate();
   const [elem, setElem] = useState(false);
   const [infoState, setInfoState] = useState(0);
+  const [title,setTitle] = useState(localStorage.getItem('lessons')||"")
+  console.log(title,"tttttttttttttt");
   useEffect(() => {
-    let title;
     if (localStorage.getItem('lessons')) {
       const loc = localStorage.getItem('lessons');
-      title = JSON.parse(loc);
+      setTitle(JSON?.parse(loc));
     }
-    dispatch(getFetchLectures(title));
-    dispatch(getFetchSlides(title));
-  }, [dispatch]);
+    if(title?.length>0){
+      dispatch(getFetchLectures(title));
+      dispatch(getFetchSlides(title));
+    }
+  }, [dispatch,title]);
+
   
+
   useEffect(()=>{
     if(Lectures?.length>0){
       setLectures(Lectures)
@@ -59,7 +64,9 @@ const Informatoin = () => {
   const Background = Lectures[0]?.background;
   return (
     <>
-      <div className="Lecturee" style={elem ? { display: "none" } : { backgroundImage: `url(${Background})`, }}>
+      <div className="Lecturee"
+       style={elem ? { display: "none" } : { backgroundImage: `url(${Background})` }}
+       >
         {!elem && lectures?.length > 0 && <div className='prevButton'>
           <button onClick={() => navigate("/Lessons")} >
             {Slide[0]?.button[0]}
@@ -76,7 +83,7 @@ const Informatoin = () => {
                   {lectures[0]?.lectures?.map((el, index) => (
                     <div
                       className="itemLecture"
-                      key={index}
+                      key={index+1}
                       onClick={() => {
                         text(index + 1);
                       }}
@@ -101,26 +108,26 @@ const Informatoin = () => {
               <h1>{Slide[0]?.lessons}</h1>
               {
                 Slide?.map((el, index) => {
-                  return index + 1 === elem && <div className='info'>
+                  return index + 1 === elem && <div className='info' key={index+1} >
                     {el?.lectures && <h2>{el?.lectures}</h2>}
-                    {el?.text1 && el?.text1?.length > 0 && <p key={index} className='text1' >{el?.text1}</p>}
-                    {el?.image && el?.image?.length > 0 && <div key={index} className='imageDiv'> <img src={el?.image} alt={el?.text1} /> </div>}
-                    {el?.text2 && el?.text2?.length > 0 && <p key={index} className='text2' >{el.text2}</p>}
+                    {el?.text1 && el?.text1?.length > 0 && <p key={index+32} className='text1' >{el?.text1}</p>}
+                    {el?.image && el?.image?.length > 0 && <div key={index+22} className='imageDiv'> <img src={el?.image} alt={el?.text1} /> </div>}
+                    {el?.text2 && el?.text2?.length > 0 && <p key={index+33} className='text2' >{el.text2}</p>}
                     {
                       el?.text_arr?.map((elem,index) => {
                         if (elem?.includes('http')) {
-                          return <div className='imageDiv' ><img key={index} src={elem} alt="nkar" /></div>
+                          return <div key={index+1} className='imageDiv' ><img  src={elem} alt="nkar" /></div>
                         } else {
-                          return <p>{elem}</p>
+                          return <p key={index+15} >{elem}</p>
                         }
                       })
                     }
                     {
                       el?.text_arr_margin?.map((elem,index) => {
                         if (elem?.includes('http')) {
-                          return <div className='imageDiv' key={index} > <img src={elem} alt='nkar' /> </div>
+                          return <div className='imageDiv' key={index+55} > <img src={elem} alt='nkar' /> </div>
                         } else {
-                          return <div key={index} className='marginText' >{elem}</div>
+                          return <div key={index+55} className='marginText' >{elem}</div>
                         }
                       })
                     }
