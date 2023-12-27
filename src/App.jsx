@@ -68,8 +68,8 @@ function App() {
           <Route path="/PupilExperince/:name" element={<PupilExperince />} />
           <Route path="/login" element={<Login/>}/>
           <Route path="/Profile" element={<Profile/>}/>
-          <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/>
-          <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/>
+          {/* <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/> */}
+          {/* <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/> */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         {auth?.accessToken&&<Footer />}
