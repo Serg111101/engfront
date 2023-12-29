@@ -13,6 +13,7 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
     const [errorReg, setErrorReg] = useState(false)
     const [errorReg1, setErrorReg1] = useState(false)
     const [errorReg2, setErrorReg2] = useState(false)
+    
     const dispatch = useDispatch();
     let LocalValue;
     if (localStorage.getItem("language")) {
@@ -48,7 +49,7 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
 
                     </div>
                     <label htmlFor="">{LocalValue === "AM"?'Մատյանի համարը':"Log number"}</label>
-                    <input className={error ? "errorInput":""} type="text"  maxLength={50} placeholder={LocalValue === "AM"?'Մատյանի համարը':"Log number"} value={editChild?.bookNumber}
+                    <input className={error ? "errorInput":""} type="text"  maxLength={50} placeholder={LocalValue === "AM"?'Մատյանի համարը':"Log number"} value={ editChild?.bookNumber}
                     onChange={(e) => {
                         if( e.target.value?.length>=3 || e.target.value?.length<=30 ){
                             setError(false)
@@ -94,29 +95,30 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
 
                     {error1 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
 
-                    <label htmlFor="">մակարդակ</label>
-                    <input className={error2 ? "errorInput":""} type="text" min={1}  placeholder={LocalValue === "AM"?'Մակարդակ':"Level"} value={editChild?.level}
+                     <label htmlFor="">{LocalValue === "AM" ? "Դասընթաց" : "Cours"}</label>
+                    <input className={error2 ? "errorInput":""} type="text" min={1}  placeholder={LocalValue === "AM" ? "Դասընթաց" : "Cours"} value={(LocalValue === "AM"?`Դաս ${editChild?.level}`:`Lesson ${editChild?.level}` )}
                     onChange={(e) => {
-                        if( e.target.value?.length>=3 || e.target.value?.length<=30 ){
+                        let inputValue = e.target.value.split(' ')[1];
+                        if( inputValue?.length>=3 || inputValue?.length<=30 ){
                             setError2(false)
-                            setEditChild({ ...editChild, level: e.target.value })
-                           if(!regexPatternNumber.test(e.target.value) ){
+                            setEditChild({ ...editChild, level: inputValue })
+                           if(!regexPatternNumber.test(inputValue) ){
 
                             setErrorReg2(true)
                            }else{
                             setErrorReg2(false)
                            }
-                           if(e.target.value?.length===0){
+                           if(inputValue?.length===0){
                             setErrorReg2(false)
                             setError2(true)
                            }
                         }
                            }}/>
                     {error2 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
-                    {errorReg2 && <p>{LocalValue==="AM" ? "Դաշտը պետք է պարունակի միայն թվանշան":"The field must contain only digits"}</p>} 
+                    {errorReg2 && <p>{LocalValue==="AM" ? "Դաշտը պետք է պարունակի միայն թվանշան":"The field must contain only digits"}</p>}  
 
                     
-                    <button disabled={errorReg ||errorReg1 || errorReg2} style={{pointerEvents:(errorReg ||errorReg1 || errorReg2)&& "none"}} onClick={(e) => { e.preventDefault(); EditChild(editChild, setError,setError1,setError2,setError3) }}>{LocalValue === "AM"?'Փոփոխել':"Edit"}</button>
+                    <button disabled={errorReg ||errorReg1 } style={{pointerEvents:(errorReg ||errorReg1) && "none"}} onClick={(e) => { e.preventDefault(); EditChild(editChild, setError,setError1,setError3) }}>{LocalValue === "AM"?'Փոփոխել':"Edit"}</button>
                 </form>
             </div>
 

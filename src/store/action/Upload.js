@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "../../hooks/axios/adminAxios";
 const URL = process.env.REACT_APP_BASE_URL;
 
 export  function uploadImageHandleradd(e,setImg) {
@@ -7,7 +7,7 @@ export  function uploadImageHandleradd(e,setImg) {
     formData.append("image", e.target.files[0]);
     if (formData.has("image")) {
       try {
-        const response = await axios.post(`${URL}addPicture`, formData, {
+        const response = await axios.post(`${URL}aeroSpace/addPicture`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

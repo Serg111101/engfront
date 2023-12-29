@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {fetchingSatellites,fetchSatellites,fetchErrorSatellites} from '../slice/SatellitesSlice'
 const URL = process.env.REACT_APP_BASE_URL
 let LocalValue; 
@@ -10,7 +10,7 @@ export const getFetchSatellites = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingSatellites());
-            const response =await axios.get(`${URL}/satellite/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/satellite/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchSatellites(response?.data[0]));
         }
         catch(error){

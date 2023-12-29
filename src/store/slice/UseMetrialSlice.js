@@ -3,22 +3,22 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState= {
   loading: false,
   error: "",
-  Lectures: []
+  UseMaterial: []
 }
 
-export const LecturesSlice = createSlice({
-  name: 'Lectures',
+export const UseMaterialSlice = createSlice({
+  name: 'UseMaterial',
   initialState,
   reducers: {
-    fetchingLectures(state) {
+    fetchingUseMaterial(state) {
       state.loading = true;
     },
-    fetchLectures(state, action) {
+    fetchUseMaterial(state, action) {
       state.loading = false;
       state.Lectures = action.payload;
       state.error = ''
     },
-    fetchErrorLectures(state, action ) {
+    fetchErrorUseMaterial(state, action ) {
       state.loading = false;
       state.error = action.payload.message
     },
@@ -26,5 +26,5 @@ export const LecturesSlice = createSlice({
   }
 })
 
-export const { fetchingLectures, fetchLectures, fetchErrorLectures } = LecturesSlice.actions;
-export default LecturesSlice.reducer;
+export const { fetchingUseMaterial, fetchUseMaterial, fetchErrorUseMaterial } = UseMaterialSlice.actions;
+export default UseMaterialSlice.reducer;

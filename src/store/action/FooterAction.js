@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 // import { fetchingHeader,fetchHeader,fetchErrorHeader } from "../slice/HeaderSlice";
 import  {fetchingFooter,fetchFooter,fetchErrorFooter} from '../slice/FooterSlicee'
 const URL = process.env.REACT_APP_BASE_URL;
@@ -12,7 +12,7 @@ export const getFetchFooter = () => {
     
         try{
             dispatch(fetchingFooter());
-            const response =await axios.get(`${URL}footer/${LocalValue?LocalValue:"AM"}`); 
+            const response =await axios.get(`${URL}aeroSpace/footer/${LocalValue?LocalValue:"AM"}`); 
             dispatch(fetchFooter(response?.data));
         }
         catch(error){

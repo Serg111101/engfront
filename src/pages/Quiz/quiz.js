@@ -11,10 +11,16 @@ import { addQuizChild } from "../../store/action/QuizChildAction";
 import useAuth from "../../hooks/AdminHooks/useAuth";
 import { editChildren } from "../../store/action/ChildrenAction";
 export const Quiz = () => {
+  let loacal;
+  if(localStorage?.getItem('language')){
+    let languageLocal = localStorage?.getItem('language');
+    loacal = JSON.parse(languageLocal)
+  }
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
+
   const [pupilQuestion, setPupilQuestion] = useState({
     attempts: 0,
     correct: [],
@@ -28,13 +34,16 @@ export const Quiz = () => {
   const { auth } = useAuth();
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [active, setActive] = useState(false);
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("lessons")) {
       const quz = localStorage.getItem("lessons");
       const Quizs = JSON.parse(quz);
       dispatch(getFetchQuiz(Quizs));
     }
+
   }, [dispatch]);
+  console.log(Quiz)
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -58,16 +67,22 @@ export const Quiz = () => {
       localStorage.setItem("auth", JSON.stringify(obj));
       delete obj.accessToken;
       delete obj.refreshToken;
-      await dispatch(editChildren(obj));
+      await dispatch(editChildren(obj,setSuccess));
     }
   }
   useEffect(() => {
-    if (
+    if (Quiz?.length &&
       pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
         Quiz?.length &&
       auth?.role === "children"
     ) {
-      console.log(auth?.role === "children");
+      console.log({
+        ...pupilQuestion,
+        lesson: Quiz[0]?.lesson,
+        teacher_id: auth?.teacher_id,
+        children_id: auth?.id,
+      },"children");
+
       dispatch(
         addQuizChild({
           ...pupilQuestion,
@@ -80,7 +95,7 @@ export const Quiz = () => {
   }, [pupilQuestion]);
 
   async function next() {
-    if (question < Quiz.length - 1) {
+    if (question < Quiz?.length - 1) {
       if (
         Quiz[question]?.correctAnswer === corectAnswers &&
         count <= question
@@ -156,14 +171,13 @@ export const Quiz = () => {
     setActive(el);
   }
   const Background = Quiz[0]?.background;
-  console.log('====================================');
-  console.log(Background);
-  console.log('====================================');
+
   return (
-    <div className="answer" style={{ background:`url(${Background}) ` }}>
+
+    <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
         <button onClick={() => navigate("/Leqtures")}>
-          {Quiz[0]?.button[3]}
+          {loacal==="AM" ? "Հետ":"Back"}
         </button>
       </div>
       {!wrongAnswer && (
@@ -173,7 +187,7 @@ export const Quiz = () => {
           ) : finish ? (
             <div className="answer_next">
               <p>
-                {Quiz[0]?.button[0]}
+              {loacal==="AM" ? "Դուք հավաքեցիք":"You collected"}
                 {count}/{Quiz.length}
               </p>
               {pupilQuestion.incorrect.length > 0 && (
@@ -192,17 +206,17 @@ export const Quiz = () => {
                   navigate("/Lessons");
                 }}
               >
-                {" "}
-                {Quiz[0]?.button[1]}{" "}
+                
+                {loacal==="AM" ? "Դասընթացներ":"Courses"}
               </button>
             </div>
           ) : (
             <div className="quiz">
               <div>
-                <h1>{Quiz[question]?.question}</h1>
+                <h1>{question+1+" . "}{Quiz[question]?.question}</h1>
               </div>
               <div className="item">
-                {answer.length > 0 &&
+                {answer?.length > 0 &&
                   answer?.map((el, index) => (
                     <div
                       key={index}
@@ -216,12 +230,14 @@ export const Quiz = () => {
                   ))}
               </div>
               <button
+
                 className={active ? "btnActive" : "btnDisable"}
                 onClick={() => {
                   next();
                 }}
               >
-                <p>{Quiz[0]?.button[2]}</p>
+               <p> {loacal==="AM" ? "Առաջ":"Next"}</p>
+
               </button>
             </div>
           )}
@@ -244,11 +260,11 @@ export const Quiz = () => {
 
                 <tbody>
                   {
-            pupilQuestion?.incorrect.map((el) => (
+            pupilQuestion?.incorrect?.map((el) => (
               
                   <tr>
-                    <td>{el.question}</td>
-                    <td>{el.answer}</td>
+                    <td>{el?.question}</td>
+                    <td>{el?.answer}</td>
                   </tr>
  
             ))}

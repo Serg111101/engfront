@@ -21,6 +21,7 @@ import QuizSateliteReducer from './slice/QuizSateliteSlice';
 import ChildrenReducer from './slice/ChildrenSlice';
 import ClassReducer from './slice/ClassSlice';
 import QuizChildReducer from './slice/QuizChildSlice'
+import UseMaterialReducer from './slice/UseMetrialSlice'
 const store = configureStore({
   reducer: {
     HomeHeaderr:HomeHeaderReducer,
@@ -45,6 +46,7 @@ const store = configureStore({
     Children:ChildrenReducer,
     Class:ClassReducer,
     QuizChild:QuizChildReducer,
+    UseMaterial:UseMaterialReducer,
   }
 })
 

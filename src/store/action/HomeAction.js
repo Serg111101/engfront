@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import {  fetchingHomeHeader, fetchHomeHeaderr, fetchErrorHomeHeader } from "../slice/HomeHeaderSlice";
 import { fetchingHomeNextRout,fetchErrorHomeNextRout,fetchHomeNextRout } from "../slice/HomeNextRoutSlice";
 import { fetchHomeAuthor,fetchErrorHomeAuthor,fetchingHomeAuthor } from "../slice/HomeAuthorSlice";
@@ -17,7 +17,7 @@ export const getfetchHomeHeader = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeHeader());
-            const response =await axios.get(`${URL}homeIcons/text/${LocalValue ? LocalValue:"AM"}`);  
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/text/${LocalValue ? LocalValue:"AM"}`);  
             dispatch(fetchHomeHeaderr(response.data[0]?.information[0]));
         }
         catch(error){
@@ -35,7 +35,7 @@ export const   getfetchHomeNextRout= () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeNextRout());
-            const response =await axios.get(`${URL}homeIcons/lessonBox/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/lessonBox/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeNextRout(response?.data[0]?.information));
             
         }
@@ -52,7 +52,7 @@ export const getfetchHomeAuthor   = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeAuthor());
-            const response =await axios.get(`${URL}homeIcons/Box/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/Box/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeAuthor(response?.data[0]?.information[0]));
             
         }
@@ -69,7 +69,7 @@ export const getfetchHomeInfo = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingHomeInfo());
-            const response =await axios.get(`${URL}homeIcons/downBox/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/downBox/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchHomeInfo(response?.data[0]?.information));
             
         }
@@ -85,7 +85,7 @@ export const getfetchSendMail = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingSendMail());
-            const response =await axios.get(`${URL}homeIcons/sendMail/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/sendMail/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchSendMail(response?.data[0]?.information));
             
         }
@@ -100,7 +100,7 @@ export const getfetchContact = () => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingContact());
-            const response =await axios.get(`${URL}homeIcons/contact/${LocalValue ? LocalValue:"AM"}`);
+            const response =await axios.get(`${URL}aeroSpace/homeIcons/contact/${LocalValue ? LocalValue:"AM"}`);
             dispatch(fetchContact(response?.data[0]?.information));
             
         }
@@ -116,7 +116,7 @@ export const SendMaill = (obj) => {
     return async (dispatch)=>{
         try{        
         dispatch(fetchingMail())    
-        const response = await axios.post(`${URL}sendMail`,obj);
+        const response = await axios.post(`${URL}aeroSpace/sendMail`,obj);
         dispatch(fetchMail(response?.data));
 
         }

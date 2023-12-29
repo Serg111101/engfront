@@ -19,13 +19,15 @@
 
     .homeAuthorWords{
         margin: 0 auto;
-        width: 423.5px; 
+        width: 433.5px; 
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 36px;
         font-weight: bold;
+        padding: 5px;
+        background: rgb(26 27 29 / 73%);
     
         p{
             text-align: center;
@@ -55,11 +57,19 @@
         }
     }
     .authorClass{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         font-weight: bold;
         font-size: 30px;
         margin-top: 10%;
         color: #77AAD9;
+        
         p{
+            width: 350px;
+            background: rgb(26 27 29 / 73%);
+            padding: 5px 0px;
             text-align: center;
             
         }

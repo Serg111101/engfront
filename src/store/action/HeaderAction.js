@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 import { fetchingHeader,fetchHeader,fetchErrorHeader } from "../slice/HeaderSlice";
 const URL = process.env.REACT_APP_BASE_URL;
 
@@ -12,7 +12,7 @@ export const getFetchHeader = () => {
         
         try{
             dispatch(fetchingHeader());
-            const response =await axios.get(`${URL}header/${LocalValue?LocalValue:"AM"}`); 
+            const response =await axios.get(`${URL}aeroSpace/header/${LocalValue?LocalValue:"AM"}`); 
             dispatch(fetchHeader(response?.data));
         }
         catch(error){

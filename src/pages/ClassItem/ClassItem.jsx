@@ -39,6 +39,35 @@ export const ClassItem = () => {
   const [addChild, setAddChild] = useState(false);
   const [editChild, setEditChild] = useState(false);
 
+  
+  const [success,setSuccess] = useState("")
+  useEffect(() => {
+   
+
+    if (success === 'ok') {
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title:LocalValue ==="AM"? "Տվյալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
+            showConfirmButton: false,
+            timer: 2500
+        }).then(() => {
+          setEditChild('')
+          setSuccess("")
+        });
+    }
+    if (success?.response?.status < 200 || success?.response?.status >= 400) {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title:LocalValue ==="AM"? "Չհաջողվեց!!": "Failed",
+            showConfirmButton: false,
+            timer: 2500
+        }).then(() => {
+            setSuccess("")
+        });
+    }
+}, [success])
   async function saveChild(
     child,
     setError,
@@ -100,7 +129,8 @@ export const ClassItem = () => {
       child?.level > 0 &&
       child?.picture?.trim()
     ) {
-      await dispatch(editChildren(child));
+
+      await dispatch(editChildren(child,setSuccess));
       await dispatch(getFetchChildren({ id: auth?.id, name }));
       setEditChild(false);
     }
@@ -155,7 +185,8 @@ export const ClassItem = () => {
                       ? "Անուն Ազգանուն"
                       : "First Name Last Name"}
                   </th>
-                  <th>{LocalValue === "AM" ? "Մակարդակ" : "Level"}</th>
+
+                  <th>{LocalValue === "AM" ? "Դասընթացներ" : "Courses"}</th>
                   <th>{LocalValue === "AM" ? "Փոփոխել" : "Edit"}</th>
                   <th>{LocalValue === "AM" ? "Հարցաշար" : "Questionnaire"}</th>
                 </tr>
@@ -170,7 +201,8 @@ export const ClassItem = () => {
                       <strong>{el?.bookNumber}</strong>
                     </td>
                     <td>{el.fullName}</td>
-                    <td>{el.level}</td>
+
+                    <td>{LocalValue === "AM" ? "Դաս " : "Lesson "}{el.level}</td>
                     <td className=" editdelete">
                       <EditOutlined
                         className="edit"
@@ -203,7 +235,6 @@ export const ClassItem = () => {
               navigate("/Class");
             }}
           >
-            {" "}
             {LocalValue === "AM" ? "Հետ" : "Prev"}{" "}
           </button>
           <button

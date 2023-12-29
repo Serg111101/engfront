@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getFetchQuizSatelite } from "../../store/action/QuizSateliteAction";
 import { Loading } from "../../components/Loading/Loading";
+import useAuth from "../../hooks/AdminHooks/useAuth";
+import { addQuizChild } from "../../store/action/QuizChildAction";
+
 export const QuizSatelite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,17 +16,27 @@ export const QuizSatelite = () => {
   const Background = QuizSatelite[0]?.background;
   const [item, setItem] = useState(QuizSatelite);
   const [active, setActive] = useState(false);
-
+  const [wrongAnswer, setWrongAnswer] = useState(false);
+  const [pupilQuestion, setPupilQuestion] = useState({
+    attempts: 0,
+    correct: [],
+    incorrect: [],
+  });
   useEffect(() => {
     dispatch(getFetchQuizSatelite());
     
   }, [dispatch]);
-
- useEffect(()=>{
+ const {auth } = useAuth()
+  useEffect(()=>{
     if(QuizSatelite?.length>0){
         setItem(QuizSatelite);
     }
  },[QuizSatelite])
+ let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
 
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
@@ -42,42 +55,110 @@ export const QuizSatelite = () => {
       setAnswer(answers);
     }
   }, [question, item]);
-
-  function next() {
-    if (question < item.length - 1) {
+  useEffect(() => {
+    if (
+      pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
+      QuizSatelite?.length &&
+      auth?.role === "children"
+    ) {
+      console.log(auth?.role === "children");
+      dispatch(
+        addQuizChild({
+          ...pupilQuestion,
+          lesson: QuizSatelite[0]?.lesson,
+          teacher_id: auth?.teacher_id,
+          children_id: auth?.id,
+        })
+      );
+    }
+  }, [pupilQuestion]);
+  async function next() {
+    if (question < QuizSatelite.length - 1) {
       if (
-        item[question]?.correctAnswer === corectAnswers &&
+        QuizSatelite[question]?.correctAnswer === corectAnswers &&
         count <= question
       ) {
+        await setPupilQuestion({
+          ...pupilQuestion,
+          correct: [
+            ...pupilQuestion?.correct,
+            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+          ],
+        });
         setCount(++count);
+      } else {
+        setPupilQuestion({
+          ...pupilQuestion,
+          incorrect: [
+            ...pupilQuestion?.incorrect,
+            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+          ],
+        });
       }
 
       setQuestion(++question);
       setActive(false);
     } else {
       if (
-        item[question]?.correctAnswer === corectAnswers &&
+        QuizSatelite[question]?.correctAnswer === corectAnswers &&
         count <= question
       ) {
+        await setPupilQuestion({
+          ...pupilQuestion,
+          correct: [
+            ...pupilQuestion?.correct,
+            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+          ],
+        });
         setCount(++count);
+      } else {
+        await setPupilQuestion({
+          ...pupilQuestion,
+          incorrect: [
+            ...pupilQuestion?.incorrect,
+            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+          ],
+        });
       }
 
+      // const sum = sessionStorage.getItem("count");
+      // let countStorag = JSON.parse(sum);
+      // const les = localStorage.getItem("level");
+      // const lesons = JSON.parse(les);
+
+      // if (
+      //   count >= ((Quiz?.length * 80) / 100).toFixed(2) &&
+      //   lesons === auth?.level
+      // ) {
+      //   // const sumo = sessionStorage.getItem("count");
+      //   // let countStorage = JSON.parse(sumo);
+
+      //   // sessionStorage.setItem("count", JSON.stringify(++countStorage));
+      //   EditChild();
+      // }
+      //   setPupilQuestion({
+      //     ...pupilQuestion,
+      //     attempts: pupilQuestion?.attempts + 1,
+      //   });
+
       setFinish(true);
-        }
+    }
   }
   function correctAnswer(el) {
     setCorectAnswers(el);
     setActive(el);
   }
-
+console.log(pupilQuestion);
   return (
     <>
-      <div className="answer" style={{ backgroundImage: `url(${Background})` }}>
+      <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
         <div className="prevButton">
           <button onClick={() => navigate("/Satellites")}>
             {QuizSatelite[0]?.button[3]}
           </button>
         </div>
+        {!wrongAnswer && (
+        <div>
         {loading ? (
           <Loading />
         ) : finish ? (
@@ -86,6 +167,17 @@ export const QuizSatelite = () => {
               {QuizSatelite[0]?.button[0]}
               {count}/{item.length}
             </p>
+            {pupilQuestion.incorrect.length > 0 && (
+                <button
+                  onClick={() => {
+                    setWrongAnswer(true);
+                  }}
+                >
+                  {LocalValue === "AM"
+                    ? "Տեսնել սխալ պատասխանները"
+                    : "See wrong answers"}
+                </button>
+              )}
             <button
               onClick={() => {
                 navigate("/Satellites");
@@ -123,7 +215,36 @@ export const QuizSatelite = () => {
               <p>{QuizSatelite[0]?.button[2]}</p>
             </button>
           </div>
-        )}
+        )}</div>)}
+         {wrongAnswer && (
+        <div className="inanswer_next">
+          {wrongAnswer && <table>
+                <thead>
+                  <tr>
+                    <th>{LocalValue === "AM" ? "Հարց" : "question"}</th>
+                    <th>
+                      {LocalValue === "AM"
+                        ? "Սխալ պատասխան"
+                        : "incorrect answer"}
+                    </th>
+                   
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {
+            pupilQuestion?.incorrect.map((el) => (
+              
+                  <tr>
+                    <td>{el.question}</td>
+                    <td>{el.answer}</td>
+                  </tr>
+ 
+            ))}
+             </tbody>
+              </table>}
+        </div>
+      )}
       </div>
     </>
   );

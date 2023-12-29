@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "../../hooks/axios/adminAxios";
 // import {  fetchingLogo, fetchLogo, fetchErrorLogo } from "../slice/LogoSlice";
 import { fetchingChildren,fetchChildren,fetchErrorChildren } from "../slice/ChildrenSlice";
-const URL = process.env.REACT_APP_BASE_URL1
+const URL = process.env.REACT_APP_BASE_URL
 let LocalValue; 
 if(localStorage.getItem("language")){
     let local = localStorage.getItem("language");
@@ -12,7 +12,7 @@ export const getFetchChildren = (obj) => {
     return async (dispatch)=>{
         try{
             dispatch(fetchingChildren());
-            const response =await axios.get(`${URL}getChildren/${obj?.id}/${obj?.name}`);           
+            const response =await axios.get(`${URL}v2/getChildren/${obj?.id}/${obj?.name}`);           
             await dispatch(fetchChildren(response?.data));
         }
         catch(error){
@@ -27,7 +27,7 @@ export const addChildren = (obj) => {
     return async (dispatch)=>{
          try{
             dispatch(fetchingChildren());
-            const response =await axios.post(`${URL}addCHildren`,obj); 
+            const response =await axios.post(`${URL}v2/addCHildren`,obj); 
 
         }
         catch(error){
@@ -36,15 +36,18 @@ export const addChildren = (obj) => {
 
     }
 }
-export const editChildren = (obj) => {
-    return async (dispatch)=>{
+export const editChildren = (obj,setSuccess) => {
+    return async ()=>{
      
          try{
-            dispatch(fetchingChildren());
-            const response =await axios.put(`${URL}editChildren/${obj.id}`,obj); 
+          
+            await axios.put(`${URL}v2/editChildren/${obj.id}`,obj); 
+           
+            setSuccess("ok")
 
         }
         catch(error){
+            setSuccess(error)
             console.log(error,'error');
         }
 
@@ -52,17 +55,19 @@ export const editChildren = (obj) => {
 }
 
 
-export const editTeacher = (obj) => {
+export const editTeacher = (edite,setSuccess) => {
     return async ()=>{
      
          try{
             await axios.put(
-                `${URL}putTeacher/${edite.id}`,
+                `${URL}v2/putTeacher/${edite.id}`,
                 edite
               );
-
+              setSuccess("ok")
         }
         catch(error){
+            setSuccess(error)
+
             console.log(error,'error');
         }
 
@@ -76,10 +81,11 @@ export const deleteChildren = (id) => {
        
          try{
             dispatch(fetchingChildren());
-            const response =await axios.delete(`${URL}deleteChildren/${id}`); 
+            const response =await axios.delete(`${URL}v2/deleteChildren/${id}`); 
 
         }
         catch(error){
+
             console.log(error,'error');
         }
 
