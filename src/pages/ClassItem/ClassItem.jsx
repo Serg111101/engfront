@@ -76,7 +76,6 @@ export const ClassItem = () => {
     setError3,
     setError4
   ) {
-    console.log(child);
     if (!child?.fullName?.trim()) {
       setError(true);
     }

@@ -6,7 +6,6 @@ let refresh
 let localAuth
 
 if(local){
-  console.log(local,"hujjhj");
    localAuth = JSON.parse(local)
    token= localAuth?.accessToken
    refresh = localAuth?.refreshToken
@@ -26,9 +25,7 @@ export const refreshAccessToken = async () => {
     // Return the new access token
     return response.data;
   } catch (error) {
-    console.log(error,"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
      if(error?.response?.data?.status === 401 && error?.response?.data?.message === 333){
-      console.log(+5654564564564456456465);
         await localStorage.removeItem("auth");
        await  window.location.reload();
     }

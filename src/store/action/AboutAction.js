@@ -20,7 +20,7 @@ export const getFetchAbout = () => {
             dispatch(fetchAbout(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorAbout(error));
         }
 
@@ -36,7 +36,7 @@ export const getAboutOutTeam = () => {
             dispatch(fetchAboutOurTeam(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorAboutOurTeam(error));
         }
 

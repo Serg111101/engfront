@@ -37,7 +37,6 @@ function App() {
    }
   },[auth,window.location.pathname])
 
-  console.log(window.location);
 
   return (
     <Scrollbars

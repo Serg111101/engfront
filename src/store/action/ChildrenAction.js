@@ -16,7 +16,7 @@ export const getFetchChildren = (obj) => {
             await dispatch(fetchChildren(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorChildren(error));
         }
 
@@ -31,7 +31,7 @@ export const addChildren = (obj) => {
 
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -48,7 +48,7 @@ export const editChildren = (obj,setSuccess) => {
         }
         catch(error){
             setSuccess(error)
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -68,7 +68,7 @@ export const editTeacher = (edite,setSuccess) => {
         catch(error){
             setSuccess(error)
 
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -86,7 +86,7 @@ export const deleteChildren = (id) => {
         }
         catch(error){
 
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }

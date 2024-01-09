@@ -78,7 +78,6 @@ const {auth} = useAuth()
     }else{
       let id= auth?.id;
      
-     console.log(child);
       await dispatch(editeClass(child,setSuccess))
       await dispatch(getClass(id))
       setEditClassModal(false)

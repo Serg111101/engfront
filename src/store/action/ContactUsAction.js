@@ -14,7 +14,7 @@ export const getFetchContactUs = () => {
             dispatch(fetchContactUs(response?.data[0].information));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorContactUs(error));
         }
 

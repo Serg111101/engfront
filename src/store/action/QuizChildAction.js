@@ -9,7 +9,6 @@ if(localStorage.getItem("language")){
 }
 
 export const addQuizChild = (obj) => {
-    console.log(2);
     return async (dispatch)=>{
          try{
             dispatch(fetchingQuizChild());
@@ -23,16 +22,12 @@ export const addQuizChild = (obj) => {
 }
 
 export const getQuizChild = (obj) => {
-    console.log('====================================');
-    console.log(obj);
-    console.log('====================================');
+    
     return async (dispatch)=>{
         try{
             dispatch(fetchingQuizChild());
-            const response =await axios.get(`${URL}v2//getTest/${obj.teacher_id}/${obj.children_id}`); 
-            console.log('====================================');
-            console.log(response?.data);
-            console.log('====================================');
+            const response =await axios.get(`${URL}v2/getTest/${obj.teacher_id}/${obj.children_id}`); 
+           
             dispatch(fetchQuizChild(response?.data))
         }
         catch(error){

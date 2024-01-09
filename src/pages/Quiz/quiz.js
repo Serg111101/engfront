@@ -43,7 +43,6 @@ export const Quiz = () => {
     }
 
   }, [dispatch]);
-  console.log(Quiz)
   let [question, setQuestion] = useState(0);
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -75,13 +74,7 @@ export const Quiz = () => {
       pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
         Quiz?.length &&
       auth?.role === "children"
-    ) {
-      console.log({
-        ...pupilQuestion,
-        lesson: Quiz[0]?.lesson,
-        teacher_id: auth?.teacher_id,
-        children_id: auth?.id,
-      },"children");
+    ) {;
 
       dispatch(
         addQuizChild({
@@ -104,7 +97,7 @@ export const Quiz = () => {
           ...pupilQuestion,
           correct: [
             ...pupilQuestion?.correct,
-            { question: Quiz[question]?.question, answer: corectAnswers },
+            { question: `${question+1+"."}`+Quiz[question]?.question, answer: corectAnswers },
           ],
         });
         setCount(++count);
@@ -113,7 +106,7 @@ export const Quiz = () => {
           ...pupilQuestion,
           incorrect: [
             ...pupilQuestion?.incorrect,
-            { question: Quiz[question]?.question, answer: corectAnswers },
+            { question: `${question+1+"."}`+Quiz[question]?.question, answer: corectAnswers },
           ],
         });
       }
@@ -129,7 +122,7 @@ export const Quiz = () => {
           ...pupilQuestion,
           correct: [
             ...pupilQuestion?.correct,
-            { question: Quiz[question]?.question, answer: corectAnswers },
+            { question:`${question+1+"."}`+ Quiz[question]?.question, answer: corectAnswers },
           ],
         });
         setCount(++count);
@@ -138,7 +131,7 @@ export const Quiz = () => {
           ...pupilQuestion,
           incorrect: [
             ...pupilQuestion?.incorrect,
-            { question: Quiz[question]?.question, answer: corectAnswers },
+            { question:`${question+1+"."}`+ Quiz[question]?.question, answer: corectAnswers },
           ],
         });
       }

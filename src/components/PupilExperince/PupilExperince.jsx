@@ -18,12 +18,12 @@ export function PupilExperince() {
   }, [dispatch, auth, name]);
   const [view, setView] = useState(false);
   const [rows, setRows] = useState(false);
-  console.log(view);
   let LocalValue;
   if (localStorage.getItem("language")) {
     let local = localStorage.getItem("language");
     LocalValue = JSON.parse(local);
   }
+  console.log(view,"kjhgf");
   return (
     <div
       className={QuizChild.length > 0 ? "PupilExperience" : "emptyExperince"}

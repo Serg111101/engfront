@@ -16,7 +16,7 @@ export const getFetchFooter = () => {
             dispatch(fetchFooter(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorFooter(error));
         }
 

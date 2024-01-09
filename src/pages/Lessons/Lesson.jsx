@@ -33,7 +33,6 @@ export function Lesson() {
   useEffect(()=>{
     if(localStorage.getItem("auth")&& auth?.role === "children"){ 
       const authh = JSON?.parse(localStorage.getItem("auth"));
-      console.log(authh);
       setCount(authh?.level)
     }
   },[localStorage.getItem("auth"),Children])

@@ -12,7 +12,7 @@ export const addclass = (obj,id,setSuccess) => {
         }
         catch(error){
             setSuccess(error)
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -26,7 +26,7 @@ export const getClass = (id) => {
              dispatch(fetchClass(response.data))
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -42,7 +42,7 @@ export const editeClass = (obj,setSuccess) => {
         catch(error){
             setSuccess(error)
 
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }
@@ -56,7 +56,7 @@ export const deleteClass = (id,obj) => {
 
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
         }
 
     }

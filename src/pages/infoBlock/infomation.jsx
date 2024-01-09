@@ -15,7 +15,6 @@ const Informatoin = () => {
   const [elem, setElem] = useState(false);
   const [infoState, setInfoState] = useState(0);
   const [title,setTitle] = useState(localStorage.getItem('lessons')||"")
-  console.log(title,"tttttttttttttt");
   useEffect(() => {
     if (localStorage.getItem('lessons')) {
       const loc = localStorage.getItem('lessons');

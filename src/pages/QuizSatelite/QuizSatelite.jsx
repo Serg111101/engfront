@@ -61,7 +61,6 @@ export const QuizSatelite = () => {
       QuizSatelite?.length &&
       auth?.role === "children"
     ) {
-      console.log(auth?.role === "children");
       dispatch(
         addQuizChild({
           ...pupilQuestion,
@@ -82,7 +81,7 @@ export const QuizSatelite = () => {
           ...pupilQuestion,
           correct: [
             ...pupilQuestion?.correct,
-            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+            { question: `${question+1+"."}`+ QuizSatelite[question]?.question, answer: corectAnswers },
           ],
         });
         setCount(++count);
@@ -91,7 +90,7 @@ export const QuizSatelite = () => {
           ...pupilQuestion,
           incorrect: [
             ...pupilQuestion?.incorrect,
-            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+            { question:`${question+1+"."}`+ QuizSatelite[question]?.question, answer: corectAnswers },
           ],
         });
       }
@@ -107,7 +106,7 @@ export const QuizSatelite = () => {
           ...pupilQuestion,
           correct: [
             ...pupilQuestion?.correct,
-            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+            { question:`${question+1+"."}`+ QuizSatelite[question]?.question, answer: corectAnswers },
           ],
         });
         setCount(++count);
@@ -116,7 +115,7 @@ export const QuizSatelite = () => {
           ...pupilQuestion,
           incorrect: [
             ...pupilQuestion?.incorrect,
-            { question: QuizSatelite[question]?.question, answer: corectAnswers },
+            { question:`${question+1+"."}`+ QuizSatelite[question]?.question, answer: corectAnswers },
           ],
         });
       }
@@ -148,7 +147,6 @@ export const QuizSatelite = () => {
     setCorectAnswers(el);
     setActive(el);
   }
-console.log(pupilQuestion);
   return (
     <>
       <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>

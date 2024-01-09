@@ -66,7 +66,7 @@ const Profile = () => {
           dispatch(editTeacher(edite,setSuccess));
        
         } catch (error) {
-          console.log(error, "error");
+          console.error(error, "error");
         }
       }
     }
@@ -89,7 +89,7 @@ const Profile = () => {
           dispatch(editChildren(edite,setSuccess));
       
         } catch (error) {
-          console.log(error, "error");
+          console.error(error, "error");
         }
       }
     }

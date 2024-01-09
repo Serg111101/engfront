@@ -16,7 +16,7 @@ export const getFetchHeader = () => {
             dispatch(fetchHeader(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorHeader(error));
         }
 
