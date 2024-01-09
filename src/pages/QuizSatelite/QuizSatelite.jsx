@@ -181,14 +181,14 @@ export const QuizSatelite = () => {
                 navigate("/Satellites");
               }}
             >
-              {" "}
-              {QuizSatelite[0]?.button[1]}{" "}
+              
+              {QuizSatelite[0]?.button[1]}
             </button>
           </div>
         ) : (
           <div className="quiz">
             <div>
-              <h1>{item[question]?.question}</h1>
+              <h1>{question+1+" . "}{item[question]?.question}</h1>
             </div>
             <div className="item">
               {answer.length > 0 &&
