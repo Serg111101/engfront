@@ -5,16 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/AdminHooks/useAuth';
 import { getFetchChildren } from '../../store/action/ChildrenAction';
+import LinksModal from './LinksModal';
 
 export function HomeNextRoute() {
+ 
   const navigate = useNavigate();
   const { HomeNextRout } = useSelector((state) => state.HomeNextRout);
- const [cou,setCou] = useState(1)
- const {Children} = useSelector((state)=>state?.Children)
+ const [cou,setCou] = useState(1);
+ const {Children} = useSelector((state)=>state?.Children);
+ const [showLinks,setShowLinks] = useState(false);
  const dispatch = useDispatch();
 
 
- const {auth} =useAuth()
+ const {auth} =useAuth();
+
    useEffect(() => {
     if(auth?.role === "admin"){
       setCou(41000)
@@ -56,7 +60,9 @@ export function HomeNextRoute() {
         navigate("/Lessons")
       })
       }else{
-        window.open("http://cubesat.local/", "_blank");
+        setShowLinks(true);
+        
+        
       }
     } else {
       navigate("/")
@@ -83,6 +89,7 @@ export function HomeNextRoute() {
           </div>
         ))}
       </div>
+      {showLinks && <LinksModal  setShowLinks={setShowLinks} auth={auth}/>}
     </div>
   );
 }

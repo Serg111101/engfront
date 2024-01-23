@@ -23,7 +23,6 @@ export function PupilExperince() {
     let local = localStorage.getItem("language");
     LocalValue = JSON.parse(local);
   }
-  console.log(view,"kjhgf");
   return (
     <div
       className={QuizChild.length > 0 ? "PupilExperience" : "emptyExperince"}
