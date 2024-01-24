@@ -1,7 +1,9 @@
 import React from 'react'
 import LeftOutlined, { CloseOutlined } from "@ant-design/icons"
 
-const LinksModal = ({setShowLinks,auth}) => {
+const LinksModal = ({showLinks,setShowLinks,auth}) => {
+
+
   let LocalValue;
   if (localStorage.getItem("language")) {
       let local = localStorage.getItem("language");
@@ -24,8 +26,8 @@ const LinksModal = ({setShowLinks,auth}) => {
   }
   
     return (
-        <div className="CartTransferTwo"  >
-          <div className="modal" onClick={()=>setShowLinks(false)}>
+        <div className={`CartTransferTwo ${showLinks ? 'modalOpen' : 'modalClosed'}`}  >
+          <div className={`modal ${showLinks ? 'modalOpen' : 'modalClosed'}`} onClick={()=>{setShowLinks(false)}}>
             <div className="container">
               <div className="conta">
                 <div className="topBlock">

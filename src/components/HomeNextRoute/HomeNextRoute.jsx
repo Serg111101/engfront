@@ -89,7 +89,7 @@ export function HomeNextRoute() {
           </div>
         ))}
       </div>
-      {showLinks && <LinksModal  setShowLinks={setShowLinks} auth={auth}/>}
+      {showLinks && <LinksModal showLinks={showLinks}  setShowLinks={setShowLinks} auth={auth}/>}
     </div>
   );
 }
