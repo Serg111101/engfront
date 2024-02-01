@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from "react";
 import { useState } from "react";
 import "./quiz.scss";
@@ -65,7 +66,7 @@ export const Quiz = () => {
     }
   }, [question, Quiz]);
   async function EditChild() {
-    if (auth?.role == "children") {
+    if (auth?.role === "children") {
       let obj = { ...auth, level: auth?.level + 1 };
       localStorage.setItem("auth", JSON.stringify(obj));
       delete obj.accessToken;

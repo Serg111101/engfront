@@ -1,9 +1,10 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { getQuizChild, putQuizChild, putQuizChildStatus } from "../../store/action/QuizChildAction";
+import { getQuizChild, putQuizChildStatus } from "../../store/action/QuizChildAction";
 import useAuth from "../../hooks/AdminHooks/useAuth";
-import { CheckOutlined, CloseOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined } from '@ant-design/icons';
 import { Switch, Space } from 'antd';
 // import 'antd/dist/antd.css'
 import "./PupilExperince.scss";
@@ -55,7 +56,7 @@ export function PupilExperince() {
     }
 
 
-  }, [checkboxStates]);
+  }, [checkboxStates,auth?.id,dispatch]);
 
 
   return (

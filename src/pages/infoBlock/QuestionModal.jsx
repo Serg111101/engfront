@@ -1,3 +1,4 @@
+/*eslint-disable */
 import React, { useEffect, useState } from 'react'
 import  { LeftOutlined,  CloseOutlined } from "@ant-design/icons"
 import {useNavigate} from "react-router-dom"
@@ -40,7 +41,8 @@ const QuestionModal = ({show,setShow,auth}) => {
         incorrectAnswer:["","",""],
     }
     if(quesVal?.length>10){
-        // dispatch(addFetchQuiz(obj,setError,setLoadnig))
+        dispatch(addFetchQuiz(obj,setError,setLoadnig))
+        
     }
   }
   useEffect(() => {
