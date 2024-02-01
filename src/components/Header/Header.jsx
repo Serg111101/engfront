@@ -59,18 +59,22 @@ export function Header() {
   const [mobile, setMobile] = useState(false);
 
   function navigateTo(val) {
-    switch (val) {
+    switch (val.id) {
       case 1:
         navigate("/");
+        setMobile(false);
         break;
       case 2:
         navigate("/about");
+        setMobile(false);
         break;
       case 3:
-        navigate("/");
+        window.open(val.link,"_blank")
+        setMobile(false);
         break;
       case 4:
         navigate("/ContactUS");
+        setMobile(false);
         break;
       default:
         navigate("/");
@@ -126,7 +130,7 @@ export function Header() {
                     ? "item active"
                     : "item"
                 }
-                onClick={() => navigateTo(el?.id)}
+                onClick={() => navigateTo(el)}
                 key={index}
               >
                 {el?.title}

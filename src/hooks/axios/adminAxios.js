@@ -26,8 +26,9 @@ export const refreshAccessToken = async () => {
     return response.data;
   } catch (error) {
      if(error?.response?.data?.status === 401 && error?.response?.data?.message === 333){
+      console.log(11111111111111111111111111111111);
         await localStorage.removeItem("auth");
-       await  window.location.reload();
+       await  window.location.reload(); 
     }
     console.error('Error refreshing access token:', error);
     throw error;

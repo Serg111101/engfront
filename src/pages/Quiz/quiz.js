@@ -26,6 +26,7 @@ export const Quiz = () => {
     correct: [],
     incorrect: [],
   });
+  const [answerVal,setAnswerVal] = useState("")
   let LocalValue;
   if (localStorage.getItem("language")) {
     let local = localStorage.getItem("language");
@@ -59,6 +60,9 @@ export const Quiz = () => {
         .map((a) => a.value);
       setAnswer(answers);
     }
+    else{
+      setAnswer([]);
+    }
   }, [question, Quiz]);
   async function EditChild() {
     if (auth?.role == "children") {
@@ -71,7 +75,7 @@ export const Quiz = () => {
   }
   useEffect(() => {
     if (Quiz?.length &&
-      pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length ==
+      pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length  ===
         Quiz?.length &&
       auth?.role === "children"
     ) {;
@@ -86,7 +90,7 @@ export const Quiz = () => {
       );
     }
   }, [pupilQuestion]);
-
+console.log(pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length + 2);
   async function next() {
     if (question < Quiz?.length - 1) {
       if (
@@ -109,6 +113,18 @@ export const Quiz = () => {
             { question: `${question+1+"."}`+Quiz[question]?.question, answer: corectAnswers },
           ],
         });
+        
+      }
+      if(answerVal?.length>0){
+        setPupilQuestion({
+          ...pupilQuestion,
+          incorrect: [
+            ...pupilQuestion?.incorrect,
+            { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal },
+          ],
+          
+        });
+        setAnswerVal("");
       }
 
       setQuestion(++question);
@@ -134,6 +150,17 @@ export const Quiz = () => {
             { question:`${question+1+"."}`+ Quiz[question]?.question, answer: corectAnswers },
           ],
         });
+        if(answerVal?.length>0){
+          setPupilQuestion({
+            ...pupilQuestion,
+            incorrect: [
+              ...pupilQuestion?.incorrect,
+              { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal },
+            ],
+            
+          });
+          setAnswerVal("");
+        }
       }
 
       // const sum = sessionStorage.getItem("count");
@@ -163,8 +190,7 @@ export const Quiz = () => {
     setCorectAnswers(el);
     setActive(el);
   }
-  const Background = Quiz[0]?.background;
-
+  console.log(pupilQuestion);
   return (
 
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
@@ -208,8 +234,9 @@ export const Quiz = () => {
               <div>
                 <h1>{question+1+" . "}{Quiz[question]?.question}</h1>
               </div>
-              <div className="item">
-                {answer?.length > 0 &&
+              <div className={answer?.length > 0?"item":""}>
+                {
+                answer?.length > 0 ?
                   answer?.map((el, index) => (
                     <div
                       key={index}
@@ -219,8 +246,26 @@ export const Quiz = () => {
                       }}
                     >
                       <p>{el}</p>
+                      
                     </div>
-                  ))}
+                  ))
+                  :
+                  <div className="form-container" >
+                    <label htmlFor="writeText">{loacal==="AM" ? "Լրացրեք ճիշտ պատասխանը":"Complete the correct answer"}</label>
+                    <textarea cols={8} rows={8}  className="answerInput" id="writeText" value={answerVal} 
+                     onCopy={(e)=>{e.preventDefault();    
+                      setAnswerVal(`${LocalValue === "AM"
+                      ? "Հնարավոր չէ պատճենել"
+                      : "Cannot copy"}`)
+                    }}
+                     onPaste={(e)=>{e.preventDefault();
+                      setAnswerVal(`${LocalValue === "AM"
+                     ? "Հնարավոր չէ տեղադրել"
+                     : "Cannot paste"}`)}} 
+                     onChange={(e)=>{setAnswerVal(e.target.value);}}/>
+                    <button onClick={()=>  correctAnswer(answerVal)} >{loacal==="AM" ? "Հաստատել":"Confirm"}</button>
+                  </div>
+                  }
               </div>
               <button
 
@@ -253,11 +298,11 @@ export const Quiz = () => {
 
                 <tbody>
                   {
-            pupilQuestion?.incorrect?.map((el) => (
-              
-                  <tr>
+            pupilQuestion?.incorrect?.map((el,index) => (
+                  <tr key={index+1}>
                     <td>{el?.question}</td>
-                    <td>{el?.answer}</td>
+                    {el?.answer?<td>{el?.answer}</td>:<td><div>{el?.not_checked}</div><div style={{color:"red"}} >{LocalValue === "AM" ? "Չստուգված" : "Unverified"}</div></td>}
+                    
                   </tr>
  
             ))}

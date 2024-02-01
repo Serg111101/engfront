@@ -163,4 +163,14 @@
 					margin-bottom: 20px;
 	
 	}
+
+
+	.switchClass{
+		color: red !important;
+	}
+	// ant-switch-inner-checked
+	// ant-switch-inner-unchecked
+	.ant-switch-inner-checked , .ant-switch-inner-unchecked{
+		color: red !important;
+	}
 }

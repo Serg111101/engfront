@@ -1,5 +1,5 @@
 import React from 'react'
-import LeftOutlined, { CloseOutlined } from "@ant-design/icons"
+import {LeftOutlined, CloseOutlined } from "@ant-design/icons"
 
 const LinksModal = ({showLinks,setShowLinks,auth}) => {
 

@@ -5,8 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { getFetchLectures, getFetchSlides } from '../../store/action/LessonAction';
 import { UndoOutlined } from '@ant-design/icons';
 import { Loading } from "../../components/Loading/Loading";
+import QuestionModal from './QuestionModal';
+import useAuth from '../../hooks/AdminHooks/useAuth';
 
 const Informatoin = () => {
+  const {auth} = useAuth();
   const { Lectures, loading } = useSelector((state) => state.Lectures);
   const { Slide } = useSelector((state) => state.Slide);
   const [lectures, setLectures] = useState(Lectures);
@@ -14,7 +17,8 @@ const Informatoin = () => {
   const navigate = useNavigate();
   const [elem, setElem] = useState(false);
   const [infoState, setInfoState] = useState(0);
-  const [title,setTitle] = useState(localStorage.getItem('lessons')||"")
+  const [title,setTitle] = useState(localStorage.getItem('lessons')||"");
+  const [show,setShow] = useState(false)
   useEffect(() => {
     if (localStorage.getItem('lessons')) {
       const loc = localStorage.getItem('lessons');
@@ -53,9 +57,16 @@ const Informatoin = () => {
   };
 
   function text(id) {
-    setElem(id);
+    console.log(auth,"aaaa");
     if (lectures[0]?.lectures?.length === id) {
-      navigate("/Quiz")
+      if(auth.role === "admin"){
+        setShow(true)
+      }else{
+        navigate("/Quiz")
+
+      }
+    }else{
+      setElem(id)
     }
   }
 
@@ -88,9 +99,10 @@ const Informatoin = () => {
                       }}
                       style={{ background: el.color }}
                     >
-                      <p>{el.text}</p>
+                      <p >{el.text}</p>
                     </div>
                   ))}
+                  {show&& <QuestionModal show={show} setShow={setShow} auth={auth} />}
                 </>
               )}
             </>
