@@ -40,7 +40,6 @@ export const getQuizChild = (obj) => {
         const kk = JSON.parse(ll)
         return async ()=>{
             try{
-                console.log(obj,"ooooooooo");
                 
                 await axios.put(`${URL}v2/putTest/${kk.teacher_id}/${kk.children_id}`,{unverified:kk.unverified}); 
                

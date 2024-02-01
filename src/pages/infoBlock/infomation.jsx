@@ -57,7 +57,6 @@ const Informatoin = () => {
   };
 
   function text(id) {
-    console.log(auth,"aaaa");
     if (lectures[0]?.lectures?.length === id) {
       if(auth.role === "admin"){
         setShow(true)

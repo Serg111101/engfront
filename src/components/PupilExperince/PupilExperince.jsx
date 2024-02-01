@@ -14,7 +14,6 @@ export function PupilExperince() {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const { QuizChild } = useSelector((state) => state.QuizChild);
-  console.log(QuizChild, "lllllllllllllllllllllllllll");
   const [checkboxStates, setCheckboxStates] = useState([]);
 
   useEffect(() => {
@@ -50,9 +49,7 @@ export function PupilExperince() {
   };
 
   useEffect(() => {
-    console.log(checkboxStates, "dddddddddddd");
     if (checkboxStates) {
-      console.log(11111111111111111);
       dispatch(putQuizChildStatus(checkboxStates))
       dispatch(getQuizChild({ teacher_id: auth?.id, children_id: name }));
     }

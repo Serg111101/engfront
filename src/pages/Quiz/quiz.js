@@ -90,7 +90,6 @@ export const Quiz = () => {
       );
     }
   }, [pupilQuestion]);
-console.log(pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length + 2);
   async function next() {
     if (question < Quiz?.length - 1) {
       if (
@@ -190,7 +189,6 @@ console.log(pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length + 
     setCorectAnswers(el);
     setActive(el);
   }
-  console.log(pupilQuestion);
   return (
 
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
