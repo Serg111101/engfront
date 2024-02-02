@@ -59,7 +59,7 @@ const QuestionModal = ({show,setShow,auth}) => {
         setShowAdd(false)
         setError("");
         setLoadnig(false)
-
+        setQuesVal("")
       });
     }
     if (error?.response?.status < 200 || error?.response?.status >= 400) {
@@ -73,6 +73,7 @@ const QuestionModal = ({show,setShow,auth}) => {
       }).then(() => {
         setError("");
         setLoadnig(false)
+        setQuesVal("")
       });
     }
   }, [error, loading])
