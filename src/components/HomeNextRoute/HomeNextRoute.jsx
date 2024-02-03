@@ -65,7 +65,7 @@ export function HomeNextRoute() {
         
       }
     } else {
-      navigate("/")
+      navigate("/home")
     }
   }
 

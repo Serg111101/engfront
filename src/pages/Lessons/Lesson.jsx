@@ -63,7 +63,7 @@ export function Lesson() {
         >
           <div className="Lesson">
             <div className="prevButton">
-              <button onClick={() => navigate("/")}>{Lesson[0]?.button}</button>
+              <button onClick={() => navigate("/home")}>{Lesson[0]?.button}</button>
             </div>
             {!quiz && (
               <div className="product-grid">

@@ -2,12 +2,11 @@ import React, { useEffect, useState,useRef } from "react";
 import "./Login.scss";
 import { useDispatch } from "react-redux";
 import { fetchLoginReq } from "../../store/action/LoginAction";
-import useAuth from '../../hooks/AdminHooks/useAuth'
+import Swal from "sweetalert2";
 import { useNavigate, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/AdminHooks/useInput';
 import useToggle from '../../hooks/AdminHooks/useToggle';
-import { Input } from "antd";
-import Swal from "sweetalert2";
+import useAuth from '../../hooks/AdminHooks/useAuth'
 import axioss from "../../hooks/axios/adminAxios";
 import axios from "axios";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
@@ -29,7 +28,7 @@ const Login = () => {
   const [password, setpassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [check, toggleCheck] = useToggle('persist', true);
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/home";
   const [login, resetUser, userAttribs] = useInput('admin', '')
 
 

@@ -41,7 +41,7 @@ export const getQuizChild = (obj) => {
         return async ()=>{
             try{
                 
-                await axios.put(`${URL}v2/putTest/${kk.teacher_id}/${kk.children_id}`,{unverified:kk.unverified}); 
+                await axios.put(`${URL}v2/putTest/${kk.teacher_id}/${kk.children_id}/${kk.id}`,kk); 
                
                 
             }

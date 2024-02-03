@@ -34,7 +34,6 @@ const QuestionModal = ({show,setShow,auth}) => {
   const addQuestion = (e) => {
     e.preventDefault();
     let obj = {
-        button: ["Հետ", "Առաջ", "Հետ դեպի հարցաշար"],
         lesson: title,
         question: quesVal,
         correctAnswer: "",

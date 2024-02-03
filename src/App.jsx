@@ -18,8 +18,9 @@ import { PupilExperince } from "./components/PupilExperince/PupilExperince";
 import { Login } from "./pages/Login";
 import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
-import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
-import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
+
+// import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
+// import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
 function App() {
   const {auth} = useAuth();
   const a = sessionStorage;
@@ -32,10 +33,15 @@ function App() {
 
   useEffect(()=>{
     if(!auth?.accessToken && !localStorage.getItem("auth")){
-      navigate('/login')
+      navigate('/');
+   }else{
+    
+    
    }
+
   },[auth,window.location.pathname])
 
+  
 
   return (
     <Scrollbars
@@ -53,7 +59,7 @@ function App() {
       <div className="App">
        {auth?.accessToken &&<Header />}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/about" element={<About />} />
           <Route path="/ContactUS" element={<ContactUs />} />
           <Route path="/Lessons" element={<Lesson />} />
@@ -64,7 +70,7 @@ function App() {
           <Route path="/Class" element={<ClassPage />} />
           <Route path="/Class/:name" element={<ClassItem />} />
           <Route path="/PupilExperince/:name" element={<PupilExperince />} />
-          <Route path="/login" element={<Login/>}/>
+          <Route path="/"  element={<Login/>}/>
           <Route path="/Profile" element={<Profile/>}/>
           {/* <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/> */}
           {/* <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/> */}

@@ -1,5 +1,6 @@
 import axios from 'axios';
 const URL = process.env.REACT_APP_BASE_URL
+
 const local = localStorage.getItem('auth')
 let token
 let refresh
@@ -9,6 +10,7 @@ if(local){
    localAuth = JSON.parse(local)
    token= localAuth?.accessToken
    refresh = localAuth?.refreshToken
+   
 }
 
 export const refreshAccessToken = async () => {
@@ -27,7 +29,7 @@ export const refreshAccessToken = async () => {
   } catch (error) {
      if(error?.response?.data?.status === 401 && error?.response?.data?.message === 333){
         await localStorage.removeItem("auth");
-       await  window.location.reload(); 
+       await window.location.reload();
     }
     console.error('Error refreshing access token:', error);
     throw error;

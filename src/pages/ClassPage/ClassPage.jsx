@@ -189,7 +189,7 @@ const {auth} = useAuth()
       <button
         className="btn"
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
       >
         {" "}

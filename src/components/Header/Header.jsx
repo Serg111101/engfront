@@ -20,7 +20,7 @@ export function Header() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  const { auth } = useAuth();
+  const { auth,setAuth } = useAuth();
 
   useEffect(() => {
     dispatch(getFetchLogo());
@@ -46,7 +46,7 @@ export function Header() {
   function changeLanguage(e) {
     localStorage.setItem("language", JSON.stringify(e));
     setLanguages(e);
-    navigate("/");
+    navigate("/home");
     window.location.reload();
   }
   let LocalValue;
@@ -61,7 +61,7 @@ export function Header() {
   function navigateTo(val) {
     switch (val.id) {
       case 1:
-        navigate("/");
+        navigate("/home");
         setMobile(false);
         break;
       case 2:
@@ -77,7 +77,7 @@ export function Header() {
         setMobile(false);
         break;
       default:
-        navigate("/");
+        navigate("/home");
     }
   }
   useEffect(() => {
@@ -94,11 +94,14 @@ export function Header() {
     };
   }, [isOpen]);
 
+
+
+
   return (
     <header className="header">
       <div className="constainerHeader">
         <div className="imageHeader">
-          <a href="/" onClick={() => navigate("/")}>
+          <a  onClick={() => navigate("/home")}>
             <img src={Logo?.logo} alt={Logo?.title} />
           </a>
         </div>
@@ -124,7 +127,7 @@ export function Header() {
             {Header?.map((el, index) => (
               <div
                 className={
-                  (index === 0 && bb === "/") ||
+                  (index === 0 && bb === "/home") ||
                   (index === 1 && bb === "/about") ||
                   (index === 3 && bb === "/ContactUS")
                     ? "item active"
@@ -183,7 +186,8 @@ export function Header() {
                   <p
                     onClick={() => {
                       localStorage?.removeItem("auth");
-                      navigate(0);
+                      // navigate(0)
+                      setAuth({})
                     }}
                   >
                     {LocalValue == "AM" ? "Դուրս գալ" : " Log Out"}
@@ -198,199 +202,4 @@ export function Header() {
   );
 }
 
-// /*eslint-disable */
-// import "./Header.scss";
-// import { useNavigate } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import {
-//   CloseOutlined,
-//   MenuOutlined,
 
-// } from "@ant-design/icons";
-// import {  getFetchHeader } from "../../store/action/HeaderAction";
-// import { getFetchLogo, uploadImage } from "../../store/action/LogoAction";
-// import ReactFlagsSelect from "react-flags-select";
-// import { useDispatch, useSelector } from "react-redux";
-// const URL = process.env.REACT_APP_BASE_URL;
-
-// export function Header() {
-//   // const { Logo, Header } = useAppSelector((state) => ({
-//   //   Logo: state.Logo.Logo,
-//   //   Header: state.Header.Header,
-//   // }));
-//   const { Header } = useSelector((state) => state.Header);
-//   const { Logo } = useSelector((state) => state.Logo);
-
-//   const url = window.location.href;
-//   const [done, setDone] = useState(false);
-//   const navigate = useNavigate();
-//   const [mobile, setMobile] = useState(false);
-//   const [editShow, setEditShow] = useState(0);
-//   const [edit, setEdit] = useState("");
-//   const [image,setImage] = useState(Logo?.logo||"") ;
-//   const [languages, setLanguages] = useState("AM");
-//   const [auth,setAuth]= useState('');
-
-//   let bb = window.location.pathname;
-//   let LocalValue;
-//   if (localStorage.getItem("language")) {
-//       let local = localStorage.getItem("language");
-//       LocalValue = JSON.parse(local);
-//   }
-//   useEffect(() => {
-//     if (window.location.pathname === "/Setting") {
-//       sessionStorage.setItem("done", "true");
-//     } else {
-//       sessionStorage.removeItem("done");
-//     }
-//     setDone(sessionStorage.getItem("header") === "true");
-
-//   }, [url,bb]);
-
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(getFetchLogo());
-//     dispatch(getFetchHeader());
-//   }, [dispatch]);
-//   useEffect(() => {
-//     handleLanguageChange();
-//   }, [languages, bb]);
-
-//   const role= localStorage.getItem('auth')
-//   const roles = JSON.parse(role)
-//   useEffect(()=>{
-//     if(roles){
-//    setAuth(roles?.accessToken)
-
-//   }else{
-//     setAuth('')
-//    }
-//   },[localStorage.getItem('auth')])
-//   function handleLanguageChange() {
-//     let language = localStorage.getItem("language");
-//     if (language === null) {
-//       localStorage.setItem("language", JSON.stringify(languages || "AM"));
-//       setLanguages(languages);
-//       window.location.hash = languages;
-//     } else {
-//       setLanguages(JSON.parse(language));
-//       window.location.hash = JSON.parse(language);
-//     }
-//   }
-
-//   function changeLanguage(e) {
-//     localStorage.setItem("language", JSON.stringify(e));
-//     setLanguages(e);
-//     navigate("/");
-//     window.location.reload();
-//   }
-
-//   function navigateTo(val) {
-//     switch (val) {
-//       case 1:
-//         navigate("/");
-//         break;
-//       case 2:
-//         navigate("/about");
-//         break;
-//       case 3:
-//         navigate("/");
-//         break;
-//       case 4:
-//         navigate("/ContactUS");
-//         break;
-//       default:
-//         navigate("/");
-//     }
-//   }
-
-//   return (
-//     <header className="header">
-//       <div className="constainerHeader">
-//         <div className="imageHeader">
-//           <a
-//             href="/"
-//             onClick={(e) => {
-//               e.preventDefault();
-//               navigate("/");
-//             }}
-//           >
-//             <img src={Logo?.logo?Logo?.logo:image} alt={"Web Page Logo is not difind"} />
-//           </a>
-
-//                  </div>
-
-//         <div
-//           className="headericone"
-//           id="headericone"
-//           onClick={() => setMobile(true)}
-//         >
-//           {!mobile && (
-//             <div onClick={() => setMobile(true)}>
-//               <MenuOutlined  />
-//             </div>
-//           )}
-//         </div>
-//         <div className={!mobile ? "items" : "items-mobile"}>
-//           <div className="itemsContainer" id="itemsContainer">
-//           {mobile && (
-//                 <div className="closeHeader" id="closeHeader">
-//                   <CloseOutlined className="iconantdd" onClick={() => setMobile(false)}  />
-//                 </div>
-//               )}
-//             {  Header?.map((el, index) => (
-//               <div
-//                 className={
-//                   (index === 0 && bb === "/")||
-//                   (index === 1 && bb === "/about") ||
-//                   (index === 3 && bb === "/ContactUS")
-//                     ? "item active"
-//                     : "item"
-//                 }
-
-//                 key={index}
-//               >
-//                 <p onClick={() => navigateTo(el?.id)} >{el?.title}</p>
-
-//               </div>
-//             ))}
-//             {auth && <div
-//               className={url === `${URL}aeroSpace/Settings` ? "item active" : "item"}
-//               onClick={() => navigate("/Setting")}
-//               >
-//              {LocalValue === "AM"?"Կարգավորումներ":" Settings"}
-//             </div>}
-//            {auth ? <div
-//               className={url === `${URL}aeroSpace/Login` ? "item active" : "item"}
-//               onClick={() => {localStorage.removeItem('auth');setAuth('');navigate("/Login")}}
-//               >
-//              {LocalValue === "AM"?"Դուրս գալ":" Log out"}
-
-//             </div> : <div
-//               className={url === `${URL}aeroSpace/Login` ? "item active" : "item"}
-//               onClick={() => navigate("/Login")}
-//             >
-//               {LocalValue === "AM"?"Մուտք":" Log in"}
-//             </div>}
-
-//             <div className="selectDiv">
-
-//               <ReactFlagsSelect
-//                 id="selBtn"
-//                 selectedSize={18}
-//                 optionsSize={14}
-//                 countries={["US", "AM"]}
-//                 customLabels={{ "US": " ", "AM": " " }}
-//                 selected={languages}
-//                 onSelect={(countryCode) => {
-//                   changeLanguage(countryCode);
-//                 }}
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-
-//     </header>
-//   );
-// }

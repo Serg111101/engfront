@@ -21,7 +21,6 @@ export const Quiz = () => {
   const dispatch = useDispatch();
 
   const { Quiz, loading } = useSelector((state) => state.Quiz);
-
   const [pupilQuestion, setPupilQuestion] = useState({
     attempts: 0,
     correct: [],
@@ -49,6 +48,7 @@ export const Quiz = () => {
   let [count, setCount] = useState(0);
   const [finish, setFinish] = useState(false);
   let [answer, setAnswer] = useState([]);
+
   const [corectAnswers, setCorectAnswers] = useState();
   useEffect(() => {
     if (Quiz[question]?.correctAnswer) {
@@ -78,9 +78,8 @@ export const Quiz = () => {
     if (Quiz?.length &&
       pupilQuestion?.correct?.length + pupilQuestion?.incorrect?.length  ===
         Quiz?.length &&
-      auth?.role === "children"
+      auth?.role === "children" && finish
     ) {;
-
       dispatch(
         addQuizChild({
           ...pupilQuestion,
@@ -89,6 +88,7 @@ export const Quiz = () => {
           children_id: auth?.id,
         })
       );
+ 
     }
   }, [pupilQuestion]);
   async function next() {
@@ -120,7 +120,7 @@ export const Quiz = () => {
           ...pupilQuestion,
           incorrect: [
             ...pupilQuestion?.incorrect,
-            { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal },
+            { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal,unverified:false },
           ],
           
         });
@@ -155,7 +155,7 @@ export const Quiz = () => {
             ...pupilQuestion,
             incorrect: [
               ...pupilQuestion?.incorrect,
-              { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal },
+              { question:`${question+1+"."}`+ Quiz[question]?.question,not_checked:answerVal,unverified:false },
             ],
             
           });
@@ -169,7 +169,7 @@ export const Quiz = () => {
       const lesons = JSON.parse(les);
 
       if (
-        count >= ((Quiz?.length * 80) / 100).toFixed(2) &&
+        count >= (((Quiz?.length-2) * 80) / 100).toFixed(2) &&
         lesons === auth?.level
       ) {
         // const sumo = sessionStorage.getItem("count");
