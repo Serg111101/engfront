@@ -16,7 +16,7 @@ export const getFetchQuizSatelite = () => {
             await dispatch(fetchQuizSatelite(response?.data));
         }
         catch(error){
-            console.log(error,'error');
+            console.error(error,'error');
             dispatch(fetchErrorQuizSatelite(error));
         }
 

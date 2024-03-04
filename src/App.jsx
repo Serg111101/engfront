@@ -18,6 +18,7 @@ import { PupilExperince } from "./components/PupilExperince/PupilExperince";
 import { Login } from "./pages/Login";
 import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
+import UserSatelite from "./pages/UserSatelite/UserSatelite";
 
 // import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
 // import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
@@ -35,7 +36,6 @@ function App() {
     if(!auth?.accessToken && !localStorage.getItem("auth")){
       navigate('/');
    }else{
-    
     
    }
 
@@ -72,6 +72,7 @@ function App() {
           <Route path="/PupilExperince/:name" element={<PupilExperince />} />
           <Route path="/"  element={<Login/>}/>
           <Route path="/Profile" element={<Profile/>}/>
+          <Route path="/UserSatelite" element={<UserSatelite/>}/>
           {/* <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/> */}
           {/* <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/> */}
           <Route path="*" element={<NotFoundPage />} />

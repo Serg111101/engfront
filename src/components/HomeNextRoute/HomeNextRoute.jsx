@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuth from '../../hooks/AdminHooks/useAuth';
 import { getFetchChildren } from '../../store/action/ChildrenAction';
-import LinksModal from './LinksModal';
+
 
 export function HomeNextRoute() {
  
@@ -13,7 +13,6 @@ export function HomeNextRoute() {
   const { HomeNextRout } = useSelector((state) => state.HomeNextRout);
  const [cou,setCou] = useState(1);
  const {Children} = useSelector((state)=>state?.Children);
- const [showLinks,setShowLinks] = useState(false);
  const dispatch = useDispatch();
 
 
@@ -60,7 +59,7 @@ export function HomeNextRoute() {
         navigate("/Lessons")
       })
       }else{
-        setShowLinks(true);
+        navigate("/UserSatelite")
         
         
       }
@@ -89,7 +88,6 @@ export function HomeNextRoute() {
           </div>
         ))}
       </div>
-      {showLinks && <LinksModal showLinks={showLinks}  setShowLinks={setShowLinks} auth={auth}/>}
     </div>
   );
 }

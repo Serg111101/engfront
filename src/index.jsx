@@ -19,5 +19,3 @@ root.render(
 </AuthProvider>
 </Provider>
 );
-
-console.log("hbhubhbhbhbbbbbbbbbbbbbbbbbbbbbb");
