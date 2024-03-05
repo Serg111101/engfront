@@ -20,7 +20,6 @@ const UserSatelite = () => {
         setSelectVal(e.target.value);
         // setShowLinks(true)
         // setLinkvalue([...linkValue,el?.cubesat_link,el?.camera_link])
-       
         
     };
 
@@ -44,6 +43,7 @@ const UserSatelite = () => {
             selectVal==="cubesatLInk"&& navigateTo(linkValue[0]);
             selectVal==="cameraLink"&& navigateTo(linkValue[1]);
             setSelectVal("")
+            setLinkvalue([])
         }
      },[selectVal])
 
