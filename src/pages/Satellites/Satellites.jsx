@@ -36,12 +36,12 @@ export function Satellites() {
         Satellites?.text1?.map((el,index) => <p key={index}>{el}</p>)
       }
       </div>
-     
+      {/* <div></div> */}
       <ReactPlayer
         // key={1}
         url={Satellites?.animationCubeSat1}
         width="100%"
-        height="auto"
+        height="600px"
         controls={true}
         // autoplayer={'true'}
       />
@@ -58,7 +58,7 @@ export function Satellites() {
         // key={2}
         url={Satellites?.animationCubeSat2}
         width="100%"
-        height="auto"
+        height="600px"
         controls={true}
         // autoplayer={true}
       />
@@ -87,7 +87,7 @@ export function Satellites() {
         // key={3}
         url={Satellites?.animationCubeSat3}
         width="100%"
-        height="auto"
+        height="600px"
         controls={true}
         // autoplayer={true}
       />
@@ -104,7 +104,7 @@ export function Satellites() {
         // key={4}
         url={Satellites?.animationCubeSat4}
         width="100%"
-        height="auto"
+        height="600px"
         controls={true}
         // autoplayer={true}  
       />
@@ -119,6 +119,15 @@ export function Satellites() {
         </div>
     </div>
 }
+{/* <ReactPlayer
+        // key={2}
+        url="./Launch_Space_Minds.mp4"
+        width="100%"
+        height="600px"
+        controls={true}
+        // autoplayer={true}
+      /> */}
+      
     </>
   )
 }
