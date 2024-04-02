@@ -47,6 +47,11 @@ const UserSatelite = () => {
         }
      },[selectVal])
 
+
+
+
+
+
     return (
         <div className="UserSatelite">
               <button className='btn' onClick={()=>navigate("/home")} > {loacal==="AM" ? "Հետ":"Back"}</button>
@@ -54,17 +59,22 @@ const UserSatelite = () => {
                 {auth?.links?.map((el, i) => (
                     <div className="linksContainer" key={i}>
                         <div className="item">
-                            <div className="imageDiv">
+                            <div className="imageDiv" onClick={()=>{!el?.camera_link?.length&&navigateTo(el?.cubesat_link)}}>
                                 <img src={el?.image} alt="picture with cubesat" />
                             </div>
                             <div className="selectDiv">
-                                <select onChange={(e)=>handleSelectChange(e,el)}>
+                              {el.camera_link ?  <select onChange={(e)=>handleSelectChange(e,el)}>
                                     <option  hidden>
                                     {loacal==="AM" ? "Ընտեք հղման տեսակը":"Select the link type"}
                                     </option>
                                     <option value="cubesatLInk">{loacal==="AM" ? "Արբանյակի կառավարում":"Satelite control"}</option>
                                     <option value="cameraLink">{loacal==="AM" ? "Տեսախցիկ":"Camera"}</option>
-                                </select>
+                                </select>:
+                                 <div>
+                                 <button onClick={()=>{navigateTo(el?.cubesat_link)}} >{loacal==="AM" ? "Արբանյակի կառավարում":"Satelite control"}</button>
+
+                             </div>  
+                                }
                             </div>
                         </div>
                     </div>
