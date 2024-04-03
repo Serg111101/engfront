@@ -71,7 +71,7 @@ const UserSatelite = () => {
                                     <option value="cameraLink">{loacal==="AM" ? "Տեսախցիկ":"Camera"}</option>
                                 </select>:
                                  <div>
-                                 <button onClick={()=>{navigateTo(el?.cubesat_link)}} >{loacal==="AM" ? "Արբանյակի կառավարում":"Satelite control"}</button>
+                                 <button className='button1' onClick={()=>{navigateTo(el?.cubesat_link)}} >{loacal==="AM" ? "Արբանյակի կառավարում":"Satelite control"}</button>
 
                              </div>  
                                 }
