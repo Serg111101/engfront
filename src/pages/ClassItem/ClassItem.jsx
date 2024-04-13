@@ -82,9 +82,9 @@ export const ClassItem = () => {
     if (!child?.bookNumber > 0) {
       setError1(true);
     }
-    if (!child?.picture?.trim()) {
-      setError4(true);
-    }
+    // if (!child?.picture?.trim()) {
+    //   setError4(true);
+    // }
     if (!child?.login?.trim()) {
       setError2(true);
     }
@@ -93,12 +93,13 @@ export const ClassItem = () => {
     } else if (
       child?.fullName?.trim() &&
       child?.bookNumber > 0 &&
-      child?.picture?.trim() &&
+      // child?.picture?.trim() &&
       child?.login?.trim() &&
       child?.password?.trim()
     ) {
       await dispatch(
         addChildren({
+
           ...child,
           teacher_id: auth?.id,
           level: 1,
@@ -194,7 +195,7 @@ export const ClassItem = () => {
                 {Children?.map((el) => (
                   <tr key={el?.id}>
                     <td>
-                      <img src={el?.picture} alt="" />
+                      <img src={el?.picture || '/image/flex.jpg'} alt="" />
                     </td>
                     <td>
                       <strong>{el?.bookNumber}</strong>

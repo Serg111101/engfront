@@ -155,7 +155,7 @@ $label-color: #495057;
                    font-size: 20px !important;
                    line-height: 30px !important;
                    padding: 20px !important;
-                   margin-left: 50px !important;
+                //    margin-left: 50px !important;
                    // width: 90%;
                    // display: flex;
                    // justify-content: flex-end;
@@ -204,6 +204,12 @@ $label-color: #495057;
        }
 
 
+   }
+   .infoParentSlide1{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
    }
    .prevvButton {
        display: flex;

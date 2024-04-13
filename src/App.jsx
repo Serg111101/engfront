@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About us";
@@ -11,7 +12,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import { Satellites } from "./pages/Satellites";
 import { QuizSatelite } from "./pages/QuizSatelite";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ClassPage } from "./pages/ClassPage/ClassPage";
 import { ClassItem } from "./pages/ClassItem/ClassItem";
 import { PupilExperince } from "./components/PupilExperince/PupilExperince";
@@ -19,6 +20,7 @@ import { Login } from "./pages/Login";
 import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
 import UserSatelite from "./pages/UserSatelite/UserSatelite";
+import { AboutPerson } from "./pages/AboutPerson";
 
 // import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
 // import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
@@ -31,7 +33,14 @@ function App() {
       sessionStorage.setItem("count", 1);
     }
   }, [a]);
-
+  const url = window.location.href;
+  const path = window.location.pathname;
+  useEffect(() => {
+  
+    if (path !== "/Leqtures" && localStorage.getItem("elem")) {
+      localStorage.removeItem("elem");
+    } 
+  }, [url, path]);
   useEffect(()=>{
     if(!auth?.accessToken && !localStorage.getItem("auth")){
       navigate('/');
@@ -61,6 +70,7 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home/>} />
           <Route path="/about" element={<About />} />
+          <Route path="/aboutPersons" element={<AboutPerson/>}/>
           <Route path="/ContactUS" element={<ContactUs />} />
           <Route path="/Lessons" element={<Lesson />} />
           <Route path="/Leqtures" element={<Infomation />} />

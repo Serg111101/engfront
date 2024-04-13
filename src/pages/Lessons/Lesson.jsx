@@ -77,7 +77,7 @@ export function Lesson() {
                             ? "product-card"
                             : "product-cardDisable"
                         }
-                        onClick={() => Quizz(item?.lesson, index)}
+                        onClick={() => Quizz(item?.unique_key, index)}
                       >
                         <img
                           className="imageDiv"

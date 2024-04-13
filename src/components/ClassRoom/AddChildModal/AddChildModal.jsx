@@ -51,7 +51,7 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
                             <img src={addChildValue?.picture||'/image/addImage.png'} alt="" />
                         </label>
                         <input type="file" accept="image/*" id='upload' name='upload' value={""} style={{ display: 'none' }} onChange={uploadImageHandler} />
-                    {error4 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
+                    {/* {error4 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>} */}
                        
                         
                     </div>

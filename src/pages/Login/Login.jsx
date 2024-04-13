@@ -44,7 +44,6 @@ const Login = () => {
 
   const loginReq = async (e) => {
     e.preventDefault();
-    console.log(login,password);
     try {
         const response = await axios.post(`${URL}auth/login`,
            {login:login.trim(),password:password.trim()},

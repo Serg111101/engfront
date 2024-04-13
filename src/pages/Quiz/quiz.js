@@ -194,7 +194,7 @@ export const Quiz = () => {
 
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
-        <button onClick={() => navigate("/Leqtures")}>
+        <button onClick={() => {navigate("/Leqtures");localStorage.removeItem('elem')}}>
           {loacal==="AM" ? "Հետ":"Back"}
         </button>
       </div>
@@ -228,7 +228,7 @@ export const Quiz = () => {
                 {loacal==="AM" ? "Դասընթացներ":"Courses"}
               </button>
             </div>
-          ) : (
+          ) : Quiz.length > 0 ? (
             <div className="quiz">
               <div>
                 <h1>{question+1+" . "}{Quiz[question]?.question}</h1>
@@ -277,7 +277,7 @@ export const Quiz = () => {
 
               </button>
             </div>
-          )}
+          ):  <div className='infoParentSlide1'>{LocalValue==="AM"?"Այս թեմայի համար նյութ չկա":"There is no material for this topic"}</div>}
         </div>
       )}
       {wrongAnswer && (

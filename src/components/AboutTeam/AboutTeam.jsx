@@ -1,18 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AboutTeam.scss';
 import { useSelector } from 'react-redux';
 
-export function AboutTeam({ show, setShow, id }) {
+export function AboutTeam() {
   const { About } = useSelector((state) => state.About);
 
-  useEffect(() => {
-    if (show) {
-      setTimeout(() => {
-        setShow(!show);
-      }, 50000);
-    }
-  }, [show, setShow]);
-
+  const navigate = useNavigate();
+ 
   return (
     <div className="AboutTeam">
       <section className="aboutSection">
@@ -31,7 +26,7 @@ export function AboutTeam({ show, setShow, id }) {
                     )}
                     <p className="InfoBlockparagraph">{el?.text}</p>
                     {el.id === 2 ? (
-                      <button onClick={() => setShow(!show)}>{el?.more}</button>
+                      <button onClick={() => {navigate("/aboutPersons")}}>{el?.more}</button>
                     ) : (
                       
                       <button>{el?.more}</button>

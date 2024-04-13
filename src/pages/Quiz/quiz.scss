@@ -18,6 +18,13 @@ $label-color: #495057;
     background-attachment: fixed;
     background-size: cover;
     
+    .infoParentSlide1{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: whitesmoke;
+      font-size: 20px;
+     }
 
     .prevButton{
       max-width: 1200px;
