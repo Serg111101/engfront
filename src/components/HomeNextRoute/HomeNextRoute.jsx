@@ -6,9 +6,7 @@ import Swal from 'sweetalert2';
 import useAuth from '../../hooks/AdminHooks/useAuth';
 import { getFetchChildren } from '../../store/action/ChildrenAction';
 
-
 export function HomeNextRoute() {
- 
   const navigate = useNavigate();
   const { HomeNextRout } = useSelector((state) => state.HomeNextRout);
  const [cou,setCou] = useState(1);

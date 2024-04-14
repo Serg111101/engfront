@@ -1,4 +1,4 @@
-
+/*eslint-disable*/
 import React, { useEffect, useState } from 'react'
 import './ClassPage.scss'
 import { AddClassModal } from '../../components/ClassRoom/AddClassRoom/AddClassModal'

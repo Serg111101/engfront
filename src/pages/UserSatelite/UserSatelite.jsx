@@ -1,7 +1,11 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from 'react';
 import './UserSatelite.scss';
 import useAuth from '../../hooks/AdminHooks/useAuth';
 import {useNavigate} from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux';
+import { getFetchCubesatLinls } from '../../store/action/ChildrenAction';
+import { Loading } from '../../components/Loading/Loading';
 // import LinksModal from '../../components/LinksModal/LinksModal';
 const UserSatelite = () => {
 
@@ -10,9 +14,11 @@ const UserSatelite = () => {
     let languageLocal = localStorage?.getItem('language');
     loacal = JSON.parse(languageLocal)
   }
+  const {CubesatLinks,loading} = useSelector((state)=>state?.CubesatLinks);
     const [selectVal, setSelectVal] = useState('');
     const { auth } = useAuth();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     // const [showLinks,setShowLinks] = useState(false);
     const [linkValue,setLinkvalue] = useState([])
     const handleSelectChange = (e,el) => {
@@ -20,8 +26,27 @@ const UserSatelite = () => {
         setSelectVal(e.target.value);
         // setShowLinks(true)
         // setLinkvalue([...linkValue,el?.cubesat_link,el?.camera_link])
-        
     };
+    const [id,setId] = useState("")
+
+    useEffect(()=>{
+      if(auth?.role?.length>0){
+        if(auth?.role === "children"){
+          setId(auth?.teacher_id)
+
+        }
+        if(auth?.role === "admin"){
+          setId(auth?.id)
+        }
+      }
+    },[auth?.role?.auth?.id,auth?.teacher_id])
+
+
+    useEffect(()=>{
+      if(auth?.id&&auth?.role?.length>0){
+        dispatch(getFetchCubesatLinls(id))
+      }
+    },[dispatch,auth?.id])
 
 
     async function navigateTo(el){
@@ -54,9 +79,10 @@ const UserSatelite = () => {
 
     return (
         <div className="UserSatelite">
+        {loading? <Loading/>:  <>
               <button className='btn' onClick={()=>navigate("/home")} > {loacal==="AM" ? "Հետ":"Back"}</button>
-            <div className="contaLink">
-                {auth?.links?.map((el, i) => (
+            {CubesatLinks?.length>0?<div className="contaLink">
+                {CubesatLinks?.map((el, i) => (
                     <div className="linksContainer" key={i}>
                         <div className="item">
                             <div className="imageDiv" onClick={()=>{!el?.camera_link?.length&&navigateTo(el?.cubesat_link)}}>
@@ -82,7 +108,12 @@ const UserSatelite = () => {
                  {/* {selectVal === "cubesatLInk"&&<LinksModal showLinks={showLinks} setShowLinks={setShowLinks} state={linkValue} selectVal={selectVal} />}
             {selectVal === "cameraLink"&&<LinksModal showLinks={showLinks} setShowLinks={setShowLinks} state={linkValue} selectVal={selectVal} />} */}
             </div>
-           
+          :
+          <div className='emptyLlinks' >
+          {loacal === "AM" ? "Դեռ հղումներ չկան" : "No links yet"}
+          </div>  
+          }
+            </>}
         </div>
     );
 };

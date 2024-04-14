@@ -1,6 +1,8 @@
+/*eslint-disable*/
 import axios from "../../hooks/axios/adminAxios";
 // import {  fetchingLogo, fetchLogo, fetchErrorLogo } from "../slice/LogoSlice";
 import { fetchingChildren,fetchChildren,fetchErrorChildren } from "../slice/ChildrenSlice";
+import { fetchCubesatLinks, fetchErrorCubesatLinks, fetchingCubesatLinks } from "../slice/CubesatLinksSlice";
 const URL = process.env.REACT_APP_BASE_URL
 let LocalValue; 
 if(localStorage.getItem("language")){
@@ -87,6 +89,22 @@ export const deleteChildren = (id) => {
         catch(error){
 
             console.error(error,'error');
+        }
+
+    }
+}
+
+export const getFetchCubesatLinls = (id) => {
+
+    return async (dispatch)=>{
+        try{
+            dispatch(fetchingCubesatLinks());
+            const response =await axios.get(`${URL}v2/getCubesatLinks/${id}`);
+            dispatch(fetchCubesatLinks(response?.data[0]?.links))
+        }
+        catch(error){
+            console.error(error,'error');
+            dispatch(fetchErrorCubesatLinks(error))
         }
 
     }

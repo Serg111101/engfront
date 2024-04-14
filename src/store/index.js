@@ -20,8 +20,10 @@ import SatellitesSliceReducer from './slice/SatellitesSlice';
 import QuizSateliteReducer from './slice/QuizSateliteSlice';
 import ChildrenReducer from './slice/ChildrenSlice';
 import ClassReducer from './slice/ClassSlice';
-import QuizChildReducer from './slice/QuizChildSlice'
-import UseMaterialReducer from './slice/UseMetrialSlice'
+import QuizChildReducer from './slice/QuizChildSlice';
+import UseMaterialReducer from './slice/UseMetrialSlice';
+import CubesatLinksreducer from "./slice/CubesatLinksSlice";
+
 const store = configureStore({
   reducer: {
     HomeHeaderr:HomeHeaderReducer,
@@ -47,6 +49,8 @@ const store = configureStore({
     Class:ClassReducer,
     QuizChild:QuizChildReducer,
     UseMaterial:UseMaterialReducer,
+    CubesatLinks:CubesatLinksreducer,
+
   }
 })
 

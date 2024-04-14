@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useState } from 'react'
 import './AddClassModal.scss'
 import { CloseOutlined } from '@ant-design/icons'

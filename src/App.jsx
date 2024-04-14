@@ -50,8 +50,6 @@ function App() {
 
   },[auth,window.location.pathname])
 
-  
-
   return (
     <Scrollbars
       style={{
