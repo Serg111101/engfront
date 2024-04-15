@@ -39,7 +39,7 @@ const QuestionModal = ({show,setShow,auth}) => {
         correctAnswer: "",
         incorrectAnswer:["","",""],
     }
-    if(quesVal?.length>10){
+    if(quesVal?.length.trim()>5){
         dispatch(addFetchQuiz(obj,setError,setLoadnig))
         
     }

@@ -57,7 +57,6 @@ export const getQuizChild = (obj) => {
         return async (dispatch)=>{
             try{
                 setLoading(true);
-               
                 await axios.post(`${URL}aeroSpace/addNewQuestion/${LocalValue ? LocalValue:"AM"}`,value);  
                 setLoading(false);
                 setError("ok");

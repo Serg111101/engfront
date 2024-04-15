@@ -27,26 +27,22 @@ const UserSatelite = () => {
         // setShowLinks(true)
         // setLinkvalue([...linkValue,el?.cubesat_link,el?.camera_link])
     };
-    const [id,setId] = useState("")
 
     useEffect(()=>{
       if(auth?.role?.length>0){
         if(auth?.role === "children"){
-          setId(auth?.teacher_id)
+        dispatch(getFetchCubesatLinls(auth?.teacher_id))
+        }
+        else if(auth?.role === "admin"){
+         dispatch(getFetchCubesatLinls(auth?.id))
 
         }
-        if(auth?.role === "admin"){
-          setId(auth?.id)
-        }
       }
-    },[auth?.role?.auth?.id,auth?.teacher_id])
+
+    },[auth?.role?.auth?.id,auth?.teacher_id,auth,dispatch])
 
 
-    useEffect(()=>{
-      if(auth?.id&&auth?.role?.length>0){
-        dispatch(getFetchCubesatLinls(id))
-      }
-    },[dispatch,auth?.id])
+
 
 
     async function navigateTo(el){
