@@ -7,6 +7,8 @@ import { UndoOutlined } from '@ant-design/icons';
 import { Loading } from "../../components/Loading/Loading";
 import QuestionModal from './QuestionModal';
 import useAuth from '../../hooks/AdminHooks/useAuth';
+import { fetchLessonDel } from '../../store/slice/LessonSlice';
+import { fetchLecturesDel } from '../../store/slice/LecturesSlice';
 
 const Informatoin = () => {
   const { auth } = useAuth();
@@ -38,7 +40,7 @@ const Informatoin = () => {
       titlee = JSON.parse(loc);
       setElem(titlee)
     }
-  }, [dispatch, title]);
+  }, [title]);
 
 
 
@@ -90,17 +92,35 @@ const Informatoin = () => {
   const Background = Lectures[0]?.background;
   const showQuiz = Quiz?.length > 0 ? true : false;
 
+  useEffect(() => {
 
+      if (Lectures?.length > 0) {
+        Lectures[0]?.lectures?.map((item) => {
+          if (item?.text === "Դատարկ է" || item?.text === "It's empty") {
+            dispatch(fetchLecturesDel());
+            dispatch(fetchLessonDel())
+            localStorage.removeItem('lessons')
+            navigate("/Lessons")
+           
+         
 
+  
+          }
+        })
+      }
+     
+
+  }, [lectures.length, title,LocalValue])
 
   return (
     <>
+
       <div className="Lecturee"
         style={elem ? { display: "none" } : { backgroundImage: `url(${Background})` }}
       >
         {!elem && lectures?.length > 0 && <div className='prevButton'>
           <button onClick={() => { navigate("/Lessons") }} >
-          {LocalValue==="AM" ? "Հետ":"Go back"}
+            {LocalValue === "AM" ? "Հետ" : "Go back"}
           </button>
         </div>}
         <div className={!elem ? 'lectureTitle' : ''}>
@@ -155,7 +175,7 @@ const Informatoin = () => {
         <div className="infoParent" style={{ backgroundImage: `url(${Background}` }}>
           {Slide?.length > 0 ? <div className='infoParentSlide'>
             {Slide.length > 0 && infoState !== 0 && <div className="prev" onClick={() => prev()}>
-              <p>  {LocalValue==="AM" ? "Հետ":"Go back"}</p>
+              <p>  {LocalValue === "AM" ? "Հետ" : "Go back"}</p>
             </div>}
             {infoState === 0 && <div className="infoParentContainer">
               <h1>{Slide[0]?.lessons}</h1>
@@ -169,7 +189,7 @@ const Informatoin = () => {
                     {
                       el?.text_arr?.map((elem, index) => {
                         if (elem?.includes('http')) {
-                          return <div key={index + 1} className='imageDiv' ><img src={elem} alt="nkar" /></div>
+                          return <div key={index + 1} className='imageDiv' ><img src={elem} alt="image not found" /></div>
                         } else {
                           return <p key={index + 15} >{elem}</p>
                         }
@@ -178,7 +198,7 @@ const Informatoin = () => {
                     {
                       el?.text_arr_margin?.map((elem, index) => {
                         if (elem?.includes('http')) {
-                          return <div className='imageDiv' key={index + 55} > <img src={elem} alt='nkar' /> </div>
+                          return <div className='imageDiv' key={index + 55} > <img src={elem} alt='image not found' /> </div>
                         } else {
                           return <div key={index + 55} style={{ marginLeft: elem?.startsWith("●") ? "80px" : "40px" }} className='marginText'>{elem}</div>
 
@@ -212,7 +232,7 @@ const Informatoin = () => {
             )} */}
           {<div className="prevvButton">
             <button onClick={() => { setElem(false); setInfoState(0); localStorage.removeItem('elem') }}>
-            {LocalValue === "AM" ? 'Հետ դեպի հարցաշար' : "Back to the questionnaire"} <span><UndoOutlined /> </span>
+              {LocalValue === "AM" ? 'Հետ դեպի հարցաշար' : "Back to the questionnaire"} <span><UndoOutlined /> </span>
             </button>
           </div>}
           {/* </div> */}

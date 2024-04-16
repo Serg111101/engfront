@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState,useRef } from "react";
 import "./Login.scss";
 import { useDispatch } from "react-redux";
@@ -31,7 +32,11 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/home";
   const [login, resetUser, userAttribs] = useInput('admin', '')
 
-
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   const {auth} = useAuth()
   useEffect(() => {
       userRef.current.focus();
@@ -66,13 +71,13 @@ const Login = () => {
         
     } catch (err) {
         if (!err?.response) {
-            setErrMsg('No response from server');
+            setErrMsg(LocalValue ==="AM"?"Փորձեք կրկին":'Try again');
         } else if (err.response?.status === 400) {
-            setErrMsg('Incorrect username or password');
+            setErrMsg(LocalValue ==="AM"?"Սխալ մուտքանուն կամ գաղտնաբառ":'Incorrect username or password');
         } else if (err.response?.status === 401) {
-            setErrMsg('Incorrect username or password');
+            setErrMsg(LocalValue ==="AM"?"Սխալ մուտքանուն կամ գաղտնաբառ":'Incorrect username or password');
         } else {
-            setErrMsg('Login failed');
+            setErrMsg(LocalValue ==="AM"?"Չհաջողվեց մուտք գործել":'Login failed');
         }
         errRef.current.focus();
     }
@@ -84,7 +89,7 @@ const Login = () => {
         Swal.fire({
             position: "center",
             icon: "success",
-            title: "Տվըալները հաջողությամբ հաստատվել են",
+            title: LocalValue ==="AM"? "Տվյալները հաջողությամբ հաստատվել են": "Data has been successfully verified",
             showConfirmButton: false,
             timer: 2500
         }).then(()=>{
@@ -95,7 +100,7 @@ const Login = () => {
         Swal.fire({
             position: "center",
             icon: "error",
-            title: "Որևէ սխալ կա փորցեք կրկին",
+            title:  LocalValue ==="AM"?"Որևէ սխալ կա փորցեք կրկին":"If there is an error, please try again",
             showConfirmButton: false,
             timer: 2500
         }).then(()=>{

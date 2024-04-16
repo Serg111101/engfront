@@ -14,9 +14,11 @@ export function Contact() {
   const [form] = Form.useForm();
   
   const {SendMail} = useSelector((state)=>state.SendMail);
- useEffect(()=>{
-
- },[dispatch])
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   useEffect(() => {
     if (Mail?.succes) {
       setShowElement(true);
@@ -65,7 +67,7 @@ export function Contact() {
                 <label>{SendMail[1]?.title}</label>
                 <Form.Item
                   name="email"
-                  rules={[{ required: true, message: "Պարտադիր դաշտ" }]}
+                  rules={[{ required: true, message: LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}]}
                 >
                   <Input
                     type="email"
@@ -77,7 +79,7 @@ export function Contact() {
                 <label>{SendMail[2]?.title}</label>
                 <Form.Item
                   name="userName"
-                  rules={[{ required: true, message: "Պարտադիր դաշտ" }]}
+                  rules={[{ required: true, message: LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *" }]}
                 >
                   <Input
                     type="text"
@@ -90,7 +92,7 @@ export function Contact() {
               <label>{SendMail[3]?.title}</label>
               <Form.Item
                 name="textarea"
-                rules={[{ required: true, message: "Պարտադիր դաշտ" }]}
+                rules={[{ required: true, message:  LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}]}
               >
                 <TextArea
                   rows={8}

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { useEffect, useState } from "react";
 import "./Lesson.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +15,14 @@ import { getFetchChildren } from "../../store/action/ChildrenAction";
 
 export function Lesson() {
   const { Children } = useSelector((state) => state?.Children);
+  let LocalValue;
+  // useEffect(()=>{
 
+    if (localStorage.getItem("language")) {
+      let local = localStorage.getItem("language");
+      LocalValue = JSON.parse(local);
+    }
+  // },[localStorage.getItem("language")])
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState(false);
   const dispatch = useDispatch();
@@ -46,12 +54,15 @@ export function Lesson() {
     }
   }, [dispatch, auth]);
   async function Quizz(title, index) {
-    localStorage.setItem("lessons", JSON.stringify(title));
-    localStorage.setItem("level", JSON.stringify(index + 1));
-
-    setQuiz(!quiz);
+    await localStorage.setItem("lessons", JSON.stringify(title));
+    await localStorage.setItem("level", JSON.stringify(index + 1));
+    await setQuiz(!quiz);
     navigate("/Leqtures");
   }
+  
+
+
+  
   return (
     <>
       {loading ? (
@@ -67,40 +78,37 @@ export function Lesson() {
             </div>
             {!quiz && (
               <div className="product-grid">
-                {Lesson &&
-                  Lesson.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className={
-                          count >= index + 1
-                            ? "product-card"
-                            : "product-cardDisable"
-                        }
-                        onClick={() => Quizz(item?.unique_key, index)}
-                      >
-                        <img
-                          className="imageDiv"
-                          src={item?.icon}
-                          alt={item.lesson}
-                        />
-                        <div
-                          className="color"
-                          id="color"
-                          style={{ background: item?.color }}
-                        >
-                          <div className="ikonkaDiv">
-                            <img src={item?.ikonka} alt={item.lesson} />
-                          </div>
-                          <h3>{item?.lesson}</h3>
-                          <span>
-                            <PlusCircleOutlined />
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+  {Lesson &&
+    Lesson.map((item, index) => {
+      const isArmenian = LocalValue === "AM";
+      const isNotEmpty = isArmenian ? item?.lesson !== "Դատարկ է" : item?.lesson !== "It's empty";
+
+      if (!isNotEmpty) return null; // Skip rendering if lesson is empty
+
+      return (
+        <div
+          key={index}
+          className={count >= index + 1 ? "product-card" : "product-cardDisable"}
+          onClick={() => Quizz(item?.unique_key, index)}
+        >
+          <img className="imageDiv" src={item?.icon} alt={item.lesson} />
+          <div className="color" id="color" style={{ background: item?.color }}>
+            <div className="ikonkaDiv">
+              <img src={item?.ikonka} alt={item.lesson} />
+            </div>
+            <h3>{item?.lesson}</h3>
+            <span>
+              <PlusCircleOutlined />
+            </span>
+          </div>
+        </div>
+      );
+    })}
+</div>
+
+
+  
+
             )}
           </div>
         </div>

@@ -169,7 +169,7 @@ const {auth} = useAuth()
             style={{ background: "url(/image/gif1.gif)" }}
           >
             +
-            <h2>{LocalValue === "AM" ? "Ավելացնել դասարան" : "ADD Classes"}</h2>
+            <h2>{LocalValue === "AM" ? "Ավելացնել դասարան" : "Add classes"}</h2>
           </div>
         </div>
       )}
@@ -192,7 +192,6 @@ const {auth} = useAuth()
           navigate("/home");
         }}
       >
-        {" "}
         {LocalValue === "AM" ? "Հետ" : "Prev"}
       </button>
     </div>

@@ -8,6 +8,7 @@ import { getFetchLogo } from "../../store/action/LogoAction";
 import { getFetchHeader } from "../../store/action/HeaderAction";
 import ReactFlagsSelect from "react-flags-select";
 import useAuth from "../../hooks/AdminHooks/useAuth";
+import { fetchLessonDel } from "../../store/slice/LessonSlice";
 
 export function Header() {
   const { Logo } = useSelector((state) => state.Logo);
@@ -47,6 +48,7 @@ export function Header() {
     localStorage.setItem("language", JSON.stringify(e));
     setLanguages(e);
     window.location.reload();
+  
 
   }
   let LocalValue;

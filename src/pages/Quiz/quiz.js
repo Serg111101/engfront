@@ -195,7 +195,7 @@ export const Quiz = () => {
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
         <button onClick={() => {navigate("/Leqtures");localStorage.removeItem('elem')}}>
-          {loacal==="AM" ? "Հետ":"Back"}
+          {loacal==="AM" ? "Հետ": "Go back"}
         </button>
       </div>
       {!wrongAnswer && (
@@ -285,11 +285,11 @@ export const Quiz = () => {
           {wrongAnswer && <table>
                 <thead>
                   <tr>
-                    <th>{LocalValue === "AM" ? "Հարց" : "question"}</th>
+                    <th>{LocalValue === "AM" ? "Հարց" : "Question"}</th>
                     <th>
                       {LocalValue === "AM"
                         ? "Սխալ պատասխան"
-                        : "incorrect answer"}
+                        : "Incorrect answer"}
                     </th>
                    
                   </tr>

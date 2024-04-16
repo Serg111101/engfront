@@ -29,7 +29,10 @@ export const getFetchLesson = () => {
         `${URL}aeroSpace/lessons/${LocalValue ? LocalValue : "AM"}`
       );
 
-      dispatch(fetchLesson(response?.data));
+  let newRes
+
+   newRes = response.data.filter(item => (item.lesson !== "Դատարկ է" || item.lesson !== "It's empty") && !item.lectures.some(lecture => lecture.text === "Դատարկ է" || lecture.text === "It's empty"));
+      dispatch(fetchLesson(newRes));
     } catch (error) {
       console.log(error, "error");
       dispatch(fetchErrorLesson(error));
@@ -57,10 +60,12 @@ export const getFetchLectures = (titlee) => {
   return async (dispatch) => {
 
     try {
+      console.log(titlee,"exo");
       dispatch(fetchingLectures());
       const response = await axios.get(
         `${URL}aeroSpace/getLectures/${titlee}/${LocalValue ? LocalValue : "AM"}`
       );
+
       dispatch(fetchLectures(response?.data));
     } catch (error) {
       console.log(error, "error");
@@ -77,7 +82,7 @@ export const getFetchSlides = (titlee) => {
       const response = await axios.get(
         `${URL}aeroSpace/topics/${titlee}/${LocalValue ? LocalValue : "AM"}`
       );
-
+      
       dispatch(fetchSlide(response?.data));
     } catch (error) {
       console.log(error, "error");

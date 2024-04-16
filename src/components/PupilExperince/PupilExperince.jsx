@@ -36,9 +36,9 @@
         icon: "info",
         title:LocalValue ==="AM"? "Հաստատել պատասխանը որպե՞ս": "Confirm answer as?",
         showConfirmButton: true,
-        confirmButtonText:LocalValue ==="AM"? "ճիշտ": "correct",
+        confirmButtonText:LocalValue ==="AM"? "Ճիշտ": "Correct",
         showCancelButton:true,
-        cancelButtonText:LocalValue ==="AM"? "սխալ": "wrong",
+        cancelButtonText:LocalValue ==="AM"? "Սխալ": "Wrong",
     })
     .then(async (res) => {
       if(res.isConfirmed&&!res.isDismissed){
@@ -118,7 +118,7 @@
                 </th>
                 <th>
                   {LocalValue === "AM"
-                    ? "Ճիշտ պատասխաններ քանակ"
+                    ? "Ճիշտ պատասխանների քանակը"
                     : "Number of correct answers"}
                 </th>
                 <th>
@@ -151,7 +151,7 @@
             <thead>
               <tr>
                 <th>{LocalValue === "AM" ? "Դաս" : "Lesson"}</th>
-                <th>{LocalValue === "AM" ? "Հարց" : "Questions"}</th>
+                <th>{LocalValue === "AM" ? "Հարց" : "Question"}</th>
                 <th>{LocalValue === "AM" ? "Պատասխան" : "Answers"}</th>
               </tr>
             </thead>
@@ -198,7 +198,7 @@
             </tbody>
           </table>
         )}
-        {!QuizChild.length && <p>{LocalValue === "AM" ? "Դատարկ Է" : "Empty"}</p>}
+        {!QuizChild.length && <p>{LocalValue === "AM" ? "Դատարկ Է" : "It is empty"}</p>}
         {view ? (
           <button
             onClick={() => {

@@ -20,7 +20,7 @@ export const AddClassModal = ({ setAddClassModal, addClass }) => {
                     <input className={error ? "errorInput" :""} type="text" maxLength={7} placeholder={LocalValue==="AM" ? "Դասարանի անունը":"Class name"} value={addValue} onChange={(e) => { setAddValue(e.target.value); {e.target.value.length!==0 ?  setError(false): setError(true)} }} />
                     {error && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
 
-                    <button onClick={(e) => { e.preventDefault(); addClass(addValue, setError) }}>{LocalValue==="AM" ? "Ավելացնել":"ADD"}</button>
+                    <button onClick={(e) => { e.preventDefault(); addClass(addValue, setError) }}>{LocalValue==="AM" ? "Ավելացնել":"Add"}</button>
                 </form>
             </div>
         </div>

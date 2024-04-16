@@ -146,7 +146,7 @@ const Profile = () => {
       >
         <h2>
           {LocalValue === "AM"
-            ? "Փոփոխել մուտքանուն կամ գաղտնաբառ"
+            ? "Փոփոխել մուտքանունը կամ գաղտնաբառը"
             : "Change username or password"}
         </h2>
         <label htmlFor="">
@@ -164,7 +164,7 @@ const Profile = () => {
         />
         {error && (
           <span style={{ color: "red" }}>
-            {LocalValue === "AM" ? "Սխալ մուտքանուն" : "wrong username"}
+            {LocalValue === "AM" ? "Սխալ մուտքանուն" : "Wrong username"}
           </span>
         )}
         <label htmlFor="">
@@ -244,7 +244,7 @@ const Profile = () => {
         </div>
         {error1 && (
           <span style={{ color: "red" }}>
-            {LocalValue === "AM" ? "Համընկում չկա" : "no match"}
+            {LocalValue === "AM" ? "Համընկում չկա" : "No match"}
           </span>
         )}
         <button className="btn" onClick={(e) => editInfo(e)}>

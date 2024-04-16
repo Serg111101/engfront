@@ -20,6 +20,11 @@ export const LessonSlice = createSlice({
       state.Lesson = action.payload;
       state.error = ''
     },
+    fetchLessonDel(state) {
+    
+      state.Lesson = [];
+     
+    },
     fetchErrorLesson(state, action ) {
       state.loading = false;
       state.error = action.payload.message
@@ -28,5 +33,5 @@ export const LessonSlice = createSlice({
   }
 })
 
-export const { fetchingLesson, fetchLesson, fetchErrorLesson } = LessonSlice.actions;
+export const { fetchingLesson, fetchLesson, fetchErrorLesson, fetchLessonDel } = LessonSlice.actions;
 export default LessonSlice.reducer;

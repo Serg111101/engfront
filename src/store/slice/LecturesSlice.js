@@ -22,9 +22,12 @@ export const LecturesSlice = createSlice({
       state.loading = false;
       state.error = action.payload.message
     },
+    fetchLecturesDel(state) {
+      state.Lectures = [];
+    },
     
   }
 })
 
-export const { fetchingLectures, fetchLectures, fetchErrorLectures } = LecturesSlice.actions;
+export const { fetchingLectures, fetchLectures, fetchErrorLectures,fetchLecturesDel } = LecturesSlice.actions;
 export default LecturesSlice.reducer;

@@ -2,7 +2,11 @@ import React from 'react';
 import './ErrorPage.scss';
 
 const NotFoundPage = () => {
-  
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   return (
     <div className="shapes">
     <div className="rocket-holder">
@@ -24,7 +28,7 @@ const NotFoundPage = () => {
     <img src="https://i.postimg.cc/HjDQ3PFq/planet8.png" alt='kkk' className="planet8 planets"/>
     <img src="https://i.postimg.cc/Jn0chXb2/planet9.png" alt='kkk' className="planet9 planets"/>
     <div className="final">
-    <span className='notFoundFinal' >   Page Not Found </span>
+    <span className='notFoundFinal' >  {LocalValue ==="AM"?"Էջը չի գտնվել":'Page Not Found'} Page Not Found </span>
     <img src="https://i.postimg.cc/s2w4ymZW/human.png" alt='kkk' className="human"/ >
     <img src="https://i.postimg.cc/h4J6yzHs/planet10.png" alt='kkk' className="planet10"/>
     <img src="https://i.postimg.cc/gcf5fcpW/planet11.png" alt='kkk' className="planet11"/>

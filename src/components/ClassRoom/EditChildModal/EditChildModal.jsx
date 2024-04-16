@@ -91,7 +91,7 @@ export const EditChildModal = ({ setEditChild, editChild, EditChild }) => {
                        }}
                         
                         />
-                    {errorReg && <p>{LocalValue==="AM" ? "Դաշտը չի կարող պարունակ էլ սիմվոլ կամ թվանշան":"The field cannot contain symbols or digits"}</p>} 
+                    {errorReg && <p>{LocalValue==="AM" ? "Դաշտը չի կարող պարունակել սիմվոլ կամ թվանշան":"The field cannot contain symbols or digits"}</p>} 
 
                     {error1 && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>}
 

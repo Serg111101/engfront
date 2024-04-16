@@ -34,7 +34,7 @@ const LinksModal = ({showLinks,setShowLinks,state,selectVal}) => {
                   <div className="btnBack"  >
                     <LeftOutlined onClick={()=>setShowLinks(false)} />
                   </div>
-                  <p className="topTitle">{LocalValue === 'AM' ? 'Անցեք Հղումներից մեկով' : 'Go through one of the Links'}</p>
+                  <p className="topTitle">{LocalValue === 'AM' ? 'Անցեք hղումներից մեկով' : 'Go through one of the links'}</p>
                   <div className="close" >
                   <CloseOutlined onClick={()=>setShowLinks(false)} />
                   </div>

@@ -75,7 +75,7 @@ export const AddChildModal = ({ setAddChild, saveChild }) => {
                            }} />
            
                     {error && <p>{LocalValue==="AM" ? "Դաշտը չի կարող դատարկ լինել *":"Field cannot be empty *"}</p>} 
-                    {errorReg && <p>{LocalValue==="AM" ? "Դաշտը չի կարող պարունակ էլ սիմվոլ կամ թվանշան":"The field cannot contain symbols or digits"}</p>} 
+                    {errorReg && <p>{LocalValue==="AM" ? "Դաշտը չի կարող պարունակել սիմվոլ կամ թվանշան":"The field cannot contain symbols or digits"}</p>} 
                     <input className={error1 ? "errorInput" : ""} type="text" min={1} maxLength={50} placeholder={LocalValue === "AM"?'Մատյանի համարը':"Log number"} value={addChildValue?.bookNumber}
                       
                      onChange={(e) => {

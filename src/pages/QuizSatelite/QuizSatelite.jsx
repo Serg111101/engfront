@@ -219,11 +219,11 @@ export const QuizSatelite = () => {
           {wrongAnswer && <table>
                 <thead>
                   <tr>
-                    <th>{LocalValue === "AM" ? "Հարց" : "question"}</th>
+                    <th>{LocalValue === "AM" ? "Հարց" : "Question"}</th>
                     <th>
                       {LocalValue === "AM"
                         ? "Սխալ պատասխան"
-                        : "incorrect answer"}
+                        : "Incorrect answer"}
                     </th>
                    
                   </tr>

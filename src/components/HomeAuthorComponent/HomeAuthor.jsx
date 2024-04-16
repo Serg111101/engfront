@@ -11,6 +11,7 @@ export function HomeAuthorComponent() {
   useEffect(()=>{
   setEng(location.href.includes("US"));
 },[location])
+
   return (
     <div className="HomeAuthor">
       <div className='homeAuthorContainer'>
