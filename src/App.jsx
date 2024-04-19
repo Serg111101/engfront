@@ -21,13 +21,16 @@ import useAuth from "./hooks/AdminHooks/useAuth";
 import Profile from "./components/Profile/Profile";
 import UserSatelite from "./pages/UserSatelite/UserSatelite";
 import { AboutPerson } from "./pages/AboutPerson";
+import { useDispatch } from "react-redux";
 
 // import { UsefulMaterials } from "./pages/UsefulMaterials/UsefulMaterials";
 // import { UsefulMaterialsInfo } from "./pages/UsefulMaterialsInfo";
 function App() {
+  
   const {auth} = useAuth();
   const a = sessionStorage;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   useEffect(() => {
     if (!sessionStorage.getItem("count")) {
       sessionStorage.setItem("count", 1);
@@ -36,19 +39,41 @@ function App() {
   const url = window.location.href;
   const path = window.location.pathname;
   useEffect(() => {
-  
-    if (path !== "/Leqtures" && localStorage.getItem("elem")) {
-      localStorage.removeItem("elem");
-    } 
+     let path = window.location.pathname.slice(window.location.pathname.length - 2, window.location.pathname.length);
+    if(path !== "/"){
+     
+      localStorage.setItem("language",JSON.stringify(path))
+    }else{
+      localStorage.setItem("language",JSON.stringify("AM"))
+
+    }
+
+      
+      if (path !== `/Leqtures/${LocalValue}` && localStorage.getItem("elem")) {
+        localStorage.removeItem("elem");
+      } 
+   
   }, [url, path]);
   useEffect(()=>{
     if(!auth?.accessToken && !localStorage.getItem("auth")){
       navigate('/');
-   }else{
-    
    }
 
   },[auth,window.location.pathname])
+
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
+
+  useEffect(() => {
+
+
+    return () => {
+      window.location.reload();
+    };
+  }, [LocalValue]);
 
   return (
     <Scrollbars
@@ -66,21 +91,21 @@ function App() {
       <div className="App">
        {auth?.accessToken &&<Header />}
         <Routes>
-          <Route path="/home" element={<Home/>} />
-          <Route path="/about" element={<About />} />
-          <Route path="/aboutPersons" element={<AboutPerson/>}/>
-          <Route path="/ContactUS" element={<ContactUs />} />
-          <Route path="/Lessons" element={<Lesson />} />
-          <Route path="/Leqtures" element={<Infomation />} />
-          <Route path="/Quiz" element={<Quiz />} />
-          <Route path="/Satellites" element={<Satellites />} />
-          <Route path="/SatelliteQuiz" element={<QuizSatelite />} />
-          <Route path="/Class" element={<ClassPage />} />
-          <Route path="/Class/:name" element={<ClassItem />} />
-          <Route path="/PupilExperince/:name" element={<PupilExperince />} />
+          <Route path={`/home/${LocalValue}`} element={<Home/>} />
+          <Route path={`/about/${LocalValue}`} element={<About />} />
+          <Route path={`/aboutPersons/${LocalValue}`} element={<AboutPerson/>}/>
+          <Route path={`/ContactUS/${LocalValue}`} element={<ContactUs />} />
+          <Route path={`/Lessons/${LocalValue}`} element={<Lesson />} />
+          <Route path={`/Leqtures/${LocalValue}`} element={<Infomation />} />
+          <Route path={`/Quiz/${LocalValue}`} element={<Quiz />} />
+          <Route path={`/Satellites/${LocalValue}`} element={<Satellites />} />
+          <Route path={`/SatelliteQuiz/${LocalValue}`} element={<QuizSatelite />} />
+          <Route path={`/Class/${LocalValue}`} element={<ClassPage />} />
+          <Route path={`/Class/:name/${LocalValue}`} element={<ClassItem />} />
+          <Route path={`/PupilExperince/:name/${LocalValue}`} element={<PupilExperince />} />
           <Route path="/"  element={<Login/>}/>
-          <Route path="/Profile" element={<Profile/>}/>
-          <Route path="/UserSatelite" element={<UserSatelite/>}/>
+          <Route path={`/Profile/${LocalValue}`} element={<Profile/>}/>
+          <Route path={`/UserSatelite/${LocalValue}`} element={<UserSatelite/>}/>
           {/* <Route path="/UsefulMaterials" element={<UsefulMaterials/>}/> */}
           {/* <Route path="/UsefulMaterialsInfo/:index" element={<UsefulMaterialsInfo/>}/> */}
           <Route path="*" element={<NotFoundPage />} />

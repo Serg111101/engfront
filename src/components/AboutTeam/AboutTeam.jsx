@@ -5,7 +5,11 @@ import { useSelector } from 'react-redux';
 
 export function AboutTeam() {
   const { About } = useSelector((state) => state.About);
-
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   const navigate = useNavigate();
  
   return (
@@ -26,7 +30,7 @@ export function AboutTeam() {
                     )}
                     <p className="InfoBlockparagraph">{el?.text}</p>
                     {el.id === 2 ? (
-                      <button onClick={() => {navigate("/aboutPersons")}}>{el?.more}</button>
+                      <button onClick={() => {navigate(`/aboutPersons/${LocalValue}`)}}>{el?.more}</button>
                     ) : (
                       
                       <button>{el?.more}</button>

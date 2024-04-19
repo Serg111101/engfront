@@ -3,8 +3,8 @@ import {  fetchingLogo, fetchLogo, fetchErrorLogo } from "../slice/LogoSlice";
 const URL = process.env.REACT_APP_BASE_URL
 let LocalValue; 
 if(localStorage.getItem("language")){
-    let local = localStorage.getItem("language");
-    LocalValue = JSON.parse(local);  
+    let local = localStorage?.getItem("language");
+    LocalValue = JSON?.parse(local);  
 }
 export const getFetchLogo = () => {
     return async (dispatch)=>{

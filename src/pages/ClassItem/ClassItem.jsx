@@ -219,7 +219,7 @@ export const ClassItem = () => {
                     </td>
                     <td>
                       <FolderViewOutlined
-                        onClick={() => navigate(`/PupilExperince/${el?.id}`)}
+                        onClick={() => navigate(`/PupilExperince/${el?.id}/${LocalValue}`)}
                       />
                     </td>
                   </tr>
@@ -232,7 +232,7 @@ export const ClassItem = () => {
           <button
             className="btn2"
             onClick={() => {
-              navigate("/Class");
+              navigate(`/Class/${LocalValue}`);
             }}
           >
             {LocalValue === "AM" ? "Հետ" : "Prev"}{" "}

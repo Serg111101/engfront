@@ -151,7 +151,7 @@ export const QuizSatelite = () => {
     <>
       <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
         <div className="prevButton">
-          <button onClick={() => navigate("/Satellites")}>
+          <button onClick={() => navigate(`/Satellites/${LocalValue}`)}>
             {QuizSatelite[0]?.button[3]}
           </button>
         </div>
@@ -178,7 +178,7 @@ export const QuizSatelite = () => {
               )}
             <button
               onClick={() => {
-                navigate("/Satellites");
+                navigate(`/Satellites/${LocalValue}`);
               }}
             >
               

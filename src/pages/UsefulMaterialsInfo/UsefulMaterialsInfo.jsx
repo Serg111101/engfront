@@ -16,6 +16,11 @@ const UsefulMaterialsInfo = () => {
   const navigate = useNavigate();
   const [elem, setElem] = useState(false);
   const [infoState, setInfoState] = useState(0);
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   useEffect(() => {
     let title;
     if (localStorage.getItem("lessons")) {
@@ -43,7 +48,7 @@ const UsefulMaterialsInfo = () => {
       >
         {!elem && lectures?.length > 0 && (
           <div className="prevButton">
-            <button onClick={() => navigate("/UsefulMaterials")}>
+            <button onClick={() => navigate(`/UsefulMaterials/${LocalValue}`)}>
               {Slide[0]?.button[0]}
             </button>
           </div>

@@ -115,7 +115,7 @@ const Profile = () => {
           setRepeatPassword("");
           setEdite();
           setSuccess("")
-          navigate("/home")
+          navigate(`/home/${LocalValue}`)
         });
     }
     if (success?.response?.status < 200 || success?.response?.status >= 400) {

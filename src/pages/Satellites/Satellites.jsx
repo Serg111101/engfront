@@ -115,7 +115,7 @@ export function Satellites() {
       }
       </div>
          <div className="quizButton">
-            <button onClick={()=>{navigate("/SatelliteQuiz")}} >{loacal==="AM" ? "Հարցաշար":"Question"}</button>
+            <button onClick={()=>{navigate(`/SatelliteQuiz/${loacal}`)}} >{loacal==="AM" ? "Հարցաշար":"Question"}</button>
         </div>
     </div>
 }

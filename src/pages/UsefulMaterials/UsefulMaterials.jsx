@@ -22,6 +22,11 @@ export function UsefulMaterials() {
   const Background = Lesson[0]?.background;
   const [count, setCount] = useState(1);
   const { auth } = useAuth();
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   useEffect(() => {
     if (auth?.role === "admin") {
       setCount(41000);
@@ -43,7 +48,7 @@ export function UsefulMaterials() {
 
   async function nextInfo(title, index) {
 
-    navigate(`/UsefulMaterialsInfo/:${index}`)
+    navigate(`/UsefulMaterialsInfo/:${index}/${LocalValue}`)
   }
   return (
     <>

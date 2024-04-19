@@ -76,7 +76,7 @@ const UserSatelite = () => {
     return (
         <div className="UserSatelite">
         {loading? <Loading/>:  <>
-              <button className='btn' onClick={()=>navigate("/home")} > {loacal==="AM" ? "Հետ":"Go back"}</button>
+              <button className='btn' onClick={()=>navigate(`/home/${loacal}`)} > {loacal==="AM" ? "Հետ":"Go back"}</button>
             {CubesatLinks?.length>0?<div className="contaLink">
                 {CubesatLinks?.map((el, i) => (
                     <div className="linksContainer" key={i}>

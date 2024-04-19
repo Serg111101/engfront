@@ -34,35 +34,35 @@ export function HomeNextRoute() {
    }, [dispatch,auth]);
 
 
-  let loacal;
-  if(localStorage?.getItem('language')){
-    let languageLocal = localStorage?.getItem('language');
-    loacal = JSON.parse(languageLocal)
-  }
 
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   function navigateTo(id) {
     if (id === 0) {
-      navigate('/Lessons');
+      navigate(`/Lessons/${LocalValue}`);
     } else if (id === 1) {
-      navigate('/UsefulMaterials');
+      navigate(`/UsefulMaterials/${LocalValue}`);
     } else if (id === 2) {
-      navigate('/Satellites');
+      navigate(`/Satellites/${LocalValue}`);
     } else if (id === 3) {
       if (cou < 4) {
        Swal.fire({
-        title:loacal==="AM" ? "Խնդրում եմ անցեք 4 դասերը" :"Please go through the 4 lessons",
+        title:LocalValue==="AM" ? "Խնդրում եմ անցեք 4 դասերը" :"Please go through the 4 lessons",
         icon: 'error',
-        confirmButtonText:(loacal==="AM"? 'Լավ':"OK"),
+        confirmButtonText:(LocalValue==="AM"? 'Լավ':"OK"),
       }).then(()=>{
-        navigate("/Lessons")
+        navigate(`/Lessons/${LocalValue}`)
       })
       }else{
-        navigate("/UserSatelite")
+        navigate(`/UserSatelite/${LocalValue}`)
         
         
       }
     } else {
-      navigate("/home")
+      navigate(`/home/${LocalValue}`)
     }
   }
 

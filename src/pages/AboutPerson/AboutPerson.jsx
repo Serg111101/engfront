@@ -22,7 +22,7 @@ const AboutPerson = () => {
     return (
     <div className='AboutPerson' >
      <div className="button">
-        <button onClick={()=>{navigate("/about")}} >{loacal==="AM" ? "Հետ":"Go back"}</button>
+        <button onClick={()=>{navigate(`/about/${loacal}`)}} >{loacal==="AM" ? "Հետ":"Go back"}</button>
      </div>
          <div className='AboutPersons'>
      <div className='aboutPersonCont' >  

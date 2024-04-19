@@ -67,6 +67,12 @@ const Informatoin = () => {
       setInfoState(0);
     }
   };
+  
+    let LocalValue;
+    if (localStorage.getItem("language")) {
+      let local = localStorage.getItem("language");
+      LocalValue = JSON.parse(local);
+    }
 
   function text(id) {
     localStorage.setItem("elem", id)
@@ -76,18 +82,12 @@ const Informatoin = () => {
         localStorage.removeItem('elem')
       } else {
 
-        navigate("/Quiz")
+        navigate(`/Quiz/${LocalValue}`)
 
       }
     } else {
       setElem(id)
     }
-  }
-
-  let LocalValue;
-  if (localStorage.getItem("language")) {
-    let local = localStorage.getItem("language");
-    LocalValue = JSON.parse(local);
   }
   const Background = Lectures[0]?.background;
   const showQuiz = Quiz?.length > 0 ? true : false;
@@ -100,7 +100,7 @@ const Informatoin = () => {
             dispatch(fetchLecturesDel());
             dispatch(fetchLessonDel())
             localStorage.removeItem('lessons')
-            navigate("/Lessons")
+            navigate(`/Lessons/${LocalValue}`)
            
          
 
@@ -119,7 +119,7 @@ const Informatoin = () => {
         style={elem ? { display: "none" } : { backgroundImage: `url(${Background})` }}
       >
         {!elem && lectures?.length > 0 && <div className='prevButton'>
-          <button onClick={() => { navigate("/Lessons") }} >
+          <button onClick={() => { navigate(`/Lessons/${LocalValue}`) }} >
             {LocalValue === "AM" ? "Հետ" : "Go back"}
           </button>
         </div>}

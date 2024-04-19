@@ -138,7 +138,7 @@ const {auth} = useAuth()
             >
               <div
                 onClick={() => {
-                  navigate(`/Class/${el.name}`);
+                  navigate(`/Class/${el.name}/${LocalValue}`);
                 }}
                 key={el.id}
                 className="ClassItemName"
@@ -189,7 +189,7 @@ const {auth} = useAuth()
       <button
         className="btn"
         onClick={() => {
-          navigate("/home");
+          navigate(`/home/${LocalValue}`);
         }}
       >
         {LocalValue === "AM" ? "Հետ" : "Prev"}

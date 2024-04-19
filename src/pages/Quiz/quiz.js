@@ -194,7 +194,7 @@ export const Quiz = () => {
 
     <div className="answer" style={{ backgroundImage: `url(./image/quiz.jpg)` }}>
       <div className="prevButton">
-        <button onClick={() => {navigate("/Leqtures");localStorage.removeItem('elem')}}>
+        <button onClick={() => {navigate(`/Leqtures/${LocalValue}`);localStorage.removeItem('elem')}}>
           {loacal==="AM" ? "Հետ": "Go back"}
         </button>
       </div>
@@ -221,7 +221,7 @@ export const Quiz = () => {
               )}
               <button
                 onClick={() => {
-                  navigate("/Lessons");
+                  navigate(`/Lessons/${LocalValue}`);
                 }}
               >
                 

@@ -57,7 +57,7 @@ export function Lesson() {
     await localStorage.setItem("lessons", JSON.stringify(title));
     await localStorage.setItem("level", JSON.stringify(index + 1));
     await setQuiz(!quiz);
-    navigate("/Leqtures");
+    navigate(`/Leqtures/${LocalValue}`);
   }
   
 
@@ -74,7 +74,7 @@ export function Lesson() {
         >
           <div className="Lesson">
             <div className="prevButton">
-              <button onClick={() => navigate("/home")}>{Lesson[0]?.button}</button>
+              <button onClick={() => navigate(`/home/${LocalValue}`)}>{Lesson[0]?.button}</button>
             </div>
             {!quiz && (
               <div className="product-grid">

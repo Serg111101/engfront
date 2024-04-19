@@ -29,7 +29,7 @@ const Login = () => {
   const [password, setpassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
   const [check, toggleCheck] = useToggle('persist', true);
-  const from = location.state?.from?.pathname || "/home";
+  const from = location.state?.from?.pathname ;
   const [login, resetUser, userAttribs] = useInput('admin', '')
 
   let LocalValue;
@@ -62,7 +62,7 @@ const Login = () => {
         const resp= localStorage.getItem('auth')
         const respons = await JSON.parse(resp)
         await setAuth(respons);
-        await navigate(from, { replace: true });
+        await navigate(from+"/"+LocalValue, { replace: true });
         axioss.interceptors.request.use(function (config) {
           config.headers.Authorization = `Bearer ${response.data.accessToken}`;
       return config;
@@ -108,7 +108,8 @@ const Login = () => {
         });
     }
 
-}, [error])
+}, [error]);
+
   return (
     <div
       className="Login"

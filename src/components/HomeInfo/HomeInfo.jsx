@@ -6,7 +6,11 @@ import {useNavigate} from 'react-router-dom';
 export  function HomeInfo() {
     const {HomeInfo} = useSelector((state)=>state.HomeInfo)
     const navigate=useNavigate()
-    
+    let LocalValue;
+    if (localStorage.getItem("language")) {
+      let local = localStorage.getItem("language");
+      LocalValue = JSON.parse(local);
+    }
 
   return (
     <div className='HomeInfo'  >
@@ -19,7 +23,7 @@ export  function HomeInfo() {
                     <div className='homeInfoButton' ><button onClick={()=>{
                         if(index===1){
                             sessionStorage.setItem('friend','true');
-                            navigate('/about');
+                            navigate(`/about/${LocalValue}`);
                             setTimeout(()=>{
                                 sessionStorage.removeItem('friend')
                             },5000)

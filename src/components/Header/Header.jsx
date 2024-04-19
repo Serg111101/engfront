@@ -22,11 +22,15 @@ export function Header() {
     setIsOpen(!isOpen);
   };
   const { auth,setAuth } = useAuth();
-
+  let LocalValue;
+  if (localStorage.getItem("language")) {
+    let local = localStorage.getItem("language");
+    LocalValue = JSON.parse(local);
+  }
   useEffect(() => {
     dispatch(getFetchLogo());
     dispatch(getFetchHeader());
-  }, [dispatch]);
+  }, [dispatch,LocalValue]);
 
   useEffect(() => {
     handleLanguageChange();
@@ -37,25 +41,51 @@ export function Header() {
     if (language === null) {
       localStorage.setItem("language", JSON.stringify(languages || "AM"));
       setLanguages(languages);
-      window.location.hash = languages;
     } else {
       setLanguages(JSON.parse(language));
-      window.location.hash = JSON.parse(language);
-    }
-  }
-
-  function changeLanguage(e) {
-    localStorage.setItem("language", JSON.stringify(e));
-    setLanguages(e);
-    window.location.reload();
   
 
+    }
   }
-  let LocalValue;
-  if (localStorage.getItem("language")) {
-    let local = localStorage.getItem("language");
-    LocalValue = JSON.parse(local);
+async function changePath(LocalValue) {
+  let path = window.location.pathname.slice(0, window.location.pathname.length - 2);
+  window.location.pathname = path + LocalValue;
+  localStorage.setItem("language", JSON.stringify(LocalValue));
+}
+
+function HandelChangeLanguage(e) {
+  return new Promise((resolve, reject) => {
+    changePath(e)
+      .then(() => {
+        setLanguages(e);
+        resolve();
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+async function reloadWindow() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+
+      window.location.reload();
+      resolve();
+    }, 300);
+  });
+}
+
+async function changeLanguage(e) {
+  try {
+    await HandelChangeLanguage(e);
+    await reloadWindow();
+  } catch (error) {
+    console.error("An error occurred:", error);
   }
+}
+
+
 
   const navigate = useNavigate();
   const [mobile, setMobile] = useState(false);
@@ -63,11 +93,11 @@ export function Header() {
   function navigateTo(val) {
     switch (val.id) {
       case 1:
-        navigate("/home");
+        navigate(`/home/${LocalValue}`);
         setMobile(false);
         break;
       case 2:
-        navigate("/about");
+        navigate(`/about/${LocalValue}`);
         setMobile(false);
         break;
       case 3:
@@ -75,11 +105,11 @@ export function Header() {
         setMobile(false);
         break;
       case 4:
-        navigate("/ContactUS");
+        navigate(`/ContactUS/${LocalValue}`);
         setMobile(false);
         break;
       default:
-        navigate("/home");
+        navigate(`/home/${LocalValue}`);
     }
   }
   useEffect(() => {
@@ -98,12 +128,11 @@ export function Header() {
 
 
 
-
   return (
     <header className="header">
       <div className="constainerHeader">
         <div className="imageHeader">
-          <a  onClick={() => navigate("/home")}>
+          <a  onClick={() => navigate(`/home/${LocalValue}`)}>
             <img src={Logo?.logo} alt={Logo?.title} />
           </a>
         </div>
@@ -129,9 +158,9 @@ export function Header() {
             {Header?.map((el, index) => (
               <div
                 className={
-                  (index === 0 && bb === "/home") ||
-                  (index === 1 && bb === "/about") ||
-                  (index === 3 && bb === "/ContactUS")
+                  (index === 0 && bb === `/home/${LocalValue}`) ||
+                  (index === 1 && bb === `/about/${LocalValue}`) ||
+                  (index === 3 && bb === `/ContactUS/${LocalValue}`)
                     ? "item active"
                     : "item"
                 }
@@ -145,7 +174,7 @@ export function Header() {
               <div
                 className={" item"}
                 onClick={() => {
-                  navigate("/Class");
+                  navigate(`/Class/${LocalValue}`);
                 }}
               >
                 {LocalValue == "AM" ? "Դասարաններ" : "Classes"}
@@ -180,7 +209,7 @@ export function Header() {
                   <p>{auth?.fullName}</p>
                   <p
                     onClick={() => {
-                      navigate("/Profile");
+                      navigate(`/Profile/${LocalValue}`);
                     }}
                   >
                     {LocalValue == "AM" ? "Իմ էջ" : "My profile"}

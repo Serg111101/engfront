@@ -25,7 +25,7 @@ const QuestionModal = ({show,setShow,auth}) => {
       LocalValue = JSON.parse(local);
   }
   const nav1=()=>{
-    navigate("/Quiz")
+    navigate(`/Quiz/${LocalValue}`)
   }
 
   const nav2=()=>{
