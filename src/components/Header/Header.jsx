@@ -94,6 +94,7 @@ async function changeLanguage(e) {
     switch (val.id) {
       case 1:
         navigate(`/home/${LocalValue}`);
+        
         setMobile(false);
         break;
       case 2:
